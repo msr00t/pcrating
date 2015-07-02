@@ -69,7 +69,7 @@
         <div class="row">
           <div class="col-xs-12">
             <%= f.label "Review:" %>
-            <%= f.text_area :review, placeholder: :Review, value: @rating.review, class: "form-control" %>
+            <%= f.text_area :review, placeholder: :Review, value: @rating.review, class: "form-control", data: { provide: "markdown" } %>
           </div>
         </div>
 
