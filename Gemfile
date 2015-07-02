@@ -4,6 +4,7 @@ ruby '2.2.2'
 # Core
 gem 'rails', '4.2.2'
 gem 'pg'
+gem 'pry-rails'
 
 # CSS
 gem 'sass-rails', '~> 5.0'
