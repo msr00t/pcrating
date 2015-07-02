@@ -24,6 +24,8 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'ransack'
 gem 'metamagic'
 gem 'friendly_id', '~> 5.1.0'
+gem 'redcarpet'
+gem 'rails-bootstrap-markdown'
 
 group :development, :test do
   gem 'rubocop'

@@ -55,7 +55,8 @@
 
       <% unless @rating.review.blank? %>
         <div>
-          <%= label_tag '', "Review: " %><%= @rating.review %>
+          <%= label_tag '', "Review: " %>
+          <%= markdown @rating.review %>
         </div>
       <% end %>
 

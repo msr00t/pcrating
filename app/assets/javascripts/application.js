@@ -15,3 +15,4 @@
 //= require bootstrap-sprockets
 //= require_tree ./application/
 //= require_tree ./common/
+//= require bootstrap-markdown-bundle
