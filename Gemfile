@@ -25,7 +25,21 @@ gem 'ransack'
 gem 'metamagic'
 gem 'friendly_id', '~> 5.1.0'
 
+group :test do
+  gem 'capybara', '~> 2.2.1'
+  gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'faker', '~> 1.3.0'
+  gem 'database_cleaner', '~> 1.3.0'
+  gem 'selenium-webdriver', '~> 2.42.0'
+  gem 'poltergeist', '~> 1.5.1'
+  gem 'fuubar'
+  gem 'webmock', '~> 1.19.0'
+  gem 'vcr'
+  gem 'shoulda-matchers', require: false
+end
+
 group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
   gem 'rubocop'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
