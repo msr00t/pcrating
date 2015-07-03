@@ -10,7 +10,7 @@ class Game < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :steam_appid, uniqueness: true
+  validates :steam_appid, uniqueness: true, presence: true
 
   before_create :request_game_data
   friendly_id :title, use: :slugged
@@ -93,7 +93,7 @@ class Game < ActiveRecord::Base
   end
 
   def launch_game_link
-    "steam://run/#{self.steam_appid}"
+    "steam://run/#{steam_appid}"
   end
 
   def rated_by_user?(user)
@@ -111,12 +111,15 @@ class Game < ActiveRecord::Base
     resp = Net::HTTP.get_response(URI.parse(url))
     data = JSON.parse(resp.body)
 
+    copy_data(data) if steam_request_valid?(resp, data)
+  end
+
+  def steam_request_valid?(resp, data)
     if data[data.keys[0]]['data'].blank? || resp.code == '403'
       errors.add :Game, 'does not exist'
       return false
     end
-
-    copy_data data
+    true
   end
 
   # Copy data out of the data parcel returned
