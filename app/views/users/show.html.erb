@@ -3,7 +3,7 @@
 </h3>
 
 <% if current_user && current_user.admin? %>
-  <%= link_to 'Ban user', ban_user_path(id: @user.id), method: :post %>
+  <%= link_to 'Ban user', user_ban_path(id: @user.id), method: :post %>
 <% end %>
 
 <% if @user.banned? %>
