@@ -15,6 +15,10 @@ class Game < ActiveRecord::Base
   before_create :request_game_data
   friendly_id :title, use: :slugged
 
+  ##########
+  # Rating #
+  ##########
+
   def rating
     ratings_array = ratings.visible
 
@@ -29,8 +33,6 @@ class Game < ActiveRecord::Base
     total / ratings_array.size
   end
 
-  # Stats
-
   def ranking
     Rating.ranking(rating)
   end
@@ -38,24 +40,36 @@ class Game < ActiveRecord::Base
   def get_stat_string(stat)
     value = get_stat stat
 
-    return 'N/A' if value.nan?
+    return 'N/A' unless value
 
     Rating.send(stat.to_s.pluralize.to_sym).to_a[value][0]
   end
 
   def get_stat(stat)
-    average_array ratings.visible.map { |rating| rating[stat] }
+    return false if ratings.visible.size <= 0
+    ratings.visible.map { |rating| rating[stat] }.average
   end
 
   def get_rounded_stat(stat)
-    get_stat(stat).round
+    stat = get_stat(stat)
+    return stat.round if stat
+    false
   end
 
-  def average_array(array)
-    array.inject { |a, e| a + e }.to_f / array.size
+  #############
+  # Relations #
+  #############
+
+  def rated_by_user?(user)
+    rating = Rating.find_by(user: user, game_id: id)
+
+    return true if rating
+    false
   end
 
-  # Static Data
+  #############
+  # Game Data #
+  #############
 
   def description
     desc = data[data.keys[0]]['data']['detailed_description'] if data
@@ -94,14 +108,6 @@ class Game < ActiveRecord::Base
 
   def launch_game_link
     "steam://run/#{steam_appid}"
-  end
-
-  def rated_by_user?(user)
-    return false unless user
-
-    rating = Rating.find_by(user_id: user.id, game_id: id)
-
-    return true if rating
   end
 
   private

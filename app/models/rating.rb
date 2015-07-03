@@ -92,17 +92,17 @@ class Rating < ActiveRecord::Base
   def self.ranking(score)
     case score
     when 0..35
-      p
+      :p
     when 36..71
-      c
+      :c
     when 71..107
-      m
+      :m
     when 108..143
-      r
+      :r
     when 143..180
-      g
+      :g
     else
-      no_ratings
+      :no_ratings
     end
   end
 

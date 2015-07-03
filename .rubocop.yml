@@ -3,6 +3,8 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/*'
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
 
 Style/EmptyLinesAroundClassBody:
   Enabled: false
