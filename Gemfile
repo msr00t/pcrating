@@ -27,6 +27,10 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'redcarpet'
 gem 'rails-bootstrap-markdown'
 
+group :development do
+  gem 'quiet_assets'
+end
+
 group :development, :test do
   gem 'rubocop'
   gem 'byebug'
