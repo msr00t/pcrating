@@ -1,7 +1,6 @@
 class RatingsController < ApplicationController
 
   before_action :user?, except: [:show]
-  before_action :admin?, only: [:destroy]
 
   def show
     @game = Game.find_by(slug: params[:game_id])
@@ -47,7 +46,7 @@ class RatingsController < ApplicationController
     @game = Game.find_by(slug: params[:game_id])
     @rating = Rating.find_by(id: params[:id])
 
-    @rating.destroy if @rating
+    @rating.destroy if @rating && (@rating.user == current_user || current_user.admin?)
 
     redirect_to game_path(id: @game.slug)
   end
@@ -57,10 +56,6 @@ class RatingsController < ApplicationController
   def user?
     flash[:success] = 'Login or signup to continue'
     redirect_to new_user_session_path unless current_user
-  end
-
-  def admin?
-    redirect_to root_path unless current_user.admin?
   end
 
   def owned_by_user?
