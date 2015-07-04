@@ -12,7 +12,6 @@ https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
 
   /* http://imakewebthings.com/waypoints/api/waypoint */
   function Waypoint(options) {
-    console.log(options);
     if (!options) {
       throw new Error('No options passed to Waypoint constructor')
     }
