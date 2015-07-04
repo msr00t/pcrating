@@ -17,7 +17,9 @@ class RatingsController < ApplicationController
 
   def new
     @game = Game.find_by(slug: params[:game_id])
-    @rating = @game.ratings.new
+    @rating = @game.ratings.find_or_initialize_by(user_id: current_user.id)
+
+    render 'edit' if @rating.persisted?
   end
 
   def create
@@ -27,7 +29,7 @@ class RatingsController < ApplicationController
     @rating.game = @game
 
     if @rating.save
-      redirect_to game_path(id: @game.slug)
+      redirect_to game_rating_path(game_id: @rating.game, id: @rating.id)
     else
       render :new
     end
