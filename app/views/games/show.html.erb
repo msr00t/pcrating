@@ -82,7 +82,7 @@
             <label>Publishers:</label> <%= @game.publishers[0] %>
           </div>
           <div>
-            <label>Website:</label> <%= link_to @game.website %>
+            <label>Website:</label> <%= link_to @game.website, @game.website %>
           </div>
           <div>
             <label><%= link_to "View on Steam", "http://store.steampowered.com/app/#{@game.steam_appid}/" %>
