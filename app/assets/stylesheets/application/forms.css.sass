@@ -1,6 +1,10 @@
 @import "common/mixins"
 @import "common/variables"
 
+.field_with_errors
+  .form-control
+    border: 1px solid red
+
 .rating-form, .new-game-form, .authentication-form, .form
   .images
     @include flexbox-centered-children
