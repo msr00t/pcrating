@@ -19,6 +19,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Functionality
 gem 'devise'
+gem 'slim-rails'
 gem 'will_paginate'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'ransack'
