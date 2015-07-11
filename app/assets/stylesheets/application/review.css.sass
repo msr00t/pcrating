@@ -1,0 +1,39 @@
+@import "common/variables"
+@import "common/mixins"
+
+.game-box-holder
+  .review
+    background: none
+    padding-bottom: 0px
+
+.review
+  .buttons
+    margin-top: 20px
+  .stats
+    .stat-title
+      padding-right: 0px
+      label
+        text-align: right
+        width: 100%
+  .info
+    margin-bottom: 15px
+    @include flexbox-centered-children
+    img
+      height: 70px
+    .reviewer
+      a
+        font-size: 25px
+    .score-box
+      border-radius: 7px
+      background: $light-background-grey
+      color: $primary-grey
+      text-align: center
+      padding: 5px
+      .score
+        font-size: 25px
+      a
+        color: $primary-grey
+        &:hover, &:active, &:focus
+          text-decoration: none
+        &.yellow
+          color: $primary-yellow

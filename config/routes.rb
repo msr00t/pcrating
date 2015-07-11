@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  post 'reviews/:id/upvote', to: 'votes#upvote', as: :upvote_rating
-  post 'reviews/:id/downvote', to: 'votes#downvote', as: :downvote_rating
+  get 'reviews/:id/upvote', to: 'votes#upvote', as: :upvote_rating
+  get 'reviews/:id/downvote', to: 'votes#downvote', as: :downvote_rating
 
 end

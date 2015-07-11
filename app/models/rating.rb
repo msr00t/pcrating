@@ -11,6 +11,7 @@ class Rating < ActiveRecord::Base
   validates :dlc, :bugs, :settings, :controls, :servers, :mods, presence: true
 
   after_save :calculate_game_rating
+  after_destroy :calculate_game_rating
 
   # TODO: Pull out of this class
   CATEGORY_WEIGHTS = {
@@ -144,7 +145,7 @@ class Rating < ActiveRecord::Base
   end
 
   def calculate_game_rating
-    game.calculate_rating!
+    game.reload.calculate_rating!
   end
 
 end

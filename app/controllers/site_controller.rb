@@ -1,7 +1,5 @@
 class SiteController < ApplicationController
 
-  layout 'landing'
-
   def index
     @top_games = Game.top[0..1]
     @games = Game.rated

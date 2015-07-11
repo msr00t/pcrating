@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_voter
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -6,7 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   has_many :games, through: :ratings
   has_many :added_games, class_name: 'Game'
 

@@ -37,9 +37,9 @@ nav.navbar.navbar-default.navbar-fixed-top
 
           - if current_user
             li
-              = link_to 'Edit Profile',
-                        edit_user_registration_path,
-                        class: header_link_class(edit_user_registration_path)
+              = link_to 'View Profile',
+                        current_user,
+                        class: header_link_class(current_user)
             li
               = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'sign-in'
 

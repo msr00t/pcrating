@@ -1,79 +1,101 @@
 @import "common/variables"
+@import "common/mixins"
 
-.game-show-page
-
-  .game-title
-    border: 1px solid $border-color
-    margin-left: -15px
-    margin-right: -15px
-    display: inline-block
-    padding-left: 20px
-    padding-right: 20px
-    position: relative
-    bottom: -1px
-    -webkit-border-top-left-radius: 10px
-    -webkit-border-top-right-radius: 10px
-    -moz-border-radius-topleft: 10px
-    -moz-border-radius-topright: 10px
-    border-top-left-radius: 10px
-    border-top-right-radius: 10px
-
-  .left, .right
-    border: 1px solid $border-color
-
-  .left
-    padding-bottom: 20px
-    -webkit-border-bottom-right-radius: 10px
-    -webkit-border-bottom-left-radius: 10px
-    -moz-border-radius-bottomright: 10px
-    -moz-border-radius-bottomleft: 10px
-    border-bottom-right-radius: 10px
-    border-bottom-left-radius: 10px
-
-  .right
-    -webkit-border-top-right-radius: 10px
-    -webkit-border-bottom-right-radius: 10px
-    -moz-border-radius-topright: 10px
-    -moz-border-radius-bottomright: 10px
-    border-top-right-radius: 10px
-    border-bottom-right-radius: 10px
-    position: relative
-    left: -1px
-
-  .steam-description
-    padding-top: 20px
-    .show-description
-      cursor: pointer
-      color: #337ab7
-      .unview
+.show
+  .top-content
+    .game-box-holder
+      padding-bottom: 30px
+      .title
+        text-align: left
+        margin-bottom: 10px
+      .image
+        display: flex
+        flex-direction: row
+        justify-content: center
+        img
+          height: 100px
+      .game-info
+        .title
+          font-size: 18px
+          margin-top: 10px
+        .developers, .publishers, .websites, .dlc
+          margin-top: 5px
+      .links
+        display: flex
+        margin-top: 10px
+        a
+          flex: 1
+          margin-left: 2px
+          margin-right: 2px
+          text-align: center
+    .requirements
+      color: white
+      ul
+        padding-left: 20px
+      strong
+        font-weight: normal
+        display: block
+      .platform, br
+        display: none
+      a
+        cursor: pointer
+      .platform-buttons
+        @include flexbox-centered-children
+        justify-content: center
+        margin-top: 10px
+        .platform-link
+          width: 25px
+          height: 25px
+          display: inline-block
+          background-position: center
+          background-repeat: no-repeat
+          margin-right: 10px
+          margin-bottom: 5px
+          &.windows
+            background-image: image_url('platforms/inactive/windows.svg')
+            &.active
+              background-image: image_url('platforms/active/windows.svg')
+          &.mac
+            background-image: image_url('platforms/inactive/mac.svg')
+            &.active
+              background-image: image_url('platforms/active/mac.svg')
+          &.linux
+            background-image: image_url('platforms/inactive/linux.svg')
+            &.active
+              background-image: image_url('platforms/active/linux.svg')
+      .level-link
+        display: none
+        margin-right: 5px
+        text-decoration: none !important
+        color: white
+        &.active
+          color: $primary-yellow
+      .min, .rec
+        padding-top: 10px
+        > :first-child
+          display: none
+      .hide-requirements
         display: none
 
-    .description
-      display: none
+@media only screen and (min-width : 480px)
+  .show .top-content .game-box-holder .image
+    justify-content: center
+    img
+      height: 150px
 
-  .images
-    text-align: center
-    .ranking
-      text-align: left
-      img
-        max-height: 188px
+@media only screen and (min-width : 768px)
+  .show .top-content .game-box-holder .image
+    justify-content: initial
+    img
+      height: 200px
 
-  .reviews
-    margin-top: 25px
-    .review
-      background: #f5f5f5
-      padding: 10px 20px 20px
-      border-radius: 10px
-      margin-top: 20px
-      label
-        display: block
-        margin-top: 10px
+@media only screen and (min-width : 992px)
+  .show .top-content .requirements .platform-buttons
+    justify-content: initial
+  .show .top-content .game-box-holder .image img
+    height: 150px
 
-  .rating
-    ul
-      list-style: none
+@media only screen and (min-width : 1200px)
+  .show .top-content .game-box-holder .image img
+    height: 150px
 
-  & .row.bottom-separator
-    border-bottom: 1px solid $border-color
-    padding-bottom: 20px
-    padding-top: 20px

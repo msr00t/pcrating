@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   before_filter :banned?
   before_filter :ransack_setup
 
+  layout :layout
+
   def store_location
     return unless request.get?
 
@@ -35,11 +37,24 @@ class ApplicationController < ActionController::Base
     @q = Game.ransack(params[:q])
   end
 
-  protected
+  private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) << :username
     devise_parameter_sanitizer.for(:sign_up) << :username
+  end
+
+  def layout
+    return 'fill_page' unless application_layout?
+    'application'
+  end
+
+  def application_layout?
+    application_layouts = [
+      %w(site index),
+      %w(game show)
+    ]
+    application_layouts.include? [params[:controller], params[:action]]
   end
 
 end

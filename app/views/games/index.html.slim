@@ -17,6 +17,6 @@
     = will_paginate @reviews, :previous_label => '<', :next_label => '>'
 
     .row
-      .col-xs-12.add-game-message
+      .col-xs-4.col-xs-offset-4.add-game-message
         | Don't see the game you're looking for?
-        = link_to 'Add it now', new_game_path
+        = link_to 'Add it now', new_game_path, class: 'btn btn-yellow'

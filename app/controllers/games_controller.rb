@@ -5,6 +5,8 @@ class GamesController < ApplicationController
   before_action :admin?, only: [:destroy]
   before_action :setup_game, except: [:index, :new, :create]
 
+  layout :layout
+
   def index
     @games = @q.result.includes(:genres).paginate(page: params[:page], per_page: 20)
   end
@@ -43,6 +45,11 @@ class GamesController < ApplicationController
   end
 
   private
+
+  def layout
+    return 'fill_page' unless params[:action] == 'show'
+    'application'
+  end
 
   def user?
     flash[:success] = 'Login or signup to continue'

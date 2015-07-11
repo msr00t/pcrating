@@ -1,16 +1,16 @@
 ready = ->
 
-  $('.landing-bottom .tab').on 'click', ->
-    $('.landing-bottom .tab').removeClass('active')
+  $('.fill-in .tab').on 'click', ->
+    $('.fill-in .tab').removeClass('active')
     $(this).addClass('active')
 
-    $('.landing-bottom .tab-content').hide()
+    $('.fill-in .tab-content').hide()
 
-    if $('.landing-bottom .tab.hiw').hasClass('active')
+    if $('.fill-in .tab.hiw').hasClass('active')
       $('.tab-content.hiw').show()
-    else if $('.landing-bottom .tab.rating').hasClass('active')
+    else if $('.fill-in .tab.rating').hasClass('active')
       $('.tab-content.rating').show()
-    else if $('.landing-bottom .tab.pcmr').hasClass('active')
+    else if $('.fill-in .tab.pcmr').hasClass('active')
       $('.tab-content.pcmr').show()
 
 $(document).ready(ready)

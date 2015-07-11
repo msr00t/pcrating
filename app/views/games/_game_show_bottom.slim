@@ -1,0 +1,8 @@
+.fill-in
+  .container
+    .row
+      = render  partial: 'ratings/review',
+          collection: @reviews,
+          as: :review,
+          locals: { centered: false,
+            display_title: false }

@@ -2,15 +2,28 @@
 
 .btn
   border-radius: 2px
+  white-space: initial
+  display: flex
+  justify-content: center
+  align-items: center
   &.btn-yellow
     background: $primary-yellow
     color: white
     &:hover, &:active, &:focus
       color: $primary-yellow
       background: white
+      border: 1px solid $primary-yellow
+  &.btn-blue
+    background: $primary-blue
+    color: white
+    &:hover, &:active, &:focus
+      color: $primary-blue
+      background: white
+      border: 1px solid $primary-blue
   &.btn-green
     background: $primary-green
     color: white
     &:hover, &:active, &:focus
       color: $primary-green
       background: white
+      border: 1px solid $primary-green

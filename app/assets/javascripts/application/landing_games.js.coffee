@@ -1,7 +1,7 @@
 ready = ->
 
   setInterval((->
-    $.each($('.game-box-holder').children(), (id, gameBox) ->
+    $.each($('.index .game-box-holder').children(), (id, gameBox) ->
       toHide = $(gameBox)
       toShow = $(gameBox).next()
 

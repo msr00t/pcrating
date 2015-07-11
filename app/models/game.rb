@@ -5,9 +5,9 @@ class Game < ActiveRecord::Base
 
   serialize :data
 
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   has_many :users, through: :ratings
-  has_many :genre_games
+  has_many :genre_games, dependent: :destroy
   has_many :genres, through: :genre_games
 
   belongs_to :user
@@ -29,7 +29,10 @@ class Game < ActiveRecord::Base
   def calculate_rating!
     ratings_array = ratings.visible
 
-    return false if ratings_array.size == 0
+    if ratings_array.size == 0
+      self.cached_rating = -1
+      return save
+    end
 
     total = 0
 
@@ -47,6 +50,18 @@ class Game < ActiveRecord::Base
 
   def ranking
     Rating.ranking(rating)
+  end
+
+  def stats
+    { 'Framerate':    get_stat_string(:framerate),
+      'Resolution':   get_stat_string(:resolution),
+      'Optimization': get_stat_string(:optimization),
+      'Mods':         get_stat_string(:mods),
+      'Servers':      get_stat_string(:servers),
+      'DLC':          get_stat_string(:dlc),
+      'Bugs':         get_stat_string(:bugs),
+      'Settings':     get_stat_string(:settings),
+      'Controls':     get_stat_string(:controls) }
   end
 
   def get_stat_string(stat)
@@ -72,38 +87,41 @@ class Game < ActiveRecord::Base
   # Static Data
 
   def description
-    desc = data[data.keys[0]]['data']['detailed_description'] if data
+    desc = data[steam_appid.to_s]['data']['detailed_description'] if data
     return desc.html_safe if desc
   end
 
   def dlc
-    data[data.keys[0]]['data']['dlc'] if data
+    data[steam_appid.to_s]['data']['dlc'] if data
   end
 
-  def min_requirements
-    req = data[data.keys[0]]['data']['pc_requirements']['minimum'] if data
+  def requirements(platform, level)
+    return false unless data
+
+    platform_hash = data[steam_appid.to_s]['data']["#{platform}_requirements"]
+    return false if platform_hash.empty?
+    req = platform_hash[level]
     return req.html_safe if req
   end
 
-  def recommended_requirements
-    req = data[data.keys[0]]['data']['pc_requirements']['recommended'] if data
-    return req.html_safe if req
+  def platforms
+    data[steam_appid.to_s]['data']['platforms']
   end
 
   def developers
-    data[data.keys[0]]['data']['developers'] if data
+    data[steam_appid.to_s]['data']['developers'] if data
   end
 
   def publishers
-    data[data.keys[0]]['data']['publishers'] if data
+    data[steam_appid.to_s]['data']['publishers'] if data
   end
 
   def header_image
-    data[data.keys[0]]['data']['header_image'] if data
+    data[steam_appid.to_s]['data']['header_image'] if data
   end
 
   def website
-    data[data.keys[0]]['data']['website'] if data
+    data[steam_appid.to_s]['data']['website'] if data
   end
 
   def launch_game_link
@@ -127,7 +145,7 @@ class Game < ActiveRecord::Base
     resp = Net::HTTP.get_response(URI.parse(url))
     data = JSON.parse(resp.body)
 
-    if data[data.keys[0]]['data'].blank? || resp.code == '403'
+    if data[steam_appid.to_s]['data'].blank? || resp.code == '403'
       errors.add :Game, 'does not exist'
       return false
     end
@@ -139,7 +157,7 @@ class Game < ActiveRecord::Base
   # by the Steam API into the Game model's fields
   def copy_data(data)
     self.data = data
-    self.title = data[data.keys[0]]['data']['name']
+    self.title = data[steam_appid.to_s]['data']['name']
     copy_genres
   end
 
@@ -148,7 +166,7 @@ class Game < ActiveRecord::Base
     genres.each do |genre_hash|
       genre_model = Genre.find_or_create_by(name: genre_hash['description'])
 
-      g = GenreGame.new(game: self, genre: genre_model)
+      GenreGame.new(game: self, genre: genre_model)
     end
   end
 

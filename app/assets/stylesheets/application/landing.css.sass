@@ -2,27 +2,27 @@
 @import "common/variables"
 
 @media (max-width: 768px)
-  .landing-top > .container > .row
+  .top-content > .container > .row
     flex-wrap: wrap
 
-.landing-top
+.index
+  .top-content
+    text-align: center
+    & > .container > .row
+      @include flexbox-centered-children
+
+.top-content
   background: $secondary-grey
   margin-top: 70px
-  text-align: center
   flex: 0 0 auto
   padding-bottom: 40px
   padding-top: 40px
-  & > .container > .row
-    @include flexbox-centered-children
   .exposition
     > div
       margin-top: 20px
-  .right
-    margin-top: 40px
   .game-box-holder
     background: $primary-grey
-    padding-top: 20px
-    padding-bottom: 20px
+    padding: 20px
     color: white
     border-radius: 20px
     .title
@@ -40,10 +40,11 @@
       .developer
         margin-bottom: 15px
 
-.landing-bottom
+.fill-in
   background: $light-background-grey
   flex: 1 0 auto
   padding-bottom: 40px
+  padding-top: 40px
   .tabs
     border: 1px solid $secondary-blue
     margin-top: 30px
@@ -78,7 +79,7 @@
       margin-bottom: 10px
 
 @media only screen and (max-width : 480px)
-  .landing-bottom
+  .fill-in
     .tabs
       .tab
         padding: 10px

@@ -3,16 +3,30 @@ class VotesController < ApplicationController
   before_action :user?, except: [:show]
   before_action :setup_rating
 
-  def upvote
-    @rating.liked_by current_user
+  layout false
 
-    redirect_to show_game_path(steam_appid: @rating.game.steam_appid)
+  def upvote
+    if current_user.voted_up_on? @rating
+      @rating.unliked_by current_user
+    else
+      @rating.liked_by current_user
+    end
+
+    respond_to do |format|
+      format.js { true }
+    end
   end
 
   def downvote
-    @rating.downvote_from current_user
+    if current_user.voted_down_on? @rating
+      @rating.undisliked_by current_user
+    else
+      @rating.disliked_by current_user
+    end
 
-    redirect_to show_game_path(steam_appid: @rating.game.steam_appid)
+    respond_to do |format|
+      format.js { true }
+    end
   end
 
   private

@@ -5,7 +5,7 @@
   .form-control
     border: 1px solid red
 
-.rating-form, .new-game-form, .authentication-form, .form
+.rating-form, .authentication-form
   .images
     @include flexbox-centered-children
     margin-bottom: 45px
@@ -25,6 +25,17 @@
   #error_explanation
     h2
       display: none
+
+.field
+  margin-bottom: 10px
+
+.add-game-instructions
+  margin-top: 30px
+  .step
+    margin-top: 20px
+    margin-bottom: 10px
+  .hint
+    margin-top: 20px
 
 .form
   border: 1px solid $border-color
@@ -58,9 +69,6 @@
 
 .btn.full-width
   width: 100%
-
-.btn + .btn
-  margin-top: 10px
 
 .actions
   .btn
