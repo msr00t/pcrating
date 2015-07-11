@@ -163,10 +163,11 @@ class Game < ActiveRecord::Base
 
   def copy_genres
     genres = data[steam_appid.to_s]['data']['genres']
+
     genres.each do |genre_hash|
       genre_model = Genre.find_or_create_by(name: genre_hash['description'])
 
-      GenreGame.new(game: self, genre: genre_model)
+      genre_model.games.push self
     end
   end
 
