@@ -7,9 +7,7 @@
       .row
         - @games.top[0..1].each do |game|
           .col-xs-6.game
-            .image
-              = image_tag(game.header_image)
-              = image_tag(game.ranking.to_s + '.jpg', class: 'rating')
+            = render partial: 'games/game_image', object: game, as: :game
             .game-title
               = game.title
             .developer
