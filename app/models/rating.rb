@@ -10,6 +10,8 @@ class Rating < ActiveRecord::Base
   validates :user, :game, :framerate, :resolution, :optimization, presence: true
   validates :dlc, :bugs, :settings, :controls, :servers, :mods, presence: true
 
+  after_save :calculate_game_rating
+
   # TODO: Pull out of this class
   CATEGORY_WEIGHTS = {
     framerate: 8, resolution: 7, optimization: 9, mods: 3,
@@ -139,6 +141,10 @@ class Rating < ActiveRecord::Base
     end
 
     total
+  end
+
+  def calculate_game_rating
+    game.calculate_rating!
   end
 
 end

@@ -16,6 +16,10 @@ class Game < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   def rating
+    cached_rating
+  end
+
+  def calculate_rating!
     ratings_array = ratings.visible
 
     return false if ratings_array.size == 0
@@ -26,7 +30,10 @@ class Game < ActiveRecord::Base
       total += rating.total
     end
 
-    total / ratings_array.size
+    result = total / ratings_array.size
+
+    self.cached_rating = result
+    save
   end
 
   # Stats
