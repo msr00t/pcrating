@@ -7,6 +7,8 @@ class Game < ActiveRecord::Base
 
   has_many :ratings
   has_many :users, through: :ratings
+  has_many :genre_games
+  has_many :genres, through: :genre_games
 
   belongs_to :user
 
@@ -14,6 +16,10 @@ class Game < ActiveRecord::Base
 
   before_create :request_game_data
   friendly_id :title, use: :slugged
+
+  scope :top, -> { order(cached_rating: :desc) }
+  scope :bottom, -> { order(created_at: :asc) }
+  scope :latest, -> { order(created_at: :desc) }
 
   def rating
     cached_rating
@@ -100,7 +106,11 @@ class Game < ActiveRecord::Base
   end
 
   def launch_game_link
-    "steam://run/#{self.steam_appid}"
+    "steam://run/#{steam_appid}"
+  end
+
+  def store_link
+    "http://store.steampowered.com/app/#{steam_appid}/"
   end
 
   def rated_by_user?(user)
@@ -110,8 +120,6 @@ class Game < ActiveRecord::Base
 
     return true if rating
   end
-
-  private
 
   def request_game_data
     url = "http://store.steampowered.com/api/appdetails/?appids=#{steam_appid}"
@@ -131,6 +139,16 @@ class Game < ActiveRecord::Base
   def copy_data(data)
     self.data = data
     self.title = data[data.keys[0]]['data']['name']
+    copy_genres
+  end
+
+  def copy_genres
+    genres = data[steam_appid.to_s]['data']['genres']
+    genres.each do |genre_hash|
+      genre_model = Genre.find_or_create_by(name: genre_hash['description'])
+
+      g = GenreGame.new(game: self, genre: genre_model)
+    end
   end
 
 end

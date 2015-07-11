@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628235124) do
+ActiveRecord::Schema.define(version: 20150710203752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,15 +30,31 @@ ActiveRecord::Schema.define(version: 20150628235124) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "games", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "steam_appid"
-    t.string  "data"
-    t.string  "title",       null: false
-    t.string  "slug"
+    t.integer  "user_id"
+    t.integer  "steam_appid"
+    t.string   "data"
+    t.string   "title",         null: false
+    t.string   "slug"
+    t.integer  "cached_rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "games", ["slug"], name: "index_games_on_slug", unique: true, using: :btree
   add_index "games", ["title"], name: "index_games_on_title", using: :btree
+
+  create_table "genre_games", force: :cascade do |t|
+    t.integer  "genre_id"
+    t.integer  "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "framerate"
