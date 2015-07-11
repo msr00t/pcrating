@@ -1,0 +1,33 @@
+@import "variables"
+@import "background-gradients"
+
+.pagination
+  -moz-user-select: none
+  -khtml-user-select: none
+  -webkit-user-select: none
+  -o-user-select: none
+  cursor: default
+  text-align: center
+  width: 100%
+  em, a, span
+    cursor: pointer
+    width: 25px
+    height: 25px
+    display: inline-flex
+    justify-content: center
+    align-content: center
+    padding: 3px
+    border-radius: 2px
+    background: $secondary-grey
+    border: 1px solid $primary-grey
+    color: white
+    text-decoration: none
+    font-style: initial
+    @include linear-gradient($tertiary-grey, $secondary-grey)
+  em
+    @include linear-gradient($primary-yellow, $secondary-yellow)
+  span
+    background: none
+    color: transparent
+    border: 1px solid transparent
+    cursor: default

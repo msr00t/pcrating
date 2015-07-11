@@ -37,9 +37,12 @@ class RatingsController < ApplicationController
   def update
     @game = Game.find_by(slug: params[:game_id])
     @rating = Rating.find_by(user: current_user, game: @game)
-    @rating.update_attributes(permitted_params)
 
-    redirect_to game_rating_path(game_id: @rating.game, id: @rating.id)
+    if @rating.update_attributes(permitted_params)
+      redirect_to game_rating_path(game_id: @rating.game, id: @rating.id)
+    else
+      render :edit
+    end
   end
 
   def destroy

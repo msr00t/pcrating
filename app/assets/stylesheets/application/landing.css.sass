@@ -1,4 +1,90 @@
-.landing
+@import "common/mixins"
+@import "common/variables"
+
+@media (max-width: 768px)
+  .landing-top > .container > .row
+    flex-wrap: wrap
+
+.landing-top
+  background: $secondary-grey
+  margin-top: 70px
+  text-align: center
+  flex: 0 0 auto
+  padding-bottom: 40px
+  padding-top: 40px
+  & > .container > .row
+    @include flexbox-centered-children
   .exposition
     > div
       margin-top: 20px
+  .right
+    margin-top: 40px
+  .game-box-holder
+    background: $primary-grey
+    padding-top: 20px
+    padding-bottom: 20px
+    color: white
+    border-radius: 20px
+    .title
+      font-size: 30px
+      margin-bottom: 40px
+      text-transform: uppercase
+    .game-box
+      display: none
+      &.latest-games
+        display: block
+    .game
+      .game-title
+        margin-top: 10px
+        font-size: 20px
+      .developer
+        margin-bottom: 15px
+
+.landing-bottom
+  background: $light-background-grey
+  flex: 1 0 auto
+  padding-bottom: 40px
+  .tabs
+    border: 1px solid $secondary-blue
+    margin-top: 30px
+    margin-bottom: 30px
+    border-radius: 2px
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    -webkit-flex-wrap: wrap
+    -ms-flex-wrap: wrap
+    flex-wrap: wrap
+    .tab
+      display: -webkit-flex
+      display: -ms-flexbox
+      display: flex
+      flex: 1
+      background: transparent
+      color: $secondary-blue
+      padding: 10px 30px
+      justify-content: center
+      &.active
+        background: white
+        color: $primary-blue
+        font-weight: bold
+  .tab-content
+    display: none
+    color: $primary-blue
+    &.hiw
+      display: block
+    .header
+      font-weight: bold
+      margin-bottom: 10px
+
+@media only screen and (max-width : 480px)
+  .landing-bottom
+    .tabs
+      .tab
+        padding: 10px
+
+@media only screen and (max-width : 768px)
+
+@media only screen and (max-width : 992px)
+
+@media only screen and (max-width : 1200px)

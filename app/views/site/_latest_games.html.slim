@@ -1,0 +1,18 @@
+.latest-games.game-box
+  .row
+    .col-xs-12.title Newest Games
+
+  .row
+    .col-xs-10.col-xs-offset-1
+      .row
+        - @games.latest[0..1].each do |game|
+          .col-xs-6.game
+            .image
+              = image_tag(game.header_image)
+              = image_tag(game.ranking.to_s + '.jpg', class: 'rating')
+            .game-title
+              = game.title
+            .developer
+              = game.developers[0]
+            .link
+              = link_to('View Reviews', game, class: 'btn btn-green')

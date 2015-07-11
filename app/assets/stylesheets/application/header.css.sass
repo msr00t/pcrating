@@ -2,9 +2,52 @@
 @import "common/variables"
 
 .navbar
-  @include flexbox-centered-children
+  & > .container
+    @include flexbox-centered-children
+    justify-content: space-between
+    padding-top: 10px
+    padding-bottom: 10px
+    .navbar-collapse
+      width: 100%
   .navbar-nav
+    @include flexbox-centered-children
     li
-      border-right: 1px solid $border-color
-      &:first-child
-        border-left: 1px solid $border-color
+      a
+        border-right: 1px solid $border-color
+        padding-top: 0px
+        padding-bottom: 0px
+        margin-top: 10px
+        margin-bottom: 10px
+        &:hover
+          color: $primary-yellow
+        &:focus, &:active
+          color: darken($primary-yellow, 3)
+
+        &.yellow
+          color: $primary-yellow
+          &:hover, &:focus, &:active
+            color: white
+
+        &.sign-in
+          border-right: none
+          background: $primary-yellow
+          border-radius: 25px
+          margin-left: 15px
+          &:hover
+            color: $primary-yellow
+            background: white
+          &:focus, &:active
+            color: $primary-yellow
+            background: white
+
+  &.navbar-default
+    background-color: $header-grey
+    color: white
+    border: none
+    .navbar-brand
+      font-size: 30px
+      font-weight: bold
+    .navbar-brand, .navbar-nav a
+      color: white
+      .yellow
+        color: $primary-yellow

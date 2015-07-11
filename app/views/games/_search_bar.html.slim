@@ -1,0 +1,39 @@
+.search-bar
+  .container
+    .row
+      div class="col-xs-2 search-bar-button genres #{'yellow' if selected_genre}"
+        .text
+          = genre_button_string
+        .dropdown
+          - if selected_genre
+            = link_to 'Remove Filter',
+                      '#',
+                      class: 'dropdown-item cancel'
+          - Genre.all.each do |genre|
+            - if genre.name == selected_genre
+              = link_to genre.name,
+                        '#',
+                        class: 'dropdown-item yellow'
+            - else
+              = link_to genre.name,
+                        '#',
+                        class: 'dropdown-item'
+      div class="col-xs-2 search-bar-button sort #{'yellow' if selected_sort}"
+        .text
+          = sort_button_string
+        .dropdown
+          = sort_link(@q, :cached_rating, 'Rank')
+          = sort_link(@q, :title, 'Name')
+          = sort_link(@q, :created_at, 'Release Date')
+      .col-xs-4.col-xs-offset-4.search
+        = search_form_for @q, url: games_path(sort_by: params[:sort_by]) do |f|
+          .row
+            .col-xs-9
+              = f.text_field :title_cont, placeholder: 'Search by Title', class: 'form-control search'
+              = f.text_field :genres_name_cont, placeholder: 'Genre', class: 'form-control search genre hidden'
+              = f.text_field  :s,
+                              placeholder: 'Sort',
+                              value: sort_field_string,
+                              class: 'form-control search sort hidden'
+            .col-xs-3
+              = f.button 'Search', class: 'btn btn-yellow', id: 'search-button'

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :store_location
   before_filter :banned?
+  before_filter :ransack_setup
 
   def store_location
     return unless request.get?
@@ -28,6 +29,10 @@ class ApplicationController < ActionController::Base
   def banned?
     return unless current_user && current_user.banned?
     redirect_to 'https://www.google.co.uk/webhp#q=you%27vebeenbanned'
+  end
+
+  def ransack_setup
+    @q = Game.ransack(params[:q])
   end
 
   protected

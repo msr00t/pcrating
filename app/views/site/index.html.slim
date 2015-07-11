@@ -1,0 +1,46 @@
+- meta title: "Proper PC Game Reviews",
+        description: "Game reviews for PC games done right.",
+        keywords: %w(pcmr pcmasterrace pcrating pcglorious),
+        og: { title: "Proper PC Game Reviews",
+          description: "Game reviews for PC games done right.",
+          site_name: "PCMRating",
+          url: "http://pcmrating.com",
+          image: "http://b.thumbs.redditmedia.com/WrXiojYMaBSCa2sTyJyZclFvQMo5ry9f6qOfrKo-2gc.png" }
+
+.landing-top
+  .container
+    .row
+      .col-xs-10.col-xs-offset-1.col-sm-9.col-sm-offset-0.game-box-holder
+        = render 'latest_games'
+        = render 'top_games'
+        = render 'worst_games'
+      .col-xs-12.col-sm-3.right
+        = link_to 'Browse all games', games_path, class: 'btn btn-yellow'
+
+.landing-bottom
+  .container
+
+    .row
+      .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+        .tabs
+          .tab.hiw.active How it works
+
+    .row.tab-content.hiw
+      .col-xs-4
+        .header Sign Up
+        .content
+          |
+            Create your account today to leave your rating for any Steam game.
+            The ratings are then collated into a singel Master Rating.
+      .col-xs-4
+        .header Give Feedback
+        .content
+          |
+            Give your feedback for games in nine categories: framerate, resolution, optimization, mods,
+            servers, dlc, bugs, settings, and controls. Plus, a text review of course.
+      .col-xs-4
+        .header Review and Respond
+        .content
+          |
+            All true PC developers must aim to produce Glorious games. The closer they come to realising this
+            the more they should be praised.

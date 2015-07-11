@@ -1,12 +1,12 @@
 class GamesController < ApplicationController
+  include GameHelper
 
   before_action :user?, except: [:index, :show]
   before_action :admin?, only: [:destroy]
   before_action :setup_game, except: [:index, :new, :create]
 
   def index
-    @q = Game.ransack(params[:q])
-    @games = @q.result.paginate(page: params[:page], per_page: 6)
+    @games = @q.result.includes(:genres).paginate(page: params[:page], per_page: 20)
   end
 
   def show
@@ -26,10 +26,15 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(permitted_params.merge(user: current_user))
-    @game.save
-    @game.save
-    flash[:error] = @game.errors.full_messages[0]
+    @game = Game.find_by(steam_appid: params[:steam_appid])
+
+    unless @game
+      @game = Game.new(permitted_params.merge(user: current_user))
+      @game.save
+      @game.save
+      flash[:error] = @game.errors.full_messages[0]
+    end
+
     redirect_to game_path(id: @game.slug)
   end
 
