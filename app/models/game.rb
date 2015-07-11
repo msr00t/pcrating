@@ -20,6 +20,7 @@ class Game < ActiveRecord::Base
   scope :top, -> { order(cached_rating: :desc) }
   scope :bottom, -> { order(created_at: :asc) }
   scope :latest, -> { order(created_at: :desc) }
+  scope :rated, -> { where('id IN (SELECT DISTINCT(game_id) FROM ratings)') }
 
   def rating
     cached_rating
