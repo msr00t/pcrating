@@ -28,6 +28,7 @@ class RatingsController < ApplicationController
     @rating.game = @game
 
     if @rating.save
+      @rating.liked_by current_user
       redirect_to game_rating_path(game_id: @rating.game, id: @rating.id)
     else
       render :new

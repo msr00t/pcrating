@@ -1,0 +1,22 @@
+.top-bar
+  .container
+    .row
+      .col-xs-8
+        h3
+          = "#{@user.username}'s profile"
+          - if @user.banned?
+            BANNED
+      .col-xs-2
+        = "Score: #{@user.score}"
+      .col-xs-2
+        - if current_user && current_user.admin?
+          = link_to 'Ban user', user_ban_path(@user), method: :post, class: 'btn btn-warning'
+
+.container
+  .row
+    = render  partial: 'ratings/review',
+              collection: @user.ratings,
+              as: :review,
+              locals: { centered: false,
+                display_title: true,
+                show_user: false }

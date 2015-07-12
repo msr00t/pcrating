@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
 
+  def score
+    ratings.sum(:cached_votes_score) - ratings.size
+  end
+
 end
