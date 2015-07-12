@@ -35,4 +35,10 @@ module GameHelper
     games_path(genre: params[:genre],
                sort_by: sort)
   end
+
+  def review_text
+    return 'Edit Review' if @game.rated_by_user? current_user
+    'Write Review'
+  end
+
 end

@@ -123,6 +123,16 @@ class Rating < ActiveRecord::Base
     cached_votes_score
   end
 
+  def stats
+    {
+      'Framerate': framerate, 'Resolution': resolution,
+      'Optimization': optimization, 'Mods': mods,
+      'Servers': servers, 'DLC': dlc,
+      'Bugs': bugs, 'Settings': settings,
+      'Controls': controls
+    }
+  end
+
   def get_stat(stat)
     self[stat]
   end

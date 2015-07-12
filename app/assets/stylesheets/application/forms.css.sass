@@ -5,29 +5,21 @@
   .form-control
     border: 1px solid red
 
-.rating-form, .authentication-form
-  .images
-    @include flexbox-centered-children
-    margin-bottom: 45px
-
-  input:not([type="checkbox"]):not([type="submit"]), textarea, select, button
-    width: 100%
-    margin-bottom: 20px
-
-  input:not([type="checkbox"]):not([type="submit"]), select
-    height: 35px
-    background: transparent
-
-  textarea
-    height: 150px
-    padding: 10px
-
-  #error_explanation
-    h2
-      display: none
+#error_explanation
+  h2
+    display: none
 
 .field
   margin-bottom: 10px
+
+.rating-form
+  .stat
+    margin-bottom: 10px
+  .header
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 10px
 
 .add-game-instructions
   margin-top: 30px
@@ -73,3 +65,23 @@
 .actions
   .btn
     margin-bottom: 15px
+
+input[type="checkbox"]
+  display: none
+  & + label::before
+    display: inline-block
+    content: ''
+    width: 20px
+    height: 20px
+    background: white
+    border: 5px solid white
+    border-radius: 45px
+    position: relative
+    top: 5px
+    margin-right: 5px
+  &:checked
+    & + label::before
+      background: $primary-yellow
+
+input + button
+  margin-top: 10px

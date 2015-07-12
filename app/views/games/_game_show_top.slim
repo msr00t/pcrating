@@ -16,9 +16,9 @@
                   = image_tag(@game.ranking.to_s + '.jpg', class: 'rating') unless @game.ranking == :no_ratings
             .row
               .col-xs-12.links
-                = link_to 'Write Review', new_game_rating_path(game_id: @game.slug), class: 'btn btn-green'
-                = link_to 'View on Steam', @game.store_link, class: 'btn btn-blue'
-                = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-yellow hidden-xs'
+                = link_to review_text, new_game_rating_path(game_id: @game.slug), class: 'btn btn-success'
+                = link_to 'View on Steam', @game.store_link, class: 'btn btn-info'
+                = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-warning hidden-xs'
 
             - if @game.ratings.size > 0
               .row.review

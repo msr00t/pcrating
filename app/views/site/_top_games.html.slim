@@ -4,7 +4,7 @@
 
   .row
     .col-xs-10.col-xs-offset-1
-      .row
+      .row.games
         - @games.top[0..1].each do |game|
           .col-xs-6.game
             = render partial: 'games/game_image', object: game, as: :game
@@ -13,4 +13,4 @@
             .developer
               = game.developers[0]
             .link
-              = link_to('View Reviews', game, class: 'btn btn-green')
+              = link_to('View Reviews', game, class: 'btn btn-success')

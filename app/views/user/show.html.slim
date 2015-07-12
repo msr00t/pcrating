@@ -1,22 +1,21 @@
 .top-bar
   .container
     .row
-      .col-xs-8
+      .col-xs-6
         h3
           = "#{@user.username}'s profile"
           - if @user.banned?
             BANNED
       .col-xs-2
-        = "Score: #{@user.score}"
-      .col-xs-2
         - if current_user && current_user.admin?
           = link_to 'Ban user', user_ban_path(@user), method: :post, class: 'btn btn-warning'
+      .col-xs-2
+        - if current_user && current_user == @user
+          = link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-info'
+      .col-xs-2
+        = "Score: #{@user.score}"
 
-.container
-  .row
-    = render  partial: 'ratings/review',
-              collection: @user.ratings,
-              as: :review,
-              locals: { centered: false,
-                display_title: true,
-                show_user: false }
+.container.user-ratings
+  .row.games
+    = render  partial: 'rating',
+              collection: @user.ratings

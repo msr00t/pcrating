@@ -1,68 +1,61 @@
-div class="col-xs-6 #{'col-xs-offset-3' if centered} review box #{review.id}"
+div class="col-xs-6 #{'col-xs-offset-3' if centered}"
+  div class="review box #{review.id}"
 
-  - if display_title
-    h3
-      = link_to review.game.title, game_path(id: review.game.slug), class: 'back-link'
+    - if display_title
+      .back
+        = link_to "Back to Game", game_path(id: review.game.slug), class: 'back-link'
+      h3
+        = link_to review.game.title, game_path(id: review.game.slug), class: 'back-link'
 
-  .row.info
-    .col-xs-2
-      .score-box
-        - if current_user
-          = link_to "▲",
-                    upvote_rating_path(id: review.id),
-                    remote: true,
-                    format: :js,
-                    class: "upvote #{'yellow' if current_user && current_user.voted_up_on?(review)}"
-          = link_to "▼",
-                    downvote_rating_path(id: review.id),
-                    remote: true,
-                    class: "downvote #{'yellow' if current_user && current_user.voted_down_on?(review)}"
-        .score
-          = review.score
-    .col-xs-8
-      - if show_user
-        .reviewer
-          = link_to review.user.username, user_path(review.user)
-    .col-xs-2
-      = image_tag "#{review.ranking}.jpg"
+    .row.info
+      .col-xs-2
+        .score-box
+          - if current_user
+            = link_to "▲",
+                      upvote_rating_path(id: review.id),
+                      remote: true,
+                      format: :js,
+                      class: "upvote #{'yellow' if current_user && current_user.voted_up_on?(review)}"
+            = link_to "▼",
+                      downvote_rating_path(id: review.id),
+                      remote: true,
+                      class: "downvote #{'yellow' if current_user && current_user.voted_down_on?(review)}"
+          .score
+            = review.score
+      .col-xs-8
+        - if show_user
+          .reviewer
+            = link_to review.user.username, user_path(review.user)
+      .col-xs-2
+        = image_tag "#{review.ranking}.jpg"
 
-  - stats = { 'Framerate': review.framerate,
-    'Resolution': review.resolution,
-    'Optimization': review.optimization,
-    'Mods': review.mods,
-    'Servers': review.servers,
-    'DLC': review.dlc,
-    'Bugs': review.bugs,
-    'Settings': review.settings,
-    'Controls': review.controls }
-
-  .row.stats
-    - stats.each do |stat_title, stat|
-      .col-xs-12
-        .row
-          .col-xs-3.stat-title
-            label
-              = stat_title.to_s + ":"
-          .col-xs-9
-            = stat
+    .row.stats
+      - review.stats.each do |stat_title, stat|
+        .col-xs-12
+          .row
+            .col-xs-3.stat-title
+              label
+                = stat_title.to_s + ":"
+            .col-xs-9
+              = stat
 
 
-  - unless review.review.blank?
-    hr
+    - unless review.review.blank?
+      hr
 
-    .row.review-text
-      .col-xs-12.review-text
-        label Review
-        = markdown review.review
+      .row.review-text
+        .col-xs-12.review-text
+          label Review
+          = markdown review.review
 
-  .buttons
-    - if current_user && review.user == current_user
-      = link_to 'Edit',
-                edit_game_rating_path(game_id: review.game.slug, id: review.id),
-                class: 'btn btn-info'
+    .buttons
+      - if current_user && review.user == current_user
+        = link_to 'Edit',
+                  edit_game_rating_path(game_id: review.game.slug, id: review.id),
+                  class: 'btn btn-info'
 
-    - if current_user && (current_user.admin? || review.user == current_user)
-      = link_to 'Delete',
-                game_rating_path(game_id: review.game.slug, id: review.id),
-                method: :delete,
-                class: 'btn btn-warning'
+      - if current_user && (current_user.admin? || review.user == current_user)
+        = link_to 'Delete',
+                  game_rating_path(game_id: review.game.slug, id: review.id),
+                  method: :delete,
+                  class: 'btn btn-warning'

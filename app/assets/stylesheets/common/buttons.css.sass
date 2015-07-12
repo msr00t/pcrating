@@ -6,24 +6,60 @@
   display: flex
   justify-content: center
   align-items: center
-  &.btn-yellow
-    background: $primary-yellow
-    color: white
+
+.btn
+  -webkit-border-bottom-right-radius: 0px
+  -webkit-border-bottom-left-radius: 0px
+  -moz-border-radius-bottomright: 0px
+  -moz-border-radius-bottomleft: 0px
+  border-bottom-right-radius: 0px
+  border-bottom-left-radius: 0px
+  & + .btn
+    -webkit-border-radius: 0px
+    -moz-border-radius: 0px
+    border-radius: 0px
+  &:last-child
+    -webkit-border-bottom-right-radius: 2px
+    -webkit-border-bottom-left-radius: 2px
+    -moz-border-radius-bottomright: 2px
+    -moz-border-radius-bottomleft: 2px
+    border-bottom-right-radius: 2px
+    border-bottom-left-radius: 2px
+
+.btn
+  &.btn-info, &.btn-success, &.btn-warning
     &:hover, &:active, &:focus
-      color: $primary-yellow
       background: white
-      border: 1px solid $primary-yellow
-  &.btn-blue
-    background: $primary-blue
-    color: white
+  &.btn-success
+    background: #5cb85c
     &:hover, &:active, &:focus
-      color: $primary-blue
-      background: white
-      border: 1px solid $primary-blue
-  &.btn-green
-    background: $primary-green
-    color: white
+      color: #5cb85c
+  &.btn-info
+    background: #5bc0de
     &:hover, &:active, &:focus
-      color: $primary-green
-      background: white
+      color: #5bc0de
+  &.btn-warning
+    background: #f0ad4e
+    &:hover, &:active, &:focus
+      color: #f0ad4e
+
+.top-content
+  .btn
+    &.btn-info, &.btn-success, &.btn-warning
+      &:hover, &:active, &:focus
+        background: white
+    &.btn-success
+      background: $primary-green
       border: 1px solid $primary-green
+      &:hover, &:active, &:focus
+        color: $primary-green
+    &.btn-info
+      background: $primary-blue
+      border: 1px solid $primary-blue
+      &:hover, &:active, &:focus
+        color: $primary-blue
+    &.btn-warning
+      background: $primary-yellow
+      border: 1px solid $primary-yellow
+      &:hover, &:active, &:focus
+        color: $primary-yellow

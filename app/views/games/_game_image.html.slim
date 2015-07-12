@@ -1,3 +1,4 @@
 .image
   = link_to image_tag(game.header_image, class: 'game-image'), game_path(id: game.slug)
-  = image_tag(game.ranking.to_s + '.jpg', class: 'rating') unless game.ranking == :no_ratings
+  - unless game.ranking == :no_ratings
+    = link_to(image_tag(game.ranking.to_s + '.jpg', class: 'rating'), game_path(id: game.slug))
