@@ -18,7 +18,7 @@ class Game < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   scope :top, -> { order(cached_rating: :desc) }
-  scope :bottom, -> { order(created_at: :asc) }
+  scope :bottom, -> { rated.order(cached_rating: :asc) }
   scope :latest, -> { order(created_at: :desc) }
   scope :rated, -> { where('id IN (SELECT DISTINCT(game_id) FROM ratings)') }
 
