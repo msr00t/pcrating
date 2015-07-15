@@ -9,7 +9,10 @@ ready = ->
     $('.level-link').hide()
     $('.hide-requirements').hide()
 
-  requirementsToggle = ->
+  requirementsToggle = (event) ->
+    if(event)
+      event.preventDefault()
+
     # If we're clicking a link that is already active and it's a platform,
     # hide the requirements
     if $(@).hasClass('active')

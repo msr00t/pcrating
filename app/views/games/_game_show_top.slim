@@ -8,7 +8,7 @@
               .col-xs-12.col-md-8
                 .title
                   = @game.title
-                .reviews
+                .review-count
                   Total Reviews:
                   = " #{@game.ratings.visible.size}"
                 .row
@@ -39,6 +39,8 @@
                 = link_to 'Game Website', @game.website, class: 'btn btn-primary'
                 = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-warning hidden-xs'
 
+            hr
+
             - if @game.ratings.size > 0
               .row.review
                 .stats
@@ -50,6 +52,8 @@
                             = stat_title.to_s + ":"
                         .col-xs-12.col-sm-9
                           = stat
+
+            hr.visible-xs
 
           .col-xs-12.col-sm-4
             .requirements
