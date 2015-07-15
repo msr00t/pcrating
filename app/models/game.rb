@@ -15,6 +15,7 @@ class Game < ActiveRecord::Base
   validates :steam_appid, uniqueness: true
 
   before_create :request_game_data
+  after_create :copy_genres
   friendly_id :title, use: :slugged
 
   scope :top, -> { order(cached_rating: :desc) }
@@ -158,7 +159,6 @@ class Game < ActiveRecord::Base
   def copy_data(data)
     self.data = data
     self.title = data[steam_appid.to_s]['data']['name']
-    copy_genres
   end
 
   def copy_genres
