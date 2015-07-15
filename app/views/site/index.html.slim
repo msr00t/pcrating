@@ -9,9 +9,7 @@
 
 .top-content.landing
   .game-box-holder
-    = render 'latest_games'
-    = render 'top_games'
-    = render 'worst_games'
+    = render partial: 'game_slide', collection: @game_slides
   .right
     .col-xs-12.col-sm-8.col-sm-offset-2
       = link_to 'Browse all games', games_path, class: 'btn btn-warning'

@@ -1,11 +1,11 @@
-.worst-games.game-box
+.game-box
   .row
-    .col-xs-12.title Bottom Games
+    .col-xs-12.title #{game_slide[:title]}
 
   .row
     .col-xs-10.col-xs-offset-1
       .row.games
-        - @games.bottom[0..1].each do |game|
+        - game_slide[:games].each do |game|
           .col-xs-12.col-sm-6.game
             .row
               .col-xs-10.col-xs-offset-1.col-sm-12.col-sm-offset-0
