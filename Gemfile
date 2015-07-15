@@ -27,6 +27,7 @@ gem 'metamagic'
 gem 'friendly_id', '~> 5.1.0'
 gem 'redcarpet'
 gem 'rails-bootstrap-markdown'
+gem 'htmlentities'
 
 group :development do
   gem 'quiet_assets'

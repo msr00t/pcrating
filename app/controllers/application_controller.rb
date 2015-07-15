@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ransack_setup
+    params[:q][:genres_name_cont] = HTMLEntities.new.decode params[:q][:genres_name_cont] if params[:q]
     @q = Game.ransack(params[:q])
   end
 
