@@ -6,8 +6,10 @@
     .col-xs-10.col-xs-offset-1
       .row.games
         - @games.bottom[0..1].each do |game|
-          .col-xs-6.game
-            = render partial: 'games/game_image', object: game, as: :game
+          .col-xs-12.col-sm-6.game
+            .row
+              .col-xs-10.col-xs-offset-1.col-sm-12.col-sm-offset-0
+                = render partial: 'games/game_image', object: game, as: :game
             .game-title
               = game.title
             .developer

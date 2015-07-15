@@ -1,15 +1,40 @@
 @import "common/mixins"
 @import "common/variables"
 
-@media (max-width: 768px)
-  .top-content > .container > .row
-    flex-wrap: wrap
-
-.index
-  .top-content
-    text-align: center
+.landing
+  &.top-content
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
     & > .container > .row
       @include flexbox-centered-children
+    .right
+      text-align: center
+      width: 50%
+    .game-box-holder
+      border-top-right-radius: 60px 200px
+      border-bottom-right-radius: 60px 200px
+      border-top-left-radius: 0px
+      border-bottom-left-radius: 0px
+
+@media (max-width: 768px)
+  .top-content
+    .container
+      .row
+        flex-wrap: wrap
+  .landing
+    &.top-content
+      padding: 0px
+      flex-direction: column
+      .right
+        margin-top: 25px
+        margin-bottom: 25px
+      .game-box-holder
+        border-radius: 0px
+    &.fill-in
+      padding-top: 0px
+      padding-bottom: 0px
 
 .top-content
   background: $secondary-grey
@@ -37,8 +62,8 @@
 .fill-in
   background: $light-background-grey
   flex: 1 0 auto
-  padding-bottom: 40px
-  padding-top: 40px
+  padding-top: 20px
+  padding-bottom: 20px
   .tabs
     border: 1px solid $secondary-blue
     margin-top: 30px

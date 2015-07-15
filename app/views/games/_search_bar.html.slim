@@ -1,31 +1,7 @@
 .top-bar.search-bar
   .container
     .row
-      div class="col-xs-2 search-bar-button genres #{'yellow' if selected_genre}"
-        .text
-          = genre_button_string
-        .dropdown
-          - if selected_genre
-            = link_to 'Remove Filter',
-                      '#',
-                      class: 'dropdown-item cancel'
-          - Genre.all.each do |genre|
-            - if genre.name == selected_genre
-              = link_to genre.name,
-                        '#',
-                        class: 'dropdown-item yellow'
-            - else
-              = link_to genre.name,
-                        '#',
-                        class: 'dropdown-item'
-      div class="col-xs-2 search-bar-button sort #{'yellow' if selected_sort}"
-        .text
-          = sort_button_string
-        .dropdown
-          = sort_link(@q, :cached_rating, 'Rank')
-          = sort_link(@q, :title, 'Name')
-          = sort_link(@q, :created_at, 'Release Date')
-      .col-xs-4.col-xs-offset-4.search
+      .col-xs-10.col-xs-offset-1.col-md-4.col-md-offset-0.search
         = search_form_for @q, url: games_path(sort_by: params[:sort_by]) do |f|
           .row
             .col-xs-9
@@ -37,3 +13,28 @@
                               class: 'form-control search sort hidden'
             .col-xs-3
               = f.button 'Search', class: 'btn btn-warning', id: 'search-button'
+      .col-xs-12.col-md-4.col-md-offset-4.buttons
+        div class="search-bar-button genres #{'yellow' if selected_genre}"
+          .text
+            = genre_button_string
+          .dropdown
+            - if selected_genre
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Genre.all.each do |genre|
+              - if genre.name == selected_genre
+                = link_to genre.name,
+                          '#',
+                          class: 'dropdown-item yellow'
+              - else
+                = link_to genre.name,
+                          '#',
+                          class: 'dropdown-item'
+        div class="search-bar-button sort #{'yellow' if selected_sort}"
+          .text
+            = sort_button_string
+          .dropdown
+            = sort_link(@q, :cached_rating, 'Rank')
+            = sort_link(@q, :title, 'Name')
+            = sort_link(@q, :created_at, 'Release Date')

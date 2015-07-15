@@ -1,23 +1,42 @@
 .top-content
   .container
     .row
-      .col-xs-10.col-xs-offset-1.col-sm-9.col-sm-offset-0.col-lg-8.game-box-holder
+      .col-xs-10.col-xs-offset-1.col-sm-12.col-sm-offset-0.game-box-holder
         .row
-          .col-xs-12.col-md-8
-            .title
-              = @game.title
-            .reviews
-              Total Reviews:
-              = " #{@game.ratings.visible.size}"
+          .col-xs-12.col-sm-8
             .row
-              .col-xs-12
-                .image
-                  = image_tag(@game.header_image, class: 'game-image')
-                  = image_tag(@game.ranking.to_s + '.jpg', class: 'rating') unless @game.ranking == :no_ratings
+              .col-xs-12.col-md-8
+                .title
+                  = @game.title
+                .reviews
+                  Total Reviews:
+                  = " #{@game.ratings.visible.size}"
+                .row
+                  .col-xs-12
+                    .image
+                      = image_tag(@game.header_image, class: 'game-image')
+                      = image_tag(@game.ranking.to_s + '.jpg', class: 'rating') unless @game.ranking == :no_ratings
+
+              .col-xs-12.col-md-4.game-info
+                .title Game Information
+                .dlc
+                  = "DLC: #{@game.dlc.size}" if @game.dlc
+                .developers
+                  .name Developers:
+                  .developer
+                    - @game.developers.each do |developer|
+                      = developer
+                .publishers
+                  .name Publishers:
+                  .publisher
+                    - @game.publishers.each do |publisher|
+                      = publisher
+
             .row
               .col-xs-12.links
                 = link_to review_text, new_game_rating_path(game_id: @game.slug), class: 'btn btn-success'
                 = link_to 'View on Steam', @game.store_link, class: 'btn btn-info'
+                = link_to 'Game Website', @game.website, class: 'btn btn-primary'
                 = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-warning hidden-xs'
 
             - if @game.ratings.size > 0
@@ -26,55 +45,36 @@
                   - @game.stats.each do |stat_title, stat|
                     .col-xs-12
                       .row
-                        .col-xs-3.stat-title
+                        .col-xs-12.col-sm-3.stat-title
                           label
                             = stat_title.to_s + ":"
-                        .col-xs-9
+                        .col-xs-12.col-sm-9
                           = stat
 
-          .col-xs-12.col-md-4.game-info
-            .title Game Information
-            .dlc
-              = "DLC: #{@game.dlc.size}" if @game.dlc
-            .developers
-              .name Developers:
-              .developer
-                - @game.developers.each do |developer|
-                  = developer
-            .publishers
-              .name Publishers:
-              .publisher
-                - @game.publishers.each do |publisher|
-                  = publisher
-            .websites
-              .name Website:
-              .website
-                = link_to @game.website, @game.website
-
-      .col-xs-12.col-sm-3.col-lg-4.right
-        .requirements
-          .buttons
-            .platform-buttons
-              - @game.platforms.each do |platform|
-                - next unless platform[1]
-                = link_to '', '#', class: "platform-link #{platform[0]}", data: { platform: platform[0] }
-              = link_to 'Hide', '#', class: 'hide-requirements'
-            .level-buttons
-              = link_to 'Minimum', '#', data: { level: 'min' }, class: 'level-link minimum active'
-              - if @game.requirements('pc', 'recommended')
-                = link_to('Maximum', '#', data: { level: 'rec' }, class: 'level-link maximum')
-          .windows.platform
-            .min
-              = @game.requirements('pc', 'minimum')
-            .rec
-              = @game.requirements('pc', 'recommended')
-          .mac.platform
-            .min
-              = @game.requirements('mac', 'minimum')
-            .rec
-              = @game.requirements('mac', 'recommended')
-          .linux.platform
-            .min
-              = @game.requirements('linux', 'minimum')
-            .rec
-              = @game.requirements('linux', 'recommended')
+          .col-xs-12.col-sm-4
+            .requirements
+              .buttons
+                .platform-buttons
+                  - @game.platforms.each_with_index do |platform, index|
+                    - next unless platform[1]
+                    = link_to '', '#', class: "platform-link #{platform[0]} #{'active' if index == 0}", data: { platform: platform[0] }
+                  = link_to 'Hide', '#', class: 'hide-requirements'
+                .level-buttons
+                  = link_to 'Minimum', '#', data: { level: 'min' }, class: 'level-link minimum active'
+                  - if @game.requirements('pc', 'recommended')
+                    = link_to('Maximum', '#', data: { level: 'rec' }, class: 'level-link maximum')
+              .windows.platform
+                .min
+                  = @game.requirements('pc', 'minimum')
+                .rec
+                  = @game.requirements('pc', 'recommended')
+              .mac.platform
+                .min
+                  = @game.requirements('mac', 'minimum')
+                .rec
+                  = @game.requirements('mac', 'recommended')
+              .linux.platform
+                .min
+                  = @game.requirements('linux', 'minimum')
+                .rec
+                  = @game.requirements('linux', 'recommended')
