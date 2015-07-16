@@ -14,7 +14,7 @@
     .row.games
       = render partial: 'game', collection: @games, as: :game
 
-    = will_paginate @reviews, :previous_label => '<', :next_label => '>'
+    = will_paginate @games, :previous_label => '<', :next_label => '>'
 
     .row
       .col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-4.add-game-message
