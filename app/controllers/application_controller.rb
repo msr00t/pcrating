@@ -37,10 +37,16 @@ class ApplicationController < ActionController::Base
     params[:q][:genres_name_cont] = HTMLEntities.new.decode params[:q][:genres_name_cont] if params[:q]
 
     if params[:q] && params[:q][:ranked_only] == 'true'
-      @q = Game.rated.ransack(params[:q])
+      games = Game.rated
     else
-      @q = Game.ransack(params[:q])
+      games = Game.all
     end
+
+    if params[:q] && params[:q][:s].include?('release_date')
+      games = games.with_release_date
+    end
+
+    @q = games.search(params[:q])
   end
 
   private
