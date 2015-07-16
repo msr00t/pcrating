@@ -14,6 +14,7 @@ class Game < ActiveRecord::Base
 
   validates :steam_appid, uniqueness: true
 
+  before_save :update_total_ratings
   before_create :request_game_data
   after_create :copy_genres
   friendly_id :title, use: :slugged
@@ -146,58 +147,64 @@ class Game < ActiveRecord::Base
     return true if rating
   end
 
-  def request_game_data
-    url = "http://store.steampowered.com/api/appdetails/?appids=#{steam_appid}"
-    resp = Net::HTTP.get_response(URI.parse(url))
-    data = JSON.parse(resp.body)
+  private
 
-    if data[steam_appid.to_s]['data'].blank? || resp.code == '403'
-      errors.add :Game, 'does not exist'
-      return false
+    def update_total_ratings
+      self.total_ratings = self.ratings.size
     end
 
-    self.data = data
+    def request_game_data
+      url = "http://store.steampowered.com/api/appdetails/?appids=#{steam_appid}"
+      resp = Net::HTTP.get_response(URI.parse(url))
+      data = JSON.parse(resp.body)
 
-    copy_data
-  end
-
-  # Copy data out of the data parcel returned
-  # by the Steam API into the Game model's fields
-  def copy_data
-    self.title = data[steam_appid.to_s]['data']['name']
-    copy_date
-  end
-
-  def copy_date
-    date_string = data[steam_appid.to_s]['data']['release_date']['date']
-
-    unless date_string.blank?
-      formats = ["%d %b, %Y", "%b %d, %Y", "%b %Y"]
-
-      date_obj = false
-      formats.each do |format|
-        date_obj = Date.strptime(date_string, format) rescue nil
-        break if date_obj
+      if data[steam_appid.to_s]['data'].blank? || resp.code == '403'
+        errors.add :Game, 'does not exist'
+        return false
       end
 
-      if date_obj
-        self.release_date = date_obj
-      else
-        puts "Date format unknown: #{date_string}"
+      self.data = data
+
+      copy_data
+    end
+
+    # Copy data out of the data parcel returned
+    # by the Steam API into the Game model's fields
+    def copy_data
+      self.title = data[steam_appid.to_s]['data']['name']
+      copy_date
+    end
+
+    def copy_date
+      date_string = data[steam_appid.to_s]['data']['release_date']['date']
+
+      unless date_string.blank?
+        formats = ["%d %b, %Y", "%b %d, %Y", "%b %Y"]
+
+        date_obj = false
+        formats.each do |format|
+          date_obj = Date.strptime(date_string, format) rescue nil
+          break if date_obj
+        end
+
+        if date_obj
+          self.release_date = date_obj
+        else
+          puts "Date format unknown: #{date_string}"
+        end
       end
     end
-  end
 
-  def copy_genres
-    genres = data[steam_appid.to_s]['data']['genres']
+    def copy_genres
+      genres = data[steam_appid.to_s]['data']['genres']
 
-    return false unless genres
+      return false unless genres
 
-    genres.each do |genre_hash|
-      genre_model = Genre.find_or_create_by(name: genre_hash['description'])
+      genres.each do |genre_hash|
+        genre_model = Genre.find_or_create_by(name: genre_hash['description'])
 
-      genre_model.games.push self
+        genre_model.games.push self
+      end
     end
-  end
 
 end
