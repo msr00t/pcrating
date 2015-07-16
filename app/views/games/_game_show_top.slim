@@ -46,9 +46,10 @@
                 = link_to 'Game Website', @game.website, class: 'btn btn-primary'
                 = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-warning hidden-xs'
 
-            hr
 
             - if @game.ratings.size > 0
+              hr
+
               .row.review
                 .stats
                   - @game.stats.each do |stat_title, stat|
