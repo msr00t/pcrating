@@ -1,6 +1,14 @@
 ready = ->
 
   if($('.search-bar'))
+    $('.search-bar .ranked .text').on 'click', ->
+      if $('input.ranked_only.search').val() == 'true'
+        $('input.ranked_only.search').val('false')
+      else
+        $('input.ranked_only.search').val('true')
+
+      $('#search-button').click()
+
     $('.search-bar .genres .dropdown-item').on 'click', ->
       newGenre = $(@).html()
 

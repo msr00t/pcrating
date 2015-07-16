@@ -35,7 +35,12 @@ class ApplicationController < ActionController::Base
 
   def ransack_setup
     params[:q][:genres_name_cont] = HTMLEntities.new.decode params[:q][:genres_name_cont] if params[:q]
-    @q = Game.ransack(params[:q])
+
+    if params[:q] && params[:q][:ranked_only] == 'true'
+      @q = Game.rated.ransack(params[:q])
+    else
+      @q = Game.ransack(params[:q])
+    end
   end
 
   private

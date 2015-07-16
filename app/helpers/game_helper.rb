@@ -41,4 +41,9 @@ module GameHelper
     'Write Review'
   end
 
+  def ranked_button
+    return false unless params[:q]
+    params[:q][:ranked_only] == 'true'
+  end
+
 end
