@@ -1,5 +1,27 @@
 @import "common/mixins"
 
+.game-index
+  .games
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    -webkit-flex-wrap: wrap
+    -ms-flex-wrap: wrap
+    flex-wrap: wrap
+    .game
+      display: -webkit-flex
+      display: -ms-flexbox
+      display: flex
+      flex-direction: column
+      &.col-xs-6
+        width: 49.93%
+
+@media (min-width: 768px)
+  .game-index
+    .games
+      .game.col-sm-3
+        width: 24.99%
+
 .game
   padding-top: 10px
   padding-bottom: 10px
