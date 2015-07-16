@@ -20,7 +20,7 @@ class Game < ActiveRecord::Base
 
   scope :top, -> { order(cached_rating: :desc) }
   scope :bottom, -> { rated.order(cached_rating: :asc) }
-  scope :latest, -> { order(created_at: :desc) }
+  scope :latest, -> { order(release_date: :desc) }
   scope :rated, -> { where('games.id IN (SELECT DISTINCT(game_id) FROM ratings)') }
 
   def rating
@@ -151,14 +151,17 @@ class Game < ActiveRecord::Base
       return false
     end
 
-    copy_data data
+    self.data = data
   end
 
   # Copy data out of the data parcel returned
   # by the Steam API into the Game model's fields
-  def copy_data(data)
-    self.data = data
+  def copy_data
     self.title = data[steam_appid.to_s]['data']['name']
+
+    date_string = data[steam_appid.to_s]['data']['release_date']['date']
+    date_obj = Date.strptime(date_string, "%d %b, %Y")
+    self.release_date = date_obj
   end
 
   def copy_genres
