@@ -42,6 +42,9 @@ class ApplicationController < ActionController::Base
       games = Game.all
     end
 
+    # If we're sorting by release date then hide all games without a release date.
+    # It's not great, but otherwise they cluster at the start of the list as if they're
+    # the latest released games.
     if params[:q] && params[:q][:s].include?('release_date')
       games = games.with_release_date
     end

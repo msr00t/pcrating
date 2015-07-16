@@ -9,20 +9,18 @@ class SiteController < ApplicationController
   private
 
     def game_slides
-      games = Game.rated
-
       @game_slides = [
         {
           title: 'Latest Games',
-          games: games.latest[0..1]
+          games: Game.latest[0..1]
         },
         {
           title: 'Top Games',
-          games: games.top[0..1]
+          games: Game.rated.top[0..1]
         },
         {
           title: 'Worst Games',
-          games: games.bottom[0..1]
+          games: Game.rated.bottom[0..1]
         },
       ]
     end
