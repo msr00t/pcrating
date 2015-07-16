@@ -166,8 +166,10 @@ class Game < ActiveRecord::Base
     self.title = data[steam_appid.to_s]['data']['name']
 
     date_string = data[steam_appid.to_s]['data']['release_date']['date']
-    date_obj = Date.strptime(date_string, "%d %b, %Y")
-    self.release_date = date_obj
+    if date_string
+      date_obj = Date.strptime(date_string, "%d %b, %Y")
+      self.release_date = date_obj
+    end
   end
 
   def copy_genres
