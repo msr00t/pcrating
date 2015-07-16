@@ -125,6 +125,10 @@ class Game < ActiveRecord::Base
     data[steam_appid.to_s]['data']['website'] if data
   end
 
+  def background_image
+    data[steam_appid.to_s]['data']['background'] if data
+  end
+
   def launch_game_link
     "steam://run/#{steam_appid}"
   end
