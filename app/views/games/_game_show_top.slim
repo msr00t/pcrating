@@ -3,7 +3,7 @@
     .row
       .col-xs-10.col-xs-offset-1.col-sm-12.col-sm-offset-0.game-box-holder
         .row
-          .col-xs-12.col-sm-8
+          .col-xs-12.col-sm-8.main-game-info
             .row
               .col-xs-12.col-md-8
                 .title
@@ -62,30 +62,29 @@
 
             hr.visible-xs
 
-          .col-xs-12.col-sm-4
-            .requirements
-              .buttons
-                .platform-buttons
-                  - @game.platforms.each_with_index do |platform, index|
-                    - next unless platform[1]
-                    = link_to '', '#', class: "platform-link #{platform[0]} #{'active' if index == 0}", data: { platform: platform[0] }
-                  = link_to 'Hide', '#', class: 'hide-requirements'
-                .level-buttons
-                  = link_to 'Minimum', '#', data: { level: 'min' }, class: 'level-link minimum active'
-                  - if @game.requirements('pc', 'recommended')
-                    = link_to('Maximum', '#', data: { level: 'rec' }, class: 'level-link maximum')
-              .windows.platform
-                .min
-                  = @game.requirements('pc', 'minimum')
-                .rec
-                  = @game.requirements('pc', 'recommended')
-              .mac.platform
-                .min
-                  = @game.requirements('mac', 'minimum')
-                .rec
-                  = @game.requirements('mac', 'recommended')
-              .linux.platform
-                .min
-                  = @game.requirements('linux', 'minimum')
-                .rec
-                  = @game.requirements('linux', 'recommended')
+          .col-xs-12.col-sm-4.requirements
+            .buttons
+              .platform-buttons
+                - @game.platforms.each_with_index do |platform, index|
+                  - next unless platform[1]
+                  = link_to '', '#', class: "platform-link #{platform[0]} #{'active' if index == 0}", data: { platform: platform[0] }
+                = link_to 'Hide', '#', class: 'hide-requirements'
+              .level-buttons
+                = link_to 'Minimum', '#', data: { level: 'min' }, class: 'level-link minimum active'
+                - if @game.requirements('pc', 'recommended')
+                  = link_to('Maximum', '#', data: { level: 'rec' }, class: 'level-link maximum')
+            .windows.platform
+              .min
+                = @game.requirements('pc', 'minimum')
+              .rec
+                = @game.requirements('pc', 'recommended')
+            .mac.platform
+              .min
+                = @game.requirements('mac', 'minimum')
+              .rec
+                = @game.requirements('mac', 'recommended')
+            .linux.platform
+              .min
+                = @game.requirements('linux', 'minimum')
+              .rec
+                = @game.requirements('linux', 'recommended')
