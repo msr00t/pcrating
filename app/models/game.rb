@@ -156,6 +156,8 @@ class Game < ActiveRecord::Base
     end
 
     self.data = data
+
+    copy_data
   end
 
   # Copy data out of the data parcel returned
