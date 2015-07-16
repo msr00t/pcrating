@@ -155,7 +155,7 @@ class Rating < ActiveRecord::Base
   end
 
   def calculate_game_rating
-    game.reload.calculate_rating!
+    game.calculate_rating!
   end
 
 end
