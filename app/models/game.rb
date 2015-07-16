@@ -164,15 +164,26 @@ class Game < ActiveRecord::Base
   # by the Steam API into the Game model's fields
   def copy_data
     self.title = data[steam_appid.to_s]['data']['name']
+    copy_date
+  end
 
+  def copy_date
     date_string = data[steam_appid.to_s]['data']['release_date']['date']
+
     unless date_string.blank?
-      begin
-        date_obj = Date.strptime(date_string, "%d %b, %Y")
-      rescue
-        date_obj = Date.strptime(date_string, "%b %d, %Y")
+      formats = ["%d %b, %Y", "%b %d, %Y", "%b %Y"]
+
+      date_obj = false
+      formats.each do |format|
+        date_obj = Date.strptime(date_string, format) rescue nil
+        break if date_obj
       end
-      self.release_date = date_obj
+
+      if date_obj
+        self.release_date = date_obj
+      else
+        puts "Date format unknown: #{date_string}"
+      end
     end
   end
 
