@@ -18,7 +18,7 @@
                       = image_tag(@game.ranking.to_s + '.jpg', class: 'rating') unless @game.ranking == :no_ratings
 
               .col-xs-12.col-md-4.game-info
-                .title Game Information
+                .title Game Info
                 - if @game.dlc
                   .dlc
                     span.name DLC:
