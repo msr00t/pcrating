@@ -1,12 +1,18 @@
 .fill-in
   .container
-    .row.reviews
-      = render  partial: 'ratings/review',
-          collection: @reviews,
-          as: :review,
-          locals: { centered: false,
-            display_title: false,
-            show_user: true,
-            truncate_review: true }
+    - if @reviews.size > 0
+      .row.reviews
+        = render  partial: 'ratings/review',
+            collection: @reviews,
+            as: :review,
+            locals: { centered: false,
+              display_title: false,
+              show_user: true,
+              truncate_review: true }
 
-    = will_paginate @reviews, :previous_label => '<', :next_label => '>'
+        = will_paginate @reviews, :previous_label => '<', :next_label => '>'
+    - else
+      .row
+        .col-xs-10.col-xs-offset-1.col-sm-6.col-sm-offset-3
+          .centered-message No Reviews Yet
+          = link_to 'Write One', new_game_rating_path(game_id: @game.slug), class: 'btn btn-success'
