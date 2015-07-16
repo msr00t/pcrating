@@ -166,8 +166,12 @@ class Game < ActiveRecord::Base
     self.title = data[steam_appid.to_s]['data']['name']
 
     date_string = data[steam_appid.to_s]['data']['release_date']['date']
-    if date_string
-      date_obj = Date.strptime(date_string, "%d %b, %Y")
+    unless date_string.blank?
+      begin
+        date_obj = Date.strptime(date_string, "%d %b, %Y")
+      rescue
+        date_obj = Date.strptime(date_string, "%b %d, %Y")
+      end
       self.release_date = date_obj
     end
   end
