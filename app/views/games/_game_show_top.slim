@@ -20,17 +20,22 @@
               .col-xs-12.col-md-4.game-info
                 .title Game Information
                 .dlc
-                  = "DLC: #{@game.dlc.size}" if @game.dlc
+                  span.name DLC:
+                  = " #{@game.dlc.size}" if @game.dlc
                 .developers
                   .name Developers:
-                  .developer
-                    - @game.developers.each do |developer|
+                  - @game.developers.each do |developer|
+                    .developer
                       = developer
                 .publishers
                   .name Publishers:
-                  .publisher
-                    - @game.publishers.each do |publisher|
+                  - @game.publishers.each do |publisher|
+                    .publisher
                       = publisher
+                .release-date
+                  .name Release Date (on steam):
+                  .release-date
+                    = @game.release_date.to_formatted_s(:long)
 
             .row
               .col-xs-12.links
