@@ -25,9 +25,9 @@ module Reviews
       def numerical_score
         total = 0
 
-        RANKS.each do |key, values|
+        STATS.each do |key, values|
           score_key = @review.send(key)
-          total += SCORES[key][score_key.to_sym] if score_key
+          total += STATS[key][:ranks][score_key.to_sym] if score_key
         end
 
         return total

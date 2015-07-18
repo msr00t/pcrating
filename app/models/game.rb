@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
 
   validates :steam_appid, uniqueness: true
 
-  before_save :update_cached_reviews_total
+  before_save :update_cached_data
   before_create :request_game_data
   after_create :copy_genres
   friendly_id :title, use: :slugged
@@ -36,59 +36,19 @@ class Game < ActiveRecord::Base
 
   # Stats
 
-  def ranking
+  def rank
     cached_rank
   end
 
   def stats
-    {
-      fps: get_stat_string(:fps),
-      resolution: get_stat_string(:resolution),
-      multi_monitor: get_stat_string(:multi_monitor),
-      optimization: get_stat_string(:optimization),
-      bugs: get_stat_string(:bugs),
-      cosmetic_modding: get_stat_string(:cosmetic_modding),
-      modding: get_stat_string(:functionality_modding),
-      modding_tools: get_stat_string(:modding_tools),
-      level_editors: get_stat_string(:level_editors),
-      server_stability: get_stat_string(:server_stability),
-      dedicated_servers: get_stat_string(:dedicated_servers),
-      multiplayer_servers: get_stat_string(:multiplayer_servers_turned_off),
-      lan_support: get_stat_string(:lan_support),
-      day_1_dlc: get_stat_string(:day_1_dlc),
-      dlc_quality: get_stat_string(:dlc_quality),
-      video_options: get_stat_string(:video_options),
-      controller_support: get_stat_string(:controller_support),
-      key_remapping: get_stat_string(:key_remapping),
-      sensitivity: get_stat_string(:mouse_sensitivity_adjustment),
-      vr_support: get_stat_string(:vr_support),
-      subtitles: get_stat_string(:subtitles),
-      launcher_drm: get_stat_string(:launcher_drm),
-      limited_activations: get_stat_string(:limited_activations),
-      drm_free: get_stat_string(:drm_free),
-      disc_check: get_stat_string(:disc_check),
-      always_on_drm: get_stat_string(:always_on_drm),
-      drm_servers_off: get_stat_string(:drm_servers_off)
-    }
+    Reviews::GameRanker.new(self).stat_hash
   end
 
-  def get_stat_string(stat)
-    string = Review.send(stat)
-    return 'N/A' if string.nil?
-    string
-  end
-
-  def get_stat(stat)
-    average_array ratings.visible.map { |rating| rating[stat] }
-  end
-
-  def get_rounded_stat(stat)
-    get_stat(stat).round
-  end
-
-  def average_array(array)
-    array = array - [nil, false]
-    array.inject { |a, e| a + e }.to_f / array.size
+  def update_cached_data
+    ranker = Reviews::GameRanker.new(self)
+    self.cached_score = ranker.score
+    self.cached_rank = ranker.rank
+    self.cached_reviews_total = self.reviews.size
   end
 
   # Static Data
@@ -152,10 +112,6 @@ class Game < ActiveRecord::Base
   end
 
   private
-
-    def update_cached_reviews_total
-      self.cached_reviews_total = self.ratings.size
-    end
 
     def request_game_data
       url = "http://store.steampowered.com/api/appdetails/?appids=#{steam_appid}"

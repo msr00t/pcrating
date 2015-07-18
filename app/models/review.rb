@@ -4,8 +4,8 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
-  RANKS.each do |stat, values|
-    enum stat => values
+  STATS.each do |stat, values|
+    enum stat => Reviews::Stats.enum(stat)
   end
 
   def self.visible
