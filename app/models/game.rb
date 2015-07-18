@@ -74,7 +74,7 @@ class Game < ActiveRecord::Base
 
   def get_stat_string(stat)
     string = Review.send(stat)
-    return 'N/A' if value.nil?
+    return 'N/A' if string.nil?
     string
   end
 
