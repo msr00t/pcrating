@@ -29,9 +29,8 @@ gem 'redcarpet'
 gem 'rails-bootstrap-markdown'
 gem 'htmlentities'
 
-group :development do
-  gem 'quiet_assets'
-end
+gem 'lograge'
+gem 'quiet_assets'
 
 group :development, :test do
   gem 'rubocop'
