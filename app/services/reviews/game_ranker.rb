@@ -22,7 +22,7 @@ module Reviews
         total += Reviews::ReviewRanker.new(review).score
       end
 
-      total / @game.reviews.size
+      total / @reviews.size
     end
 
   end
