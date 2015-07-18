@@ -11,9 +11,6 @@
                 .review-count
                   Total Reviews:
                   = " #{@game.ratings.visible.size}"
-                .score
-                  Total Score:
-                  = " #{@game.rating}"
                 .row
                   .col-xs-12
                     .image
@@ -50,8 +47,13 @@
                 = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-warning hidden-xs'
 
 
-            - if @game.ratings.size > 0
+
+            - if @game.reviews.size > 0
               hr
+
+              .score
+                Total Score:
+                = " #{@game.rating}"
 
               .row.review
                 .stats

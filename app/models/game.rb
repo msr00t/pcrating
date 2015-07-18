@@ -41,15 +41,35 @@ class Game < ActiveRecord::Base
   end
 
   def stats
-    { 'Framerate':    get_stat_string(:framerate),
-      'Resolution':   get_stat_string(:resolution),
-      'Optimization': get_stat_string(:optimization),
-      'Mods':         get_stat_string(:mods),
-      'Servers':      get_stat_string(:servers),
-      'DLC':          get_stat_string(:dlc),
-      'Bugs':         get_stat_string(:bugs),
-      'Settings':     get_stat_string(:settings),
-      'Controls':     get_stat_string(:controls) }
+    {
+      fps: get_stat_string(:fps),
+      resolution: get_stat_string(:resolution),
+      multi_monitor: get_stat_string(:multi_monitor),
+      optimization: get_stat_string(:optimization),
+      bugs: get_stat_string(:bugs),
+      cosmetic_modding: get_stat_string(:cosmetic_modding),
+      modding: get_stat_string(:functionality_modding),
+      modding_tools: get_stat_string(:modding_tools),
+      level_editors: get_stat_string(:level_editors),
+      server_stability: get_stat_string(:server_stability),
+      dedicated_servers: get_stat_string(:dedicated_servers),
+      multiplayer_servers: get_stat_string(:multiplayer_servers_turned_off),
+      lan_support: get_stat_string(:lan_support),
+      day_1_dlc: get_stat_string(:day_1_dlc),
+      dlc_quality: get_stat_string(:dlc_quality),
+      video_options: get_stat_string(:video_options),
+      controller_support: get_stat_string(:controller_support),
+      key_remapping: get_stat_string(:key_remapping),
+      sensitivity: get_stat_string(:mouse_sensitivity_adjustment),
+      vr_support: get_stat_string(:vr_support),
+      subtitles: get_stat_string(:subtitles),
+      launcher_drm: get_stat_string(:launcher_drm),
+      limited_activations: get_stat_string(:limited_activations),
+      drm_free: get_stat_string(:drm_free),
+      disc_check: get_stat_string(:disc_check),
+      always_on_drm: get_stat_string(:always_on_drm),
+      drm_servers_off: get_stat_string(:drm_servers_off)
+    }
   end
 
   def get_stat_string(stat)
@@ -57,7 +77,7 @@ class Game < ActiveRecord::Base
 
     return 'N/A' if value.nan?
 
-    Rating.send(stat.to_s.pluralize.to_sym).to_a[value][0]
+    Review.send(stat.to_s.pluralize.to_sym).to_a[value][0]
   end
 
   def get_stat(stat)
