@@ -73,11 +73,9 @@ class Game < ActiveRecord::Base
   end
 
   def get_stat_string(stat)
-    value = get_stat stat
-
-    return 'N/A' if value.nan?
-
-    Review.send(stat.to_s.pluralize.to_sym).to_a[value][0]
+    string = Review.send(stat)
+    return 'N/A' if value.nil?
+    string
   end
 
   def get_stat(stat)
