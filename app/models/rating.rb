@@ -10,8 +10,8 @@ class Rating < ActiveRecord::Base
   validates :user, :game, :framerate, :resolution, :optimization, presence: true
   validates :dlc, :bugs, :settings, :controls, :servers, :mods, presence: true
 
-  after_save :calculate_game_rating
-  after_destroy :calculate_game_rating
+  after_save :calculate_game_score
+  after_destroy :calculate_game_score
 
   # TODO: Pull out of this class
   CATEGORY_WEIGHTS = {
@@ -53,11 +53,11 @@ class Rating < ActiveRecord::Base
   }
 
   enum servers: {
-    "Unstable servers. Likely to shut down early.": 0,
+    "Down most of the time": 0,
     "Partially stable servers.": 1,
     "Servers unstable at high volume.": 2,
     "Acceptable servers": 3,
-    "Reliable servers or dedicated server software available (or Single Player)": 4
+    "Reliable servers": 4
   }
 
   enum dlc: {
@@ -69,7 +69,7 @@ class Rating < ActiveRecord::Base
   }
 
   enum bugs: {
-    "Constant game breaking bugs. Unplayable": 0,
+    "Constant game breaking bugs": 0,
     "Excessively buggy, mostly playable": 1,
     "Playable but often encounter bugs": 2,
     "A few bugs here and there, but rarely do they affect enjoyment": 3,
@@ -154,8 +154,8 @@ class Rating < ActiveRecord::Base
     total
   end
 
-  def calculate_game_rating
-    game.calculate_rating!
+  def calculate_game_score
+    game.calculate_score!
   end
 
 end

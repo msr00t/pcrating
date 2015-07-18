@@ -6,6 +6,7 @@ class Game < ActiveRecord::Base
   serialize :data
 
   has_many :ratings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :users, through: :ratings
   has_many :genre_games, dependent: :destroy
   has_many :genres, through: :genre_games
@@ -14,45 +15,29 @@ class Game < ActiveRecord::Base
 
   validates :steam_appid, uniqueness: true
 
-  before_save :update_total_ratings
+  before_save :update_cached_reviews_total
   before_create :request_game_data
   after_create :copy_genres
   friendly_id :title, use: :slugged
 
-  scope :top, -> { order(cached_rating: :desc) }
-  scope :bottom, -> { rated.order(cached_rating: :asc) }
+  scope :top, -> { order(cached_score: :desc) }
+  scope :bottom, -> { rated.order(cached_score: :asc) }
   scope :with_release_date, -> { where.not(release_date: nil) }
   scope :latest, -> { order(release_date: :desc).with_release_date }
   scope :rated, -> { where('games.id IN (SELECT DISTINCT(game_id) FROM ratings)') }
 
   def rating
-    cached_rating
+    cached_score
   end
 
-  def calculate_rating!
-    ratings_array = ratings.visible
-
-    if ratings_array.size == 0
-      self.cached_rating = -1
-      return save
-    end
-
-    total = 0
-
-    ratings_array.each do |rating|
-      total += rating.total
-    end
-
-    result = total / ratings_array.size
-
-    self.cached_rating = result
-    save
+  def calculate_score!
+    Reviews::GameRanker.new(self).calculate_score!
   end
 
   # Stats
 
   def ranking
-    Rating.ranking(rating)
+    cached_rank
   end
 
   def stats
@@ -149,8 +134,8 @@ class Game < ActiveRecord::Base
 
   private
 
-    def update_total_ratings
-      self.total_ratings = self.ratings.size
+    def update_cached_reviews_total
+      self.cached_reviews_total = self.ratings.size
     end
 
     def request_game_data

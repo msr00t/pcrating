@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
          :confirmable
 
   has_many :ratings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :games, through: :ratings
   has_many :added_games, class_name: 'Game'
 
@@ -15,6 +16,11 @@ class User < ActiveRecord::Base
 
   def score
     ratings.sum(:cached_votes_score) - ratings.size
+  end
+
+  def convert_ratings_into_reviews
+    converter = Reviews::Converter.new(self)
+    converter.convert_ratings_into_reviews
   end
 
 end

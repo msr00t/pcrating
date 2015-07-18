@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716223314) do
+ActiveRecord::Schema.define(version: 20150717214915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,13 +33,14 @@ ActiveRecord::Schema.define(version: 20150716223314) do
     t.integer  "user_id"
     t.integer  "steam_appid"
     t.string   "data"
-    t.string   "title",         null: false
+    t.string   "title",                null: false
     t.string   "slug"
-    t.integer  "cached_rating"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "release_date"
-    t.integer  "total_ratings"
+    t.integer  "cached_reviews_total"
+    t.float    "cached_score"
+    t.string   "cached_rank"
   end
 
   add_index "games", ["slug"], name: "index_games_on_slug", unique: true, using: :btree
@@ -89,6 +90,59 @@ ActiveRecord::Schema.define(version: 20150716223314) do
   add_index "ratings", ["cached_weighted_average"], name: "index_ratings_on_cached_weighted_average", using: :btree
   add_index "ratings", ["cached_weighted_score"], name: "index_ratings_on_cached_weighted_score", using: :btree
   add_index "ratings", ["cached_weighted_total"], name: "index_ratings_on_cached_weighted_total", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "fps"
+    t.integer  "resolution"
+    t.integer  "multi_monitor"
+    t.integer  "optimization"
+    t.integer  "bugs"
+    t.integer  "cosmetic_modding"
+    t.integer  "functionality_modding"
+    t.integer  "modding_tools"
+    t.integer  "level_editors"
+    t.integer  "server_stability"
+    t.integer  "dedicated_servers"
+    t.integer  "multiplayer_servers_turned_off"
+    t.integer  "lan_support"
+    t.integer  "day_1_dlc"
+    t.integer  "dlc_quality"
+    t.integer  "video_options"
+    t.integer  "controller_support"
+    t.integer  "key_remapping"
+    t.integer  "mouse_sensitivity_adjustment"
+    t.integer  "vr_support"
+    t.boolean  "subtitles"
+    t.integer  "launcher_drm"
+    t.integer  "limited_activations"
+    t.integer  "drm_free"
+    t.integer  "disc_check"
+    t.integer  "always_on_drm"
+    t.integer  "drm_servers_off"
+    t.string   "review"
+    t.integer  "user_id",                                      null: false
+    t.integer  "game_id",                                      null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.float    "reviews"
+    t.integer  "cached_votes_total",             default: 0
+    t.integer  "cached_votes_score",             default: 0
+    t.integer  "cached_votes_up",                default: 0
+    t.integer  "cached_votes_down",              default: 0
+    t.integer  "cached_weighted_score",          default: 0
+    t.integer  "cached_weighted_total",          default: 0
+    t.float    "cached_weighted_average",        default: 0.0
+    t.float    "cached_rank"
+    t.float    "cached_score"
+  end
+
+  add_index "reviews", ["cached_votes_down"], name: "index_reviews_on_cached_votes_down", using: :btree
+  add_index "reviews", ["cached_votes_score"], name: "index_reviews_on_cached_votes_score", using: :btree
+  add_index "reviews", ["cached_votes_total"], name: "index_reviews_on_cached_votes_total", using: :btree
+  add_index "reviews", ["cached_votes_up"], name: "index_reviews_on_cached_votes_up", using: :btree
+  add_index "reviews", ["cached_weighted_average"], name: "index_reviews_on_cached_weighted_average", using: :btree
+  add_index "reviews", ["cached_weighted_score"], name: "index_reviews_on_cached_weighted_score", using: :btree
+  add_index "reviews", ["cached_weighted_total"], name: "index_reviews_on_cached_weighted_total", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
