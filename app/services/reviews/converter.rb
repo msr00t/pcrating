@@ -38,8 +38,6 @@ module Reviews
 
         if old_rank != new_rank
           puts "ID: #{old_rating.id}\nOld rank: #{old_rank}\nNew rank: #{new_rank}\n"
-        else
-          puts "ID: #{old_rating.id}\nUnchanged\n"
         end
 
         new_review = convert_votes(new_review, old_rating)
