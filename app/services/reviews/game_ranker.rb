@@ -3,8 +3,8 @@ module Reviews
 
     def initialize(game)
       @game = game
-      @score = numerical_score
       @reviews = @game.reviews.visible
+      @score = numerical_score
     end
 
     def calculate_score!
