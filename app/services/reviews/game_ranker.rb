@@ -16,7 +16,7 @@ module Reviews
     def numerical_score
       total = 0
 
-      return false unless @reviews
+      return false unless @reviews.size > 0
 
       @reviews.each do |review|
         total += Reviews::ReviewRanker.new(review).score
