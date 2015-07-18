@@ -4,11 +4,16 @@ module Reviews
     def initialize(user)
       @user = user
       @old_ratings = user.ratings
+      @changes = []
     end
 
     def convert_ratings_into_reviews
       @old_ratings.each do |old_rating|
         convert_rating_into_review(old_rating)
+      end
+
+      @changes.each do |change|
+        puts change
       end
 
       return nil
@@ -37,7 +42,7 @@ module Reviews
         new_rank = new_review.rank
 
         if old_rank != new_rank
-          puts "ID: #{old_rating.id}\nOld rank: #{old_rank}\nNew rank: #{new_rank}\n"
+          @changes.push "ID: #{old_rating.id}\nOld rank: #{old_rank}\nNew rank: #{new_rank}\n"
         end
 
         new_review = convert_votes(new_review, old_rating)
