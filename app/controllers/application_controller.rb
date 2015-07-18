@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   def ransack_setup
     params[:q][:genres_name_cont] = HTMLEntities.new.decode params[:q][:genres_name_cont] if params[:q]
 
-    if params[:q] && params[:q][:ranked_only] == 'true'
+    if params[:q] && params[:q][:ranked_only] && params[:q][:ranked_only] == 'true'
       games = Game.rated
     else
       games = Game.all
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     # If we're sorting by release date then hide all games without a release date.
     # It's not great, but otherwise they cluster at the start of the list as if they're
     # the latest released games.
-    if params[:q] && params[:q][:s].include?('release_date')
+    if params[:q] && params[:q][:s] && params[:q][:s].include?('release_date')
       games = games.with_release_date
     end
 
