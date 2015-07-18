@@ -3,7 +3,7 @@ STATS = {
     display_name: :FPS,
     ranks: {
       :"30 Max" => -10,
-      :"60 Max" => 2,
+      :"60 Max" => 0,
       Limitless: 5
     }
   },
@@ -11,7 +11,7 @@ STATS = {
     display_name: :Resolution,
     ranks: {
       :"Does not support 1080p" => -10,
-      :"Up to 1080p" => 2,
+      :"Up to 1080p" => 0,
       :"4k support" => 5
     }
   },
@@ -25,21 +25,21 @@ STATS = {
   optimization: {
     display_name: :Optimization,
     ranks: {
-      Poor: -4,
-      Passable: -2,
-      Good: 1,
-      Great: 3,
+      Poor: -6,
+      Passable: -3,
+      Good: 0,
+      Great: 2,
       Glorious: 5
     }
   },
   bugs: {
     display_name: :Bugs,
     ranks: {
-      :"Constant game breaking bugs" => 0,
-      :"Excessively buggy, mostly playable" => 1,
-      :"Playable but often encounter bugs" => 2,
-      :"A few bugs here and there, but rarely do they affect enjoyment" => 3,
-      :"Rare bugs. Possible to go entire game without encountering" => 4
+      :"Constant game breaking bugs" => -15,
+      :"Excessively buggy, mostly playable" => -7,
+      :"Playable but often encounter bugs" => -3,
+      :"A few bugs here and there, but rarely do they affect enjoyment" => 0,
+      :"Rare bugs. Possible to go entire game without encountering" => 2
     }
   },
   cosmetic_modding: {
@@ -52,8 +52,8 @@ STATS = {
   functionality_modding: {
     display_name: :"Gameplay Mods",
     ranks: {
-      :"Gameplay supported" => 5,
-      :"Gameplay not supported" => 0
+      :"Gameplay mods supported" => 5,
+      :"Gameplay mods not supported" => 0
     }
   },
   modding_tools: {
@@ -73,17 +73,17 @@ STATS = {
   server_stability: {
     display_name: :"Server Stability",
     ranks: {
-      :"Down most of the time" => 0,
-      :"Partially stable servers." => 1,
-      :"Servers unstable at high volume." => 2,
-      :"Acceptable servers" => 3,
-      :"Reliable servers" => 4
+      :"Down most of the time" => -10,
+      :"Partially stable servers." => -5,
+      :"Servers unstable at high volume." => -2,
+      :"Acceptable servers" => 1,
+      :"Reliable servers" => 5
     }
   },
   dedicated_servers: {
     display_name: :"Dedicated Servers",
     ranks: {
-      :"Server software available" => 2,
+      :"Server software available" => 3,
       :"No server software available" => 0
     }
   },
@@ -115,8 +115,8 @@ STATS = {
       :"Preorder exclusives" => -16,
       :"Game Breaking" => -15,
       :"Cosmetic Only" => -5,
-      :"Small content packs" => 2,
-      :"Old Style Expansion Style" => 5
+      :"Small content packs" => 5,
+      :"Old Style Expansion Style" => 10
     }
   },
   video_options: {
@@ -139,7 +139,7 @@ STATS = {
     display_name: :"Control Remapping",
     ranks: {
       :"Can remap keys" => 0,
-      :"Cannot remap keys" => -7
+      :"Cannot remap keys" => -5
     }
   },
   mouse_sensitivity_adjustment: {
@@ -152,8 +152,8 @@ STATS = {
   vr_support: {
     display_name: :"VR support",
     ranks: {
-      Official: 6,
-      :"With Mods" => 3,
+      Official: 10,
+      :"With Mods" => 5,
       No: 0
     }
   },
@@ -176,15 +176,15 @@ STATS = {
   limited_activations: {
     display_name: :"Limited Activation",
     ranks: {
-      :"Limited activations allowed" => 0,
-      :"Unlmited installs" => -10
+      :"Limited activations allowed" => -10,
+      :"Unlimited installs" => 0
     }
   },
   drm_free: {
     display_name: :"DRM",
     ranks: {
-      :"Game available DRM free" => 5,
-      :"Game only available with DRM" => 0
+      :"Game available DRM free" => 0,
+      :"Game only available with DRM" => -5
     }
   },
   disc_check: {
@@ -199,14 +199,15 @@ STATS = {
     ranks: {
       :"Internet connection required at all times" => -10,
       :"Internet connection required on startup" => -9,
-      :"Can play offline" => -10
+      :"Can play offline" => 0
     }
   },
   drm_servers_off: {
     display_name: :"DRM Servers",
     ranks: {
       :"DRM servers are off, must crack to play" => -50,
-      :"DRM servers still up" => 0
+      :"DRM servers still up" => 0,
+      :"No DRM servers required" => 2
     }
   }
 }
