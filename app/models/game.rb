@@ -89,6 +89,7 @@ class Game < ActiveRecord::Base
   end
 
   def average_array(array)
+    array = array - [nil, false]
     array.inject { |a, e| a + e }.to_f / array.size
   end
 
