@@ -9,14 +9,14 @@ module Reviews
       return :unranked unless @score
 
       case @score
-      when 0..9
+      when 10..19
         :r
-      when -10..-1
+      when 0..9
         :m
-      when -19..-9
+      when -10..-1
         :c
       else
-        if @score >= 10
+        if @score >= 20
           :g
         else
           :p
