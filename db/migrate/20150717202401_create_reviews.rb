@@ -37,6 +37,8 @@ class CreateReviews < ActiveRecord::Migration
       t.integer :always_on_drm
       t.integer :drm_servers_off
 
+      t.integer :opinion
+
       t.string :review
 
       t.integer :user_id, null: false
@@ -64,7 +66,5 @@ class CreateReviews < ActiveRecord::Migration
     add_index :reviews, :cached_weighted_score
     add_index :reviews, :cached_weighted_total
     add_index :reviews, :cached_weighted_average
-
-    User.find_each(&:convert_ratings_into_reviews)
   end
 end

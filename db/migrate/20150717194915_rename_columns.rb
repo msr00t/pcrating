@@ -3,7 +3,5 @@ class RenameColumns < ActiveRecord::Migration
     rename_column :games, :cached_rating, :cached_score
     rename_column :games, :total_ratings, :cached_reviews_total
     add_column :games, :cached_rank, :string
-
-    Game.find_each(&:save)
   end
 end

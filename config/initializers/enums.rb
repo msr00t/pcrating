@@ -113,10 +113,10 @@ STATS = {
     display_name: :"DLC Quality",
     ranks: {
       :"Preorder exclusives" => -16,
-      :"Game Breaking" => -15,
-      :"Cosmetic Only" => -5,
+      :"Game breaking" => -15,
+      :"Cosmetic only" => -5,
       :"Small content packs" => 5,
-      :"Old Style Expansion Style" => 10
+      :"Old style expansions" => 10
     }
   },
   video_options: {
@@ -208,6 +208,14 @@ STATS = {
       :"DRM servers are off, must crack to play" => -50,
       :"DRM servers still up" => 0,
       :"No DRM servers required" => 2
+    }
+  },
+  opinion: {
+    display_name: :"Would you recommend this?",
+    ranks: {
+      :"To everyone" => 2,
+      :"To fans of the genre" => 0,
+      :"Not to anyone" => -2
     }
   }
 }

@@ -30,14 +30,14 @@ class Game < ActiveRecord::Base
     cached_score
   end
 
-  def calculate_score!
-    Reviews::GameRanker.new(self).calculate_score!
-  end
-
   # Stats
 
   def rank
     cached_rank
+  end
+
+  def score
+    cached_score
   end
 
   def stats
@@ -109,6 +109,12 @@ class Game < ActiveRecord::Base
     rating = Rating.find_by(user_id: user.id, game_id: id)
 
     return true if rating
+  end
+
+  def force_update
+    copy_genres
+    copy_data
+    save
   end
 
   private

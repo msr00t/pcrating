@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717214915) do
+ActiveRecord::Schema.define(version: 20150717202402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20150717214915) do
     t.integer  "disc_check"
     t.integer  "always_on_drm"
     t.integer  "drm_servers_off"
+    t.integer  "opinion"
     t.string   "review"
     t.integer  "user_id",                                      null: false
     t.integer  "game_id",                                      null: false

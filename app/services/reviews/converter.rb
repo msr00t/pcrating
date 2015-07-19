@@ -86,18 +86,18 @@ module Reviews
         case old_rating[:mods]
         when 0, 1
           new_review.cosmetic_modding = 'Cosmetic mods not supported'
-          new_review.functionality_modding = 'Functionality mods not supported'
+          new_review.functionality_modding = 'Gameplay mods not supported'
           new_review.level_editors = 'No level editor'
           new_review.modding_tools = 'No modding tools provided'
         when 2
-          new_review.functionality_modding = 'Functionality mods not supported'
+          new_review.functionality_modding = 'Gameplay mods not supported'
           new_review.level_editors = 'No level editor'
           new_review.modding_tools = 'No modding tools provided'
         when 3
           new_review.modding_tools = 'Modding tools available'
         when 4
           new_review.cosmetic_modding = 'Cosmetic mods supported'
-          new_review.functionality_modding = 'Functionality mods supported'
+          new_review.functionality_modding = 'Gameplay mods supported'
           new_review.modding_tools = 'Modding tools available'
         end
 
@@ -113,17 +113,17 @@ module Reviews
         case old_rating[:dlc]
         when 0
           new_review.day_1_dlc = 'Day one DLC'
-          new_review.dlc_quality = 'Game Breaking'
+          new_review.dlc_quality = 'Game breaking'
         when 1
           new_review.day_1_dlc = 'Day one DLC'
-          new_review.dlc_quality = 'Cosmetic Only'
+          new_review.dlc_quality = 'Cosmetic only'
         when 2
           new_review.day_1_dlc = 'No Day one DLC'
         when 3
           new_review.day_1_dlc = 'Free'
         when 4
           new_review.day_1_dlc = 'No Day one DLC'
-          new_review.dlc_quality = 'Old Style Expansion Style'
+          new_review.dlc_quality = 'Old style expansions'
         end
 
         new_review

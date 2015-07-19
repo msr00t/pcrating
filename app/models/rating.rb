@@ -155,7 +155,7 @@ class Rating < ActiveRecord::Base
   end
 
   def calculate_game_score
-    game.calculate_score!
+    game.update_cached_data
   end
 
 end

@@ -6,9 +6,5 @@ class CreateGenreGames < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    Game.all.each do |game|
-      game.copy_genres
-    end
   end
 end

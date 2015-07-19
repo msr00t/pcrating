@@ -4,6 +4,8 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
+  after_save :update_game
+
   STATS.each do |stat, values|
     enum stat => Reviews::Stats.enum(stat)
   end
@@ -25,5 +27,12 @@ class Review < ActiveRecord::Base
   def rank
     Reviews::ReviewRanker.new(self).rank
   end
+
+  private
+
+    def update_game
+      game.update_cached_data
+      game.save
+    end
 
 end
