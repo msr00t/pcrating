@@ -157,7 +157,7 @@ STATS = {
       No: 0
     }
   },
-  subtitles: {
+  subtitle_support: {
     display_name: :"Subtitles",
     ranks: {
       :"Can turn on subtitles" => 2,

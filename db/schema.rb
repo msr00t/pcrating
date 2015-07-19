@@ -35,11 +35,11 @@ ActiveRecord::Schema.define(version: 20150717202402) do
     t.string   "data"
     t.string   "title",                null: false
     t.string   "slug"
+    t.integer  "cached_score"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "release_date"
     t.integer  "cached_reviews_total"
-    t.float    "cached_score"
     t.string   "cached_rank"
   end
 
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 20150717202402) do
     t.integer  "key_remapping"
     t.integer  "mouse_sensitivity_adjustment"
     t.integer  "vr_support"
-    t.boolean  "subtitles"
+    t.integer  "subtitle_support"
     t.integer  "launcher_drm"
     t.integer  "limited_activations"
     t.integer  "drm_free"

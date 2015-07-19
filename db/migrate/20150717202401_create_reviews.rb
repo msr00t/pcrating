@@ -28,7 +28,7 @@ class CreateReviews < ActiveRecord::Migration
       t.integer :mouse_sensitivity_adjustment
       t.integer :vr_support
 
-      t.boolean :subtitles
+      t.integer :subtitle_support
 
       t.integer :launcher_drm
       t.integer :limited_activations

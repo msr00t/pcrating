@@ -1,5 +1,5 @@
 class UpdateTables < ActiveRecord::Migration
-  def change
+  def up
     Game.all.each do |game|
       game.force_update
       game.created_at = Time.now
