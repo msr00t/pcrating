@@ -4,12 +4,22 @@ class Game < ActiveRecord::Base
   require 'net/http'
 
   serialize :data
+  serialize :dlc
 
   has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :users, through: :ratings
-  has_many :genre_games, dependent: :destroy
-  has_many :genres, through: :genre_games
+  has_many :users, through: :reviews
+
+  [
+    'genre', 'publisher',
+    'developer', 'platform',
+    'category'
+  ].each do |relation|
+    intermediates = "#{relation}_games".to_sym
+    relations = "#{relation.pluralize}".to_sym
+    has_many intermediates, dependent: :destroy
+    has_many relations, through: intermediates
+  end
 
   belongs_to :user
 
@@ -18,17 +28,18 @@ class Game < ActiveRecord::Base
   before_save :update_cached_data
   before_create :request_game_data
   after_create :copy_genres
+  after_create :copy_categories
+  after_create :copy_publishers
+  after_create :copy_developers
+  after_create :copy_platforms
   friendly_id :title, use: :slugged
 
   scope :top, -> { order(cached_score: :desc) }
   scope :bottom, -> { rated.order(cached_score: :asc) }
   scope :with_release_date, -> { where.not(release_date: nil) }
   scope :latest, -> { order(release_date: :desc).with_release_date }
-  scope :rated, -> { where('games.id IN (SELECT DISTINCT(game_id) FROM ratings)') }
+  scope :rated, -> { where('games.id IN (SELECT DISTINCT(game_id) FROM reviews)') }
 
-  def rating
-    cached_score
-  end
 
   # Stats
 
@@ -53,46 +64,17 @@ class Game < ActiveRecord::Base
 
   # Static Data
 
-  def description
-    desc = data[steam_appid.to_s]['data']['detailed_description'] if data
-    return desc.html_safe if desc
-  end
-
-  def dlc
-    data[steam_appid.to_s]['data']['dlc'] if data
-  end
-
   def requirements(platform, level)
     return false unless data
 
-    platform_hash = data[steam_appid.to_s]['data']["#{platform}_requirements"]
+    platform_hash = data["#{platform}_requirements"]
     return false if platform_hash.empty?
     req = platform_hash[level]
     return req.html_safe if req
   end
 
-  def platforms
-    data[steam_appid.to_s]['data']['platforms']
-  end
-
-  def developers
-    data[steam_appid.to_s]['data']['developers'] if data
-  end
-
-  def publishers
-    data[steam_appid.to_s]['data']['publishers'] if data
-  end
-
-  def header_image
-    data[steam_appid.to_s]['data']['header_image'] if data
-  end
-
-  def website
-    data[steam_appid.to_s]['data']['website'] if data
-  end
-
-  def background_image
-    data[steam_appid.to_s]['data']['background'] if data
+  def multiplayer?
+    categories.map { |category| category.name.downcase }.includes? 'multiplayer'
   end
 
   def launch_game_link
@@ -106,14 +88,22 @@ class Game < ActiveRecord::Base
   def rated_by_user?(user)
     return false unless user
 
-    rating = Rating.find_by(user_id: user.id, game_id: id)
+    rating = Review.find_by(user_id: user.id, game_id: id)
 
     return true if rating
   end
 
-  def force_update
+  def force_update!(opts = {})
+    if opts[:hit_api]
+      request_game_data
+    else
+      copy_data
+    end
     copy_genres
-    copy_data
+    copy_categories
+    copy_publishers
+    copy_developers
+    copy_platforms
     save
   end
 
@@ -129,7 +119,7 @@ class Game < ActiveRecord::Base
         return false
       end
 
-      self.data = data
+      self.data = data[steam_appid.to_s]['data']
 
       copy_data
     end
@@ -137,12 +127,26 @@ class Game < ActiveRecord::Base
     # Copy data out of the data parcel returned
     # by the Steam API into the Game model's fields
     def copy_data
-      self.title = data[steam_appid.to_s]['data']['name']
+      self.title = data['name']
+      self.dlc = data['dlc']
+      self.header_image = data['header_image']
+      self.website = data['website']
+      self.background_image = data['background_image']
+      self.detailed_description = data['detailed_description']
       copy_date
     end
 
+    def copy_platforms
+      platforms = []
+      data['platforms'].each do |platform, platform_supported|
+        next unless platform_supported
+        platforms.push platform
+      end
+      self.platforms = platforms
+    end
+
     def copy_date
-      date_string = data[steam_appid.to_s]['data']['release_date']['date']
+      date_string = data['release_date']['date']
 
       unless date_string.blank?
         formats = ["%d %b, %Y", "%b %d, %Y", "%b %Y"]
@@ -162,14 +166,58 @@ class Game < ActiveRecord::Base
     end
 
     def copy_genres
-      genres = data[steam_appid.to_s]['data']['genres']
+      genres = data['genres']
 
       return false unless genres
 
       genres.each do |genre_hash|
         genre_model = Genre.find_or_create_by(name: genre_hash['description'])
+        GenreGame.find_or_create_by(game: self, genre: genre_model)
+      end
+    end
 
-        genre_model.games.push self
+    def copy_categories
+      categories = data['categories']
+
+      return false unless categories
+
+      categories.each do |category_hash|
+        category_model = Category.find_or_create_by(name: category_hash['description'])
+        CategoryGame.find_or_create_by(game: self, category: category_model)
+      end
+    end
+
+    def copy_developers
+      developers = data['developers']
+
+      return false unless developers
+
+      developers.each do |developer|
+        developer_model = Developer.find_or_create_by(name: developer)
+        DeveloperGame.find_or_create_by(game: self, developer: developer_model)
+      end
+    end
+
+    def copy_publishers
+      publishers = data['publishers']
+
+      return false unless publishers
+
+      publishers.each do |publisher|
+        publisher_model = Publisher.find_or_create_by(name: publisher)
+        PublisherGame.find_or_create_by(game: self, publisher: publisher_model)
+      end
+    end
+
+    def copy_platforms
+      platforms = data['platforms']
+
+      return false unless platforms
+
+      platforms.each do |platform, valid_platform|
+        next unless valid_platform
+        platform_model = Platform.find_or_create_by(name: platform)
+        PlatformGame.find_or_create_by(game: self, platform: platform_model)
       end
     end
 

@@ -1,15 +1,15 @@
 class VotesController < ApplicationController
 
   before_action :user?, except: [:show]
-  before_action :setup_rating
+  before_action :setup_review
 
   layout false
 
   def upvote
-    if current_user.voted_up_on? @rating
-      @rating.unliked_by current_user
+    if current_user.voted_up_on? @review
+      @review.unliked_by current_user
     else
-      @rating.liked_by current_user
+      @review.liked_by current_user
     end
 
     respond_to do |format|
@@ -18,10 +18,10 @@ class VotesController < ApplicationController
   end
 
   def downvote
-    if current_user.voted_down_on? @rating
-      @rating.undisliked_by current_user
+    if current_user.voted_down_on? @review
+      @review.undisliked_by current_user
     else
-      @rating.disliked_by current_user
+      @review.disliked_by current_user
     end
 
     respond_to do |format|
@@ -36,9 +36,9 @@ class VotesController < ApplicationController
     redirect_to new_user_session_path unless current_user
   end
 
-  def setup_rating
-    @rating = Rating.find_by(id: params[:id])
-    redirect_to root_path unless @rating
+  def setup_review
+    @review = Review.find_by(id: params[:id])
+    redirect_to root_path unless @review
   end
 
 end

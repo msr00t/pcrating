@@ -157,14 +157,12 @@ module Reviews
           new_review.key_remapping = 'Cannot remap keys'
         when 1
           new_review.key_remapping = 'Cannot remap keys'
-          new_review.controller_support = 'Controllers support'
         when 2
           new_review.key_remapping = 'Can remap keys'
           new_review.mouse_sensitivity_adjustment = 'Can adjust mouse sensitivity'
         when 3, 4
           new_review.key_remapping = 'Can remap keys'
           new_review.mouse_sensitivity_adjustment = 'Can adjust mouse sensitivity'
-          new_review.controller_support = 'Controllers support'
         end
 
         new_review

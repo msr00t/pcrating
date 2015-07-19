@@ -18,6 +18,15 @@ ready = ->
       $('input.genre.search').val(newGenre)
       $('#search-button').click()
 
+    $('.search-bar .platforms .dropdown-item').on 'click', ->
+      newPlatform = $(@).html()
+
+      if($(@).hasClass('cancel'))
+        newPlatform = ''
+
+      $('input.platform.search').val(newPlatform)
+      $('#search-button').click()
+
     $('.search-bar .search-bar-button.sort .text').on 'click', ->
       $('.sort_link.asc, .sort_link.desc')[0].click()
 

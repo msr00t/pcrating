@@ -2,7 +2,7 @@
   .container
     - if @reviews.size > 0
       .row.reviews
-        = render  partial: 'ratings/review',
+        = render  partial: 'reviews/review',
             collection: @reviews,
             as: :review,
             locals: { centered: false,
@@ -15,4 +15,4 @@
       .row
         .col-xs-10.col-xs-offset-1.col-sm-6.col-sm-offset-3
           .centered-message No Reviews Yet
-          = link_to 'Write One', new_game_rating_path(game_id: @game.slug), class: 'btn btn-success'
+          = link_to 'Write One', new_game_review_path(game_id: @game.slug), class: 'btn btn-success'

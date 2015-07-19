@@ -8,11 +8,12 @@ class Review < ActiveRecord::Base
 
   STATS.each do |stat, values|
     enum stat => Reviews::Stats.enum(stat)
+    validates stat, presence: true
   end
 
   def self.visible
-    all.select do |rating|
-      !rating.hidden?
+    all.select do |review|
+      !review.hidden?
     end
   end
 
@@ -26,6 +27,10 @@ class Review < ActiveRecord::Base
 
   def rank
     Reviews::ReviewRanker.new(self).rank
+  end
+
+  def stats
+    Reviews::ReviewRanker.new(self).stat_hash
   end
 
   private

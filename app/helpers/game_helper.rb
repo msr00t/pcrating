@@ -5,6 +5,11 @@ module GameHelper
     'Genres'
   end
 
+  def platform_button_string
+    return selected_platform if selected_platform
+    'OS'
+  end
+
   def sort_button_string
     return 'Sort' if selected_sort.blank?
   end
@@ -17,6 +22,13 @@ module GameHelper
     return false unless params[:q]
     genre_string = params[:q][:genres_name_cont]
     return genre_string.titlecase unless genre_string.blank?
+    false
+  end
+
+  def selected_platform
+    return false unless params[:q]
+    platform_string = params[:q][:platforms_name_cont]
+    return platform_string.titlecase unless platform_string.blank?
     false
   end
 

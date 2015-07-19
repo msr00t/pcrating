@@ -1,0 +1,39 @@
+.container
+  .review-form.box
+    .row
+      .col-xs-12
+        .row.header
+          .col-xs-6.col-sm-10
+            h3
+              - if editing
+                = "Editing your review for #{game.title}"
+              - else
+                = "Writing review for #{game.title}"
+          .col-xs-6.col-sm-2
+            = image_tag(game.header_image)
+
+        - path = game_review_path(id: review.id) if editing
+        - path = game_reviews_path unless editing
+
+        = form_for review, url: path do |f|
+          - Reviews::Stats.by_group.each do |name, questions|
+            .section.row
+              .col-xs-12.name
+                = name
+              = render  partial: 'question',
+                        collection: questions,
+                        locals: { f: f, review: review }
+
+          .row
+            .col-xs-12
+              = f.label       "Review:"
+              = f.text_area   :review,
+                              placeholder: :Review,
+                              value: @review.review,
+                              class: "form-control",
+                              data: { provide: "markdown",
+                                "hidden-buttons": ['cmdUrl', 'cmdImage'] }
+
+          .row
+            .col-xs-6.col-xs-offset-3
+              = f.button "Save", class: "btn btn-success full-width"

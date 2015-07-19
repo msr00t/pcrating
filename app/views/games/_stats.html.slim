@@ -1,0 +1,32 @@
+- if @game.reviews.size > 0
+  .col-xs-12
+    hr
+
+    .score
+      Total Score:
+      = " #{@game.score}"
+
+    .row.review
+      .col-xs-12
+        .stats.row
+          - stat_groups = Reviews::Stats.by_group
+          - half = stat_groups.length / 2
+          - stat_hash = @stat_hash
+          .col-xs-6
+            - Hash[Reviews::Stats.by_group.to_a[0..(half - 1)]].each do |name, questions|
+              .stat-section
+                .name
+                  = name
+                - questions.each do |question|
+                  .rank
+                    = stat_hash[question[0]]
+          .col-xs-6
+            - Hash[Reviews::Stats.by_group.to_a[half..stat_groups.length]].each do |name, questions|
+              .stat-section
+                .name
+                  = name
+                - questions.each do |question|
+                  .rank
+                    = stat_hash[question[0]]
+
+    hr.visible-xs

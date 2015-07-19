@@ -10,9 +10,11 @@ Rails.application.routes.draw do
   resources :games do
     resources :ratings do
     end
+    resources :reviews do
+    end
   end
 
-  get 'reviews/:id/upvote', to: 'votes#upvote', as: :upvote_rating
-  get 'reviews/:id/downvote', to: 'votes#downvote', as: :downvote_rating
+  get 'reviews/:id/upvote', to: 'votes#upvote', as: :upvote_review
+  get 'reviews/:id/downvote', to: 'votes#downvote', as: :downvote_review
 
 end

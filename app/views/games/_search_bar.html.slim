@@ -7,6 +7,7 @@
             .col-xs-8.col-sm-9
               = f.text_field :title_cont, placeholder: 'Search by Title', class: 'form-control search'
               = f.text_field :genres_name_cont, placeholder: 'Genre', class: 'form-control search genre hidden'
+              = f.text_field :platforms_name_cont, placeholder: 'Platform', class: 'form-control search platform hidden'
               = f.text_field  :s,
                               placeholder: 'Sort',
                               value: sort_field_string,
@@ -31,14 +32,22 @@
                         '#',
                         class: 'dropdown-item cancel'
             - Genre.all.each do |genre|
-              - if genre.name == selected_genre
-                = link_to genre.name,
-                          '#',
-                          class: 'dropdown-item yellow'
-              - else
-                = link_to genre.name,
-                          '#',
-                          class: 'dropdown-item'
+              = link_to genre.name,
+                        '#',
+                      class: "dropdown-item #{'yellow' if genre.name == selected_genre}"
+
+        div class="search-bar-button platforms #{'yellow' if selected_platform}"
+          .text
+            = platform_button_string
+          .dropdown
+            - if selected_platform
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Platform.all.each do |platform|
+              = link_to platform.name.titlecase,
+                        '#',
+                        class: "dropdown-item #{'yellow' if platform.name.titlecase == selected_platform}"
 
         div class="search-bar-button sort #{'yellow' if selected_sort}"
           .text

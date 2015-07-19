@@ -11,10 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717202402) do
+ActiveRecord::Schema.define(version: 20150719231258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "category_games", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "developer_games", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "developer_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "developers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -41,6 +67,14 @@ ActiveRecord::Schema.define(version: 20150717202402) do
     t.date     "release_date"
     t.integer  "cached_reviews_total"
     t.string   "cached_rank"
+    t.string   "dlc"
+    t.string   "detailed_description"
+    t.string   "platforms"
+    t.string   "developers"
+    t.string   "publishers"
+    t.string   "header_image"
+    t.string   "website"
+    t.string   "background_image"
   end
 
   add_index "games", ["slug"], name: "index_games_on_slug", unique: true, using: :btree
@@ -54,6 +88,32 @@ ActiveRecord::Schema.define(version: 20150717202402) do
   end
 
   create_table "genres", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "platform_games", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "platform_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "platforms", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "publisher_games", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "publisher_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "publishers", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,12 +163,10 @@ ActiveRecord::Schema.define(version: 20150717202402) do
     t.integer  "level_editors"
     t.integer  "server_stability"
     t.integer  "dedicated_servers"
-    t.integer  "multiplayer_servers_turned_off"
     t.integer  "lan_support"
     t.integer  "day_1_dlc"
     t.integer  "dlc_quality"
     t.integer  "video_options"
-    t.integer  "controller_support"
     t.integer  "key_remapping"
     t.integer  "mouse_sensitivity_adjustment"
     t.integer  "vr_support"
@@ -121,18 +179,18 @@ ActiveRecord::Schema.define(version: 20150717202402) do
     t.integer  "drm_servers_off"
     t.integer  "opinion"
     t.string   "review"
-    t.integer  "user_id",                                      null: false
-    t.integer  "game_id",                                      null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.integer  "user_id",                                    null: false
+    t.integer  "game_id",                                    null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.float    "reviews"
-    t.integer  "cached_votes_total",             default: 0
-    t.integer  "cached_votes_score",             default: 0
-    t.integer  "cached_votes_up",                default: 0
-    t.integer  "cached_votes_down",              default: 0
-    t.integer  "cached_weighted_score",          default: 0
-    t.integer  "cached_weighted_total",          default: 0
-    t.float    "cached_weighted_average",        default: 0.0
+    t.integer  "cached_votes_total",           default: 0
+    t.integer  "cached_votes_score",           default: 0
+    t.integer  "cached_votes_up",              default: 0
+    t.integer  "cached_votes_down",            default: 0
+    t.integer  "cached_weighted_score",        default: 0
+    t.integer  "cached_weighted_total",        default: 0
+    t.float    "cached_weighted_average",      default: 0.0
     t.float    "cached_rank"
     t.float    "cached_score"
   end

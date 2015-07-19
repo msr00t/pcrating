@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include GameHelper
+  include ReviewHelper
 
   def markdown(text)
   	renderer = Redcarpet::Render::HTML.new(filter_html: true, no_links: true, no_images: true)

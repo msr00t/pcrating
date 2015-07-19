@@ -34,6 +34,7 @@
   border-radius: 10px
   padding-bottom: 20px
 
+
 .authentication-form
 
   &.left
@@ -66,22 +67,29 @@
   .btn
     margin-bottom: 15px
 
-input[type="checkbox"]
-  display: none
-  & + label::before
-    display: inline-block
-    content: ''
-    width: 20px
-    height: 20px
-    background: white
-    border: 5px solid white
-    border-radius: 45px
-    position: relative
-    top: 5px
-    margin-right: 5px
-  &:checked
+.error
+  & + .form-control
+    border-color: red
+  & ~ label
+    color: red
+
+input
+  &[type="checkbox"], &[type="radio"]
+    display: none
     & + label::before
-      background: $primary-yellow
+      display: inline-block
+      content: ''
+      width: 20px
+      height: 20px
+      background: white
+      border: 5px solid white
+      border-radius: 45px
+      position: relative
+      top: 5px
+      margin-right: 5px
+    &:checked
+      & + label::before
+        background: $primary-yellow
 
 input + button
   margin-top: 10px

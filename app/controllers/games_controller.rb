@@ -1,5 +1,4 @@
 class GamesController < ApplicationController
-  include GameHelper
 
   before_action :user?, except: [:index, :show]
   before_action :admin?, only: [:destroy]
@@ -13,7 +12,8 @@ class GamesController < ApplicationController
 
   def show
     if @game
-      @reviews = @game.ratings.paginate(page: params[:page], per_page: 6)
+      @reviews = @game.reviews.paginate(page: params[:page], per_page: 6)
+      @stat_hash = Reviews::GameRanker.new(@game).stat_hash
     else
       @game = Game.new(steam_appid: params[:steam_appid])
       render :new

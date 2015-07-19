@@ -1,10 +1,9 @@
 class UpdateTables < ActiveRecord::Migration
   def up
     Game.all.each do |game|
-      game.force_update
       game.created_at = Time.now
       game.updated_at = Time.now
-      game.save
+      game.force_update!(hit_api: true)
     end
 
     User.find_each(&:convert_ratings_into_reviews)

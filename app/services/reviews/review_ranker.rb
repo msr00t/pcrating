@@ -20,7 +20,23 @@ module Reviews
       Reviews::Ranker.new(@score).rank
     end
 
+    def stat_hash
+      stats = {}
+      STATS.each do |key, values|
+        stat_name = Reviews::Stats.display_name(key)
+        stat_rank = stat_rank(key)
+        stat_string = Reviews::Stats.stat_string(key, stat_rank)
+        next unless stat_string
+        stats[stat_name] = stat_string
+      end
+      stats
+    end
+
     private
+
+      def stat_rank(stat)
+        @review[stat]
+      end
 
       def numerical_score
         total = 0

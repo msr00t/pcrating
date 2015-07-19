@@ -16,14 +16,12 @@ class CreateReviews < ActiveRecord::Migration
 
       t.integer :server_stability
       t.integer :dedicated_servers
-      t.integer :multiplayer_servers_turned_off
       t.integer :lan_support
 
       t.integer :day_1_dlc
       t.integer :dlc_quality
 
       t.integer :video_options
-      t.integer :controller_support
       t.integer :key_remapping
       t.integer :mouse_sensitivity_adjustment
       t.integer :vr_support

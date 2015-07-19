@@ -1,0 +1,8 @@
+.col-xs-12.stat
+  .header
+    = f.label   question[1][:display_name]
+  .options
+    - question[1][:ranks].each do |key, value|
+      span.option
+        = f.radio_button question[0], key
+        = f.label key, for: "review_#{question[0].to_s}_#{key.to_s.downcase.tr(" ", "_")}"
