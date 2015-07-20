@@ -1,17 +1,28 @@
 module GameHelper
 
   def genre_button_string
-    return selected_genre if selected_genre
-    'Genres'
+    selected_genre || 'Genres'
   end
 
   def platform_button_string
-    return selected_platform if selected_platform
-    'OS'
+    selected_platform || 'OS'
   end
 
   def sort_button_string
     return 'Sort' if selected_sort.blank?
+  end
+
+  def category_button_string
+    selected_category || 'Features'
+  end
+
+  def review_text
+    return 'Edit Review' if @game.rated_by_user? current_user
+    'Write Review'
+  end
+
+  def show_advanced?
+    selected_category || selected_sort || selected_genre || selected_platform || ranked_button
   end
 
   def sort_field_string
@@ -19,16 +30,31 @@ module GameHelper
   end
 
   def selected_genre
-    return false unless params[:q]
-    genre_string = params[:q][:genres_name_cont]
-    return genre_string.titlecase unless genre_string.blank?
-    false
+    search_field_active(:genres_name_cont)
   end
 
   def selected_platform
+    search_field_active(:platforms_name_cont)
+  end
+
+  def selected_category
+    search_field_active(:categories_name_cont)
+  end
+
+  def advanced_button_string
+    return 'Hide Advanced Options' if show_advanced?
+    'Show Advanced Options'
+  end
+
+  def ranked_button
     return false unless params[:q]
-    platform_string = params[:q][:platforms_name_cont]
-    return platform_string.titlecase unless platform_string.blank?
+    params[:q][:ranked_only] == 'true'
+  end
+
+  def search_field_active(param)
+    return false unless params[:q]
+    field_string = params[:q][param]
+    return field_string.titlecase unless field_string.blank?
     false
   end
 
@@ -46,16 +72,6 @@ module GameHelper
 
     games_path(genre: params[:genre],
                sort_by: sort)
-  end
-
-  def review_text
-    return 'Edit Review' if @game.rated_by_user? current_user
-    'Write Review'
-  end
-
-  def ranked_button
-    return false unless params[:q]
-    params[:q][:ranked_only] == 'true'
   end
 
 end

@@ -14,7 +14,7 @@
       display: flex
       flex-direction: column
       &.col-xs-6
-        width: 49.9%
+        width: 49.8%
 
 @media (min-width: 768px)
   .game-index
@@ -51,7 +51,7 @@
   font-size: 10px
 
 
-.search-bar
+.fill-page .search-bar .container
   .buttons
     flex-direction: row
     display: flex
@@ -60,14 +60,17 @@
       justify-content: center
       align-items: center
       display: flex
+  .button-row
+    &.first
+      margin-top: 10px
+      display: none
+    &.advanced-shown
+      display: block
 
 @media (max-width: 840px)
   .container
     & > .row
       flex-direction: column
-  .search-bar
-    .buttons
-      margin-top: 20px
 
 @media (min-width: 840px)
 
@@ -97,12 +100,15 @@
           display: block
       .dropdown
         position: absolute
+        max-height: 325px
+        overflow: scroll
         top: 100%
         z-index: 99
         width: 100%
         left: 0px
         display: none
         color: white
+        border: 1px solid $tertiary-grey
         .sort_link.desc, .sort_link.asc
           display: none
         *

@@ -13,6 +13,6 @@
             .game-title
               = game.title
             .developer
-              = game.developers[0]
+              = game.developers.first.name
             .link
               = link_to('View Reviews', game, class: 'btn btn-success')

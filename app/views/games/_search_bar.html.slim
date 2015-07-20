@@ -1,13 +1,17 @@
 .top-bar.search-bar
   .container
     .row
-      .col-xs-12.col-md-4.col-md-offset-0.search
+      .col-xs-12.col-md-6.col-md-offset-3.search
         = search_form_for @q, url: games_path(sort_by: params[:sort_by]) do |f|
           .row
             .col-xs-8.col-sm-9
-              = f.text_field :title_cont, placeholder: 'Search by Title', class: 'form-control search'
+              = f.text_field :"title_or_developers_name_or_publishers_name_cont",
+                              placeholder: 'Search Title/Developer/Publisher',
+                              class: 'form-control search',
+                              maxLength: 50
               = f.text_field :genres_name_cont, placeholder: 'Genre', class: 'form-control search genre hidden'
               = f.text_field :platforms_name_cont, placeholder: 'Platform', class: 'form-control search platform hidden'
+              = f.text_field :categories_name_cont, placeholder: 'Category', class: 'form-control search category hidden'
               = f.text_field  :s,
                               placeholder: 'Sort',
                               value: sort_field_string,
@@ -18,10 +22,15 @@
                               class: 'form-control search ranked_only hidden'
             .col-xs-3
               = f.button 'Search', class: 'btn btn-warning', id: 'search-button'
-      .col-xs-12.col-md-5.col-md-offset-3.buttons
+
+      div class="col-md-3 hidden-xs advanced-button"
+        = advanced_button_string
+
+    div class="row button-row first #{'advanced-shown' if show_advanced?}"
+      .col-xs-12.buttons
 
         div class="search-bar-button ranked #{'yellow' if ranked_button}"
-          .text Reviewed
+          .text Reviewed Only
 
         div class="search-bar-button genres #{'yellow' if selected_genre}"
           .text
@@ -48,6 +57,43 @@
               = link_to platform.name.titlecase,
                         '#',
                         class: "dropdown-item #{'yellow' if platform.name.titlecase == selected_platform}"
+
+        div class="search-bar-button categories hidden-xs #{'yellow' if selected_category}"
+          .text
+            = category_button_string
+          .dropdown
+            - if selected_category
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Category.all.each do |category|
+              = link_to category.name,
+                        '#',
+                        class: "dropdown-item #{'yellow' if category.name.titlecase == selected_category}"
+
+        div class="search-bar-button sort hidden-xs #{'yellow' if selected_sort}"
+          .text
+            = sort_button_string
+          .dropdown
+            = sort_link(@q, :cached_score, 'Rank')
+            = sort_link(@q, :title, 'Name')
+            = sort_link(@q, :release_date, 'Release Date')
+            = sort_link(@q, :total_ratings, 'Total Reviews')
+
+    .row.button-row.visible-xs
+      .col-xs-12.buttons
+        div class="search-bar-button categories #{'yellow' if selected_category}"
+          .text
+            = category_button_string
+          .dropdown
+            - if selected_category
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Category.all.each do |category|
+              = link_to category.name,
+                        '#',
+                        class: "dropdown-item #{'yellow' if category.name.titlecase == selected_category}"
 
         div class="search-bar-button sort #{'yellow' if selected_sort}"
           .text
