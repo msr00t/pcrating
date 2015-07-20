@@ -221,4 +221,34 @@ class Game < ActiveRecord::Base
       end
     end
 
+    def self.ransackable_attributes(auth_object = nil)
+      if auth_object == :admin
+        # whitelist all attributes for admin
+        super
+      else
+        # whitelist only the title and body attributes for other users
+        super & %w(title)
+      end
+    end
+
+    def self.ransackable_associations(auth_object = nil)
+      if auth_object == :admin
+        # whitelist all attributes for admin
+        super
+      else
+        # whitelist only the title and body attributes for other users
+        super & %w(developers publishers genres platforms categories)
+      end
+    end
+
+    def self.ransortable_attributes(auth_object = nil)
+      if auth_object == :admin
+        # whitelist all attributes for admin
+        super
+      else
+        # whitelist only the title and body attributes for other users
+        super & %w(cached_score title release_date total_ratings)
+      end
+    end
+
 end
