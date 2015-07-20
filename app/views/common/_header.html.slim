@@ -19,7 +19,9 @@ nav.navbar.navbar-default.navbar-fixed-top
           - unless(current_page?(games_path))
             li.hidden-sm.hidden-xs
               = search_form_for @q, url: games_path do |f|
-                = f.search_field :title_cont, placeholder: 'Search', class: 'form-control search'
+                = f.search_field :title_or_developers_name_or_publishers_name_cont,
+                                  placeholder: 'Search',
+                                  class: 'form-control search'
           li
             = link_to "View Games",
                       games_path,
