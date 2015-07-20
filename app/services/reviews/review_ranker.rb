@@ -23,7 +23,7 @@ module Reviews
     def stat_hash
       stats = {}
       STATS.each do |key, values|
-        stat_name = Reviews::Stats.display_name(key)
+        stat_name = key
         stat_rank = stat_rank(key)
         stat_string = Reviews::Stats.stat_string(key, stat_rank)
         next unless stat_string

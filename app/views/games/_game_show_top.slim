@@ -23,11 +23,6 @@
                   .dlc
                     span.name DLC:
                     = " #{@game.dlc.size}"
-                .categories
-                  .name Categories:
-                  - @game.categories.each do |category|
-                    .category
-                      = category.name
                 .developers
                   .name Developers:
                   - @game.developers.each do |developer|
