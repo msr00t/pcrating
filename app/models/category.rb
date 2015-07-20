@@ -1,18 +1,15 @@
 class Category < ActiveRecord::Base
 
+  RANSACKABLE_ATTRIBUTES = %w(name)
+
   has_many :category_games, dependent: :destroy
   has_many :games, through: :category_games
 
   private
 
     def self.ransackable_attributes(auth_object = nil)
-      if auth_object == :admin
-        # whitelist all attributes for admin
-        super
-      else
-        # whitelist only the title and body attributes for other users
-        super & %w(name)
-      end
+      return super if auth_object == :admin
+      super & RANSACKABLE_ATTRIBUTES
     end
 
 end

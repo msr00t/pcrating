@@ -3,6 +3,10 @@ class Game < ActiveRecord::Base
 
   require 'net/http'
 
+  RANSACKABLE_ATTRIBUTES = %w(title)
+  RANSACKABLE_ASSOCIATIONS = %w(developers publishers genres platforms categories)
+  RANSORTABLE_ATTRIBUTES = %w(cached_score title release_date total_ratings)
+
   serialize :data
   serialize :dlc
 
@@ -222,33 +226,18 @@ class Game < ActiveRecord::Base
     end
 
     def self.ransackable_attributes(auth_object = nil)
-      if auth_object == :admin
-        # whitelist all attributes for admin
-        super
-      else
-        # whitelist only the title and body attributes for other users
-        super & %w(title)
-      end
+      return super if auth_object == :admin
+      super & RANSACKABLE_ATTRIBUTES
     end
 
     def self.ransackable_associations(auth_object = nil)
-      if auth_object == :admin
-        # whitelist all attributes for admin
-        super
-      else
-        # whitelist only the title and body attributes for other users
-        super & %w(developers publishers genres platforms categories)
-      end
+      return super if auth_object == :admin
+      super & RANSACKABLE_ASSOCIATIONS
     end
 
     def self.ransortable_attributes(auth_object = nil)
-      if auth_object == :admin
-        # whitelist all attributes for admin
-        super
-      else
-        # whitelist only the title and body attributes for other users
-        super & %w(cached_score title release_date total_ratings)
-      end
+      return super if auth_object == :admin
+      super & RANSORTABLE_ATTRIBUTES
     end
 
 end
