@@ -67,7 +67,7 @@ class ReviewsController < ApplicationController
   end
 
   def permitted_params
-    params.require(:review).permit(STATS.keys)
+    params.require(:review).permit(STATS.keys + [:review])
   end
 
 end
