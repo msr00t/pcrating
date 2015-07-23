@@ -258,7 +258,7 @@ STATS = {
     section: :Opinion,
     type: :radio,
     ranks: {
-      :"Wouldn't recommend to anyone" => -5,
+      :"Would not recommend to anyone" => -5,
       :"Would recommend to fans of the genre" => -3,
       :"Would recommend to everyone" => 0
     }

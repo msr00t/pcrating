@@ -6,9 +6,10 @@
           .col-xs-6.col-sm-10
             h3
               - if editing
-                = "Editing your review for #{game.title}"
+                = game.title
               - else
-                = "Writing review for #{game.title}"
+                = game.title
+
           .col-xs-6.col-sm-2
             = image_tag(game.header_image)
 
@@ -17,16 +18,22 @@
 
         = form_for review, url: path do |f|
           - Reviews::Stats.by_group.each do |name, questions|
-            .section.row
+
+            div class="row section #{name}"
               .col-xs-12.name
                 = name
-              = render  partial: 'question',
-                        collection: questions,
-                        locals: { f: f, review: review }
+                .toggle-button Hide
+              .col-xs-12
+                .questions
+                  = render  partial: 'question',
+                            collection: questions,
+                            locals: { f: f, review: review }
+            hr
 
-          .row
+          .row.section
+            .col-xs-12.name
+              = f.label       "Review"
             .col-xs-12
-              = f.label       "Review:"
               = f.text_area   :review,
                               placeholder: :Review,
                               value: @review.review,
@@ -35,5 +42,9 @@
                                 "hidden-buttons": ['cmdUrl', 'cmdImage'] }
 
           .row
+            .col-xs-12
+              = link_to('You can use markdown. Click here for instructions.', '#')
+
+          .row.submit-button
             .col-xs-6.col-xs-offset-3
               = f.button "Save", class: "btn btn-success full-width"

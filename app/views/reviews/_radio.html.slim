@@ -1,7 +1,7 @@
-.col-xs-12.stat
-  .header
+.stat.row
+  .col-xs-3.header
     = f.label   question[1][:display_name]
-  .options
+  .col-xs-9.options
     - question[1][:ranks].each do |key, value|
       span.option
         = f.radio_button question[0], key

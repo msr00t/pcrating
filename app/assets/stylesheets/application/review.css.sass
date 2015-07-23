@@ -17,6 +17,7 @@
     display: -webkit-flex
     display: -ms-flexbox
     display: flex
+    flex-direction: column
     margin-bottom: 25px
 
 
@@ -73,12 +74,26 @@
     .name
       font-size: 20px
       text-transform: capitalize
+      margin-bottom: 5px
+      .toggle-button
+        font-size: 11px
+        display: inline-block
+        cursor: pointer
+        &:focus, &:active, &:hover
+          color: $primary-yellow
+    .questions
+      .stat
+        margin-bottom: 10px
+        .header
+          font-size: 16px
     label
       font-weight: normal
     .options
       display: flex
       .option
         flex: 1
+  .submit-button
+    margin-top: 15px
 
 @media (max-width: 830px)
   .review
