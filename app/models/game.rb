@@ -77,8 +77,8 @@ class Game < ActiveRecord::Base
     return req.html_safe if req
   end
 
-  def multiplayer?
-    categories.map { |category| category.name.downcase }.includes? 'multiplayer'
+  def has_category?(category)
+    categories.map { |category| category.name }.include? category
   end
 
   def launch_game_link

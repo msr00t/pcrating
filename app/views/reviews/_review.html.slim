@@ -39,6 +39,7 @@ div class="col-xs-12 col-md-6 review #{'col-xs-offset-3' if centered}"
           - stat_hash = review.stats
           .col-xs-12
             - Reviews::Stats.by_group.each do |name, questions|
+              - next if name == :'Multiplayer' && !@game.has_category?('Multi-player')
               .stat-section.row
                 .col-xs-12
                   .name

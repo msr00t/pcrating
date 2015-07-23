@@ -18,6 +18,7 @@
 
         = form_for review, url: path do |f|
           - Reviews::Stats.by_group.each do |name, questions|
+            - next if name == :'Multiplayer' && !game.has_category?('Multi-player')
 
             div class="row section #{name}"
               .col-xs-12.name

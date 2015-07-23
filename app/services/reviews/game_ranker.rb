@@ -22,6 +22,7 @@ module Reviews
     def stat_hash
       stats = {}
       STATS.each do |key, values|
+        next if values[:section] == :'Multiplayer' && !@game.has_category?('Multi-player')
         stat_string = Reviews::Stats.stat_string(key, stat_rank(key))
         next unless stat_string
         stats[key] = stat_string

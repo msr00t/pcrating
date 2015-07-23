@@ -3,6 +3,7 @@ module Reviews
 
     def initialize(review)
       @review = review
+      @game = @review.game
       @score = numerical_score
     end
 
@@ -23,11 +24,11 @@ module Reviews
     def stat_hash
       stats = {}
       STATS.each do |key, values|
-        stat_name = key
+        next if values[:section] == :'Multiplayer' && !@game.has_category?('Multi-player')
         stat_rank = stat_rank(key)
         stat_string = Reviews::Stats.stat_string(key, stat_rank)
         next unless stat_string
-        stats[stat_name] = stat_string
+        stats[key] = stat_string
       end
       stats
     end
@@ -42,6 +43,7 @@ module Reviews
         total = 0
 
         STATS.each do |key, values|
+          next if values[:section] == :'Multiplayer' && !@game.has_category?('Multi-player')
           score_key = @review.send(key)
           total += STATS[key][:ranks][score_key.to_sym] if score_key
         end
