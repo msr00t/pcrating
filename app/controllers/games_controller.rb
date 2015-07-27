@@ -28,7 +28,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.find_by(steam_appid: params[:steam_appid])
+    @game = Game.find_by(steam_appid: params[:game][:steam_appid])
 
     unless @game
       @game = Game.new(permitted_params.merge(user: current_user))
