@@ -7,16 +7,6 @@
           url: "http://pcmrating.com/games",
           image: "http://b.thumbs.redditmedia.com/WrXiojYMaBSCa2sTyJyZclFvQMo5ry9f6qOfrKo-2gc.png" }
 
-= render 'search_bar'
+= render partial: 'games/search_bar', locals: { path: games_path(sort_by: params[:sort_by]) }
 
-.container
-  .game-index
-    .row.games
-      = render partial: 'game', collection: @games, as: :game
-
-    = will_paginate @games, :previous_label => '<', :next_label => '>'
-
-    .row
-      .col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-4.add-game-message
-        | Don't see the game you're looking for?
-        = link_to 'Add it now', new_game_path, class: 'btn btn-warning'
+= render 'games/games_list'

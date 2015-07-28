@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719231258) do
+ActiveRecord::Schema.define(version: 20150727222026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,10 @@ ActiveRecord::Schema.define(version: 20150719231258) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
   end
+
+  add_index "developers", ["slug"], name: "index_developers_on_slug", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -117,7 +120,10 @@ ActiveRecord::Schema.define(version: 20150719231258) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
   end
+
+  add_index "publishers", ["slug"], name: "index_publishers_on_slug", unique: true, using: :btree
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "framerate"

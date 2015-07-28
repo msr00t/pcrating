@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   extend FriendlyId
+  friendly_id :title, use: :slugged
 
   require 'net/http'
 
@@ -36,7 +37,6 @@ class Game < ActiveRecord::Base
   after_create :copy_publishers
   after_create :copy_developers
   after_create :copy_platforms
-  friendly_id :title, use: :slugged
 
   scope :top, -> { order(cached_score: :desc) }
   scope :bottom, -> { rated.order(cached_score: :asc) }

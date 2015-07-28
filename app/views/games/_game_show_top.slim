@@ -27,12 +27,12 @@
                   .name Developers:
                   - @game.developers.each do |developer|
                     .developer
-                      = developer.name
+                      = link_to developer.name, developer_path(id: developer.slug)
                 .publishers
                   .name Publishers:
                   - @game.publishers.each do |publisher|
                     .publisher
-                      = publisher.name
+                      = link_to publisher.name, publisher_path(id: publisher.slug)
                 - if @game.release_date
                   .release-date
                     .name Release Date (on steam):

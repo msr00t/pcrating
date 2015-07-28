@@ -1,21 +1,12 @@
-.top-bar
-  .container
-    .row
-      .col-xs-6
-        h3
-          = "#{@user.username}'s profile"
-          - if @user.banned?
-            BANNED
-      .col-xs-2
-        - if current_user && current_user.admin?
-          = link_to 'Ban user', user_ban_path(@user), method: :post, class: 'btn btn-warning'
-      .col-xs-2
-        - if current_user && current_user == @user
-          = link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-info'
-      .col-xs-2
-        = "Score: #{@user.score}"
+- meta  title: "Games List",
+        description: "List of game reviews in PCMRating.",
+        keywords: %w(game list pcmr pcmasterrace pcrating pcglorious),
+        og: { title: "Games List",
+          description: "List of game reviews in PCMRating.",
+          site_name: "PCMRating",
+          url: "http://pcmrating.com/games",
+          image: "http://b.thumbs.redditmedia.com/WrXiojYMaBSCa2sTyJyZclFvQMo5ry9f6qOfrKo-2gc.png" }
 
-.container.user-ratings
-  .row.games
-    = render  partial: 'rating',
-              collection: @user.ratings
+= render partial: 'search_bar', locals: { path: games_path(sort_by: params[:sort_by]) }
+
+= render 'common/games_index'

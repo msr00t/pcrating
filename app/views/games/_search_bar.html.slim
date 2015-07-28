@@ -2,7 +2,7 @@
   .container
     .row
       .col-xs-12.col-md-6.col-md-offset-3.search
-        = search_form_for @q, url: games_path(sort_by: params[:sort_by]) do |f|
+        = search_form_for @q, url: path do |f|
           .row
             .col-xs-8.col-sm-9
               = f.text_field :"title_or_developers_name_or_publishers_name_cont",
