@@ -1,0 +1,23 @@
+div class="col-xs-3 game"
+  .image
+    = link_to image_tag(review.game.header_image, class: 'game-image'), game_path(id: review.game.slug)
+    = image_tag(review.rank.to_s + '.jpg', class: 'rating')
+  .name
+    = link_to review.game.title, game_path(id: review.game.slug), class: 'grey'
+  .score
+    = "Score: #{review.score}"
+
+  = link_to 'View Review',
+            game_rating_path(game_id: review.game.slug, id: review.id),
+            class: 'btn btn-success'
+
+  - if current_user && review.user == current_user
+    = link_to 'Edit',
+              edit_game_rating_path(game_id: review.game.slug, id: review.id),
+              class: 'btn btn-info'
+
+  - if current_user && (current_user.admin? || review.user == current_user)
+    = link_to 'Delete',
+              game_rating_path(game_id: review.game.slug, id: review.id),
+              method: :delete,
+              class: 'btn btn-warning'
