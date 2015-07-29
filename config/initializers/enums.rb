@@ -4,9 +4,9 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"30 FPS Max" => -10,
-      :"60 FPS Max" => 0,
-      Limitless: 5
+      :"30 FPS Max" => -7,
+      :"60 FPS Max" => -2,
+      Limitless: 0
     }
   },
   resolution: {
@@ -14,9 +14,9 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"Does not support 1080p" => -10,
-      :"Supports up to 1080p" => 0,
-      :"4k support" => 5
+      :"Does not support 1080p" => -7,
+      :"Supports up to 1080p" => -2,
+      :"4k support" => 0
     }
   },
   multi_monitor: {
@@ -24,8 +24,8 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"Multi-monitor support" => 2,
-      :"No Multi-monitor support" => 0
+      :"Multi-monitor support" => 0,
+      :"No Multi-monitor support" => -1
     }
   },
   optimization: {
@@ -34,10 +34,10 @@ STATS = {
     type: :select,
     ranks: {
       :"Poor Optimization" => -4,
-      :"Passable Optimization" => -2,
-      :"Good Optimization" => 0,
-      :"Great Optimization" => 2,
-      :"Glorious Optimization" => 4
+      :"Passable Optimization" => -3,
+      :"Good Optimization" => -2,
+      :"Great Optimization" => -1,
+      :"Glorious Optimization" => 0
     }
   },
   bugs: {
@@ -45,11 +45,11 @@ STATS = {
     section: :Technical,
     type: :select,
     ranks: {
-      :"Constant game breaking bugs" => -15,
-      :"Excessively buggy, mostly playable" => -7,
+      :"Constant game breaking bugs" => -10,
+      :"Excessively buggy, mostly playable" => -4,
       :"Playable but often encounter bugs" => -3,
-      :"A few bugs here and there, but rarely do they affect enjoyment" => 0,
-      :"Rare bugs. Possible to go entire game without encountering" => 2
+      :"A few bugs here and there, but rarely do they affect enjoyment" => -2,
+      :"Rare bugs. Possible to go entire game without encountering" => 0
     }
   },
   vr_support: {
@@ -57,9 +57,9 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"Official VR support" => 4,
-      :"VR supported with mods" => 2,
-      :"No VR support" => 0
+      :"Official VR support" => 0,
+      :"VR supported with mods" => -1,
+      :"No VR support" => -2
     }
   },
 
@@ -68,8 +68,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Cosmetic mods supported" => 3,
-      :"Cosmetic mods not supported" => 0
+      :"Cosmetic mods supported" => 0,
+      :"Cosmetic mods not supported" => -2
     }
   },
   functionality_modding: {
@@ -77,8 +77,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Gameplay mods supported" => 5,
-      :"Gameplay mods not supported" => 0
+      :"Gameplay mods supported" => 0,
+      :"Gameplay mods not supported" => -5
     }
   },
   modding_tools: {
@@ -86,8 +86,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Modding tools available" => 3,
-      :"No modding tools provided" => 0
+      :"Modding tools available" => 0,
+      :"No modding tools provided" => -2
     }
   },
   level_editors: {
@@ -95,8 +95,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Level editor available" => 2,
-      :"No level editor" => 0
+      :"Level editor available" => 0,
+      :"No level editor" => -2
     }
   },
 
@@ -105,10 +105,10 @@ STATS = {
     section: :"DRM",
     type: :select,
     ranks: {
-      :"Multiple mandatory launchers" => -15,
-      :"Requires Steam" => -5,
-      :"No launchers required" => 0,
-      :"Optional launchers for updating and downloads" => 3
+      :"Multiple mandatory launchers" => -5,
+      :"Requires Steam" => -2,
+      :"No launchers required" => -1,
+      :"Optional launchers for updating and downloads" => 0
     }
   },
   limited_activations: {
@@ -116,7 +116,7 @@ STATS = {
     section: :"DRM",
     type: :radio,
     ranks: {
-      :"Limited activations allowed" => -10,
+      :"Limited activations allowed" => -7,
       :"Unlimited installs" => 0
     }
   },
@@ -126,7 +126,7 @@ STATS = {
     type: :radio,
     ranks: {
       :"Game available DRM free" => 0,
-      :"Game only available with DRM" => -5
+      :"Game only available with DRM" => -2
     }
   },
   disc_check: {
@@ -154,8 +154,8 @@ STATS = {
     type: :select,
     ranks: {
       :"DRM servers are off, must crack to play" => -50,
-      :"DRM servers still up" => 0,
-      :"No DRM servers required" => 2
+      :"DRM servers still up" => -2,
+      :"No DRM servers required" => 0
     }
   },
 
@@ -164,12 +164,12 @@ STATS = {
     section: :Multiplayer,
     type: :select,
     ranks: {
-      :"Servers have been turned off" => -15,
-      :"Servers down most of the time" => -8,
-      :"Servers unreliable" => -6,
-      :"Servers unstable at high volume" => -4,
-      :"Servers occasionally down" => -2,
-      :"Servers reliable" => 0,
+      :"Servers have been turned off" => -25,
+      :"Servers down most of the time" => -7,
+      :"Servers unreliable" => -4,
+      :"Servers unstable at high volume" => -2,
+      :"Servers occasionally down" => -1,
+      :"Servers never down" => 0,
     }
   },
   dedicated_servers: {
@@ -186,7 +186,7 @@ STATS = {
     section: :Multiplayer,
     type: :radio,
     ranks: {
-      :"No lan support" => -3,
+      :"No lan support" => -2,
       :"Lan support" => 0
     }
   },
@@ -196,9 +196,9 @@ STATS = {
     section: :"DLC",
     type: :radio,
     ranks: {
-      :"Day one DLC" => -5,
-      :"No Day one DLC" => 0,
-      :"Day one DLC is free" => 1
+      :"Day one DLC" => -3,
+      :"No Day one DLC" => -1,
+      :"Day one DLC is free" => 0
     }
   },
   dlc_quality: {
@@ -206,11 +206,11 @@ STATS = {
     section: :"DLC",
     type: :select,
     ranks: {
-      :"Preorder exclusives" => -16,
-      :"Game breaking" => -15,
-      :"Cosmetic only" => -5,
-      :"Small content packs" => 5,
-      :"Old style expansions" => 10
+      :"Preorder exclusives" => -5,
+      :"Effects game balance" => -5,
+      :"Cosmetic only" => -3,
+      :"Small content packs" => -2,
+      :"Old style expansions" => 0
     }
   },
 
@@ -219,10 +219,10 @@ STATS = {
     section: :"Settings",
     type: :select,
     ranks: {
-      :"Cannot change video settings" => -15,
-      :"Preset video settings only" => -10,
-      :"Can change most video settings" => 2,
-      :"Can change all video settings" => 5
+      :"Cannot change video settings" => -7,
+      :"Preset video settings only" => -4,
+      :"Can change most video settings" => -2,
+      :"Can change all video settings" => 0
     }
   },
   key_remapping: {
@@ -230,7 +230,7 @@ STATS = {
     section: :"Settings",
     type: :radio,
     ranks: {
-      :"Cannot remap keys" => -5,
+      :"Cannot remap keys" => -3,
       :"Can remap keys" => 0
     }
   },
@@ -240,7 +240,7 @@ STATS = {
     type: :radio,
     ranks: {
       :"Can adjust mouse sensitivity" => 0,
-      :"Cannot adjust mouse sensitivity" => -3
+      :"Cannot adjust mouse sensitivity" => -2
     }
   },
   subtitle_support: {
