@@ -105,7 +105,19 @@ module Reviews
       end
 
       def convert_servers(new_review, old_rating)
-        new_review.server_stability = old_rating.servers
+        case old_rating[:servers]
+        when 0
+          new_review.server_stability = "Servers down most of the time"
+        when 1
+          new_review.server_stability = "Servers unreliable"
+        when 2
+          new_review.server_stability = "Servers unstable at high volume"
+        when 3
+          new_review.server_stability = "Servers occasionally down"
+        when 4
+          new_review.server_stability = "Servers occasionally down"
+        end
+
         new_review
       end
 
