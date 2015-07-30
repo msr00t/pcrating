@@ -8,7 +8,7 @@ class Review < ActiveRecord::Base
 
   STATS.each do |stat, values|
     enum stat => Reviews::Stats.enum(stat)
-    validates stat, presence: true
+    #validates stat, presence: true
   end
 
   def self.visible

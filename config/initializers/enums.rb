@@ -4,9 +4,9 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"30 FPS Max" => -7,
-      :"60 FPS Max" => -2,
-      Limitless: 0
+      :"30 FPS Max" => -5,
+      :"60 FPS Max" => 0,
+      Limitless: 5
     }
   },
   resolution: {
@@ -14,9 +14,9 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"Does not support 1080p" => -7,
-      :"Supports up to 1080p" => -2,
-      :"4k support" => 0
+      :"Does not support 1080p" => -5,
+      :"Supports up to 1080p" => 0,
+      :"4k support" => 5
     }
   },
   multi_monitor: {
@@ -24,8 +24,8 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"Multi-monitor support" => 0,
-      :"No Multi-monitor support" => -1
+      :"Multi-monitor support" => 2,
+      :"No Multi-monitor support" => 0
     }
   },
   optimization: {
@@ -33,11 +33,11 @@ STATS = {
     section: :Technical,
     type: :select,
     ranks: {
-      :"Poor Optimization" => -4,
-      :"Passable Optimization" => -3,
-      :"Good Optimization" => -2,
-      :"Great Optimization" => -1,
-      :"Glorious Optimization" => 0
+      :"Poor Optimization" => -2,
+      :"Passable Optimization" => -2,
+      :"Good Optimization" => 0,
+      :"Great Optimization" => 2,
+      :"Glorious Optimization" => 4
     }
   },
   bugs: {
@@ -47,9 +47,9 @@ STATS = {
     ranks: {
       :"Constant game breaking bugs" => -10,
       :"Excessively buggy, mostly playable" => -4,
-      :"Playable but often encounter bugs" => -3,
-      :"A few bugs here and there, but rarely do they affect enjoyment" => -2,
-      :"Rare bugs. Possible to go entire game without encountering" => 0
+      :"Playable but often encounter bugs" => -2,
+      :"A few bugs here and there, but rarely do they affect enjoyment" => 0,
+      :"Rare bugs. Possible to go entire game without encountering" => 2
     }
   },
   vr_support: {
@@ -57,9 +57,9 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"Official VR support" => 0,
-      :"VR supported with mods" => -1,
-      :"No VR support" => -2
+      :"Official VR support" => 4,
+      :"VR supported with mods" => 2,
+      :"No VR support" => 0
     }
   },
 
@@ -68,8 +68,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Cosmetic mods supported" => 0,
-      :"Cosmetic mods not supported" => -2
+      :"Cosmetic mods supported" => 1,
+      :"Cosmetic mods not supported" => 0
     }
   },
   functionality_modding: {
@@ -77,8 +77,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Gameplay mods supported" => 0,
-      :"Gameplay mods not supported" => -5
+      :"Gameplay mods supported" => 1,
+      :"Gameplay mods not supported" => 0
     }
   },
   modding_tools: {
@@ -86,8 +86,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Modding tools available" => 0,
-      :"No modding tools provided" => -2
+      :"Modding tools available" => 1,
+      :"No modding tools provided" => 0
     }
   },
   level_editors: {
@@ -95,8 +95,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Level editor available" => 0,
-      :"No level editor" => -2
+      :"Level editor available" => 1,
+      :"No level editor" => 0
     }
   },
 
@@ -105,10 +105,10 @@ STATS = {
     section: :"DRM",
     type: :select,
     ranks: {
-      :"Multiple mandatory launchers" => -5,
+      :"Multiple mandatory launchers" => -4,
       :"Requires Steam" => -2,
-      :"No launchers required" => -1,
-      :"Optional launchers for updating and downloads" => 0
+      :"No launchers required" => 0,
+      :"Optional launchers for updating and downloads" => 2
     }
   },
   limited_activations: {
@@ -116,7 +116,7 @@ STATS = {
     section: :"DRM",
     type: :radio,
     ranks: {
-      :"Limited activations allowed" => -7,
+      :"Limited activations allowed" => -3,
       :"Unlimited installs" => 0
     }
   },
@@ -165,11 +165,11 @@ STATS = {
     type: :select,
     ranks: {
       :"Servers have been turned off" => -25,
-      :"Servers down most of the time" => -7,
+      :"Servers down most of the time" => -6,
       :"Servers unreliable" => -4,
       :"Servers unstable at high volume" => -2,
-      :"Servers occasionally down" => -1,
-      :"Servers never down" => 0,
+      :"Servers occasionally down" => 0,
+      :"Servers never down" => 2,
     }
   },
   dedicated_servers: {
@@ -177,8 +177,8 @@ STATS = {
     section: :Multiplayer,
     type: :radio,
     ranks: {
-      :"No server software available" => -3,
-      :"Server software available" => 0
+      :"No server software available" => 0,
+      :"Server software available" => 2
     }
   },
   lan_support: {
@@ -186,8 +186,8 @@ STATS = {
     section: :Multiplayer,
     type: :radio,
     ranks: {
-      :"No lan support" => -2,
-      :"Lan support" => 0
+      :"No lan support" => 0,
+      :"Lan support" => 2
     }
   },
 
@@ -196,9 +196,9 @@ STATS = {
     section: :"DLC",
     type: :radio,
     ranks: {
-      :"Day one DLC" => -3,
-      :"No Day one DLC" => -1,
-      :"Day one DLC is free" => 0
+      :"Day one DLC" => -2,
+      :"No Day one DLC" => 0,
+      :"Day one DLC is free" => 2
     }
   },
   dlc_quality: {
@@ -219,10 +219,10 @@ STATS = {
     section: :"Settings",
     type: :select,
     ranks: {
-      :"Cannot change video settings" => -7,
+      :"Cannot change video settings" => -6,
       :"Preset video settings only" => -4,
-      :"Can change most video settings" => -2,
-      :"Can change all video settings" => 0
+      :"Can change most video settings" => 0,
+      :"Can change all video settings" => 2
     }
   },
   key_remapping: {
@@ -230,7 +230,7 @@ STATS = {
     section: :"Settings",
     type: :radio,
     ranks: {
-      :"Cannot remap keys" => -3,
+      :"Cannot remap keys" => -2,
       :"Can remap keys" => 0
     }
   },
@@ -239,8 +239,8 @@ STATS = {
     section: :"Settings",
     type: :radio,
     ranks: {
-      :"Can adjust mouse sensitivity" => 0,
-      :"Cannot adjust mouse sensitivity" => -2
+      :"Can adjust mouse sensitivity" => 2,
+      :"Cannot adjust mouse sensitivity" => 0
     }
   },
   subtitle_support: {
@@ -258,9 +258,9 @@ STATS = {
     section: :Opinion,
     type: :radio,
     ranks: {
-      :"Would not recommend to anyone" => -5,
-      :"Would recommend to fans of the genre" => -3,
-      :"Would recommend to everyone" => 0
+      :"Would not recommend to anyone" => -3,
+      :"Would recommend to fans of the genre" => 0,
+      :"Would recommend to everyone" => 3
     }
   }
 }
