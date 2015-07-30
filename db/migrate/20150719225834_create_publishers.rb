@@ -7,6 +7,6 @@ class CreatePublishers < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :developers, :slug, unique: true
+    add_index :publishers, :slug, unique: true
   end
 end
