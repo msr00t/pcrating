@@ -78,7 +78,7 @@ module Reviews
       end
 
       def convert_optimization(new_review, old_rating)
-        new_review.optimization = old_rating.optimization
+        new_review.optimization = old_rating.optimization + " Optimization"
         new_review
       end
 
