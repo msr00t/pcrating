@@ -51,9 +51,9 @@ module Reviews
       def convert_framerate(new_review, old_rating)
         case old_rating[:framerate]
         when 0
-          new_review.fps = '30 Max'
+          new_review.fps = '30 FPS Max'
         when 1, 2, 3
-          new_review.fps = '60 Max'
+          new_review.fps = '60 FPS Max'
         when 4
           new_review.fps = 'Limitless'
         end
@@ -66,9 +66,9 @@ module Reviews
         when 0
           new_review.resolution = 'Does not support 1080p'
         when 1, 2
-          new_review.resolution = 'Up to 1080p'
+          new_review.resolution = 'Supports up to 1080p'
         when 3
-          new_review.resolution = 'Up to 1080p'
+          new_review.resolution = 'Supports up to 1080p'
           new_review.multi_monitor = 'Multi-monitor support'
         when 4
           new_review.resolution = '4k support'
@@ -113,14 +113,14 @@ module Reviews
         case old_rating[:dlc]
         when 0
           new_review.day_1_dlc = 'Day one DLC'
-          new_review.dlc_quality = 'Effect game balance'
+          new_review.dlc_quality = 'Affects game balance'
         when 1
           new_review.day_1_dlc = 'Day one DLC'
           new_review.dlc_quality = 'Cosmetic only'
         when 2
           new_review.day_1_dlc = 'No Day one DLC'
         when 3
-          new_review.day_1_dlc = 'Free'
+          new_review.day_1_dlc = 'Day one DLC is free'
         when 4
           new_review.day_1_dlc = 'No Day one DLC'
           new_review.dlc_quality = 'Old style expansions'
@@ -137,15 +137,15 @@ module Reviews
       def convert_settings(new_review, old_rating)
         case old_rating[:settings]
         when 0
-          new_review.video_options = 'Cannot Change'
+          new_review.video_options = 'Cannot change video settings'
         when 1
-          new_review.video_options = 'Cannot Change'
+          new_review.video_options = 'Cannot change video settings'
         when 2
-          new_review.video_options = 'Presets only'
+          new_review.video_options = 'Preset video settings only'
         when 3
-          new_review.video_options = 'Can change most things'
+          new_review.video_options = 'Can change most video settings'
         when 4
-          new_review.video_options = 'Can change all settings'
+          new_review.video_options = 'Can change all video settings'
         end
 
         new_review
