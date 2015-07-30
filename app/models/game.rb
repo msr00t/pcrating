@@ -101,6 +101,9 @@ class Game < ActiveRecord::Base
     if opts[:hit_api]
       request_game_data
     else
+      # We changed how we stored the data hash, we need to make sure that
+      # the row has properly been converted
+      ensure_correct_data_hash
       copy_data
     end
     copy_genres
@@ -112,6 +115,12 @@ class Game < ActiveRecord::Base
   end
 
   private
+
+    def ensure_correct_data_hash
+      if self.data.keys[0] == self.steam_appid.to_s
+        self.data = self.data[steam_appid.to_s]['data']
+      end
+    end
 
     def request_game_data
       url = "http://store.steampowered.com/api/appdetails/?appids=#{steam_appid}"
