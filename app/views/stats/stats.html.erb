@@ -1,0 +1,29 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<div id="chart_div"></div>
+
+<script>
+  google.load('visualization', '1', {packages: ['corechart', 'line']});
+  google.setOnLoadCallback(drawBasic);
+
+  function drawBasic() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('number', 'X');
+    data.addColumn('number', 'Dogs');
+
+    data.addRows(<%= @game_scores.to_s %>);
+
+    var options = {
+      hAxis: {
+        title: 'Game Score'
+      },
+      vAxis: {
+        title: 'Total Games'
+      }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+    chart.draw(data, options);
+  }
+</script
