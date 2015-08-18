@@ -251,7 +251,7 @@ class Game < ActiveRecord::Base
 
     def self.ransortable_attributes(auth_object = nil)
       return super if auth_object == :admin
-      super & RANSORTABLE_ATTRIBUTES
+      RANSORTABLE_ATTRIBUTES
     end
 
 end
