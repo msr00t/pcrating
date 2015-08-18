@@ -6,10 +6,10 @@
   google.load('visualization', '1', {packages: ['corechart', 'line']});
   google.setOnLoadCallback(function() {
     drawChart('Game Score', 'number',
-              <%= @game_scores.to_s %>,
+              <%= raw Reviews::Graphing.scores.to_s %>,
               new google.visualization.ColumnChart(document.getElementById('score_div')))
     drawChart('Game Ranking', 'string',
-              <%= raw @game_ranks.to_json %>,
+              <%= raw Reviews::Graphing.ranks.to_s %>,
               new google.visualization.ColumnChart(document.getElementById('rank_div')))
   } );
 
