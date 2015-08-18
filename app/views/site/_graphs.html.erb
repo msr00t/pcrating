@@ -8,7 +8,7 @@
   google.setOnLoadCallback(function() {
     drawChart('Game Score', 'number',
               <%= raw Reviews::Graphing.scores.to_s %>,
-              new google.visualization.ColumnChart(document.getElementById('score_div')))
+              new google.visualization.LineChart(document.getElementById('score_div')))
     drawChart('Game Ranking', 'string',
               <%= raw Reviews::Graphing.ranks.to_s %>,
               new google.visualization.ColumnChart(document.getElementById('rank_div')))
@@ -29,6 +29,7 @@
       width: 555,
       legend: {position: 'none'},
       backgroundColor: 'transparent'
+      curveType: 'function',
     };
 
     chartObject.draw(data, options);
