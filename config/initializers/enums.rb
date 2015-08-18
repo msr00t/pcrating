@@ -4,7 +4,7 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"30 FPS Max" => -5,
+      :"30 FPS Max" => -7,
       :"60 FPS Max" => 0,
       Limitless: 5
     }
@@ -14,7 +14,7 @@ STATS = {
     section: :Technical,
     type: :radio,
     ranks: {
-      :"Does not support 1080p" => -5,
+      :"Does not support 1080p" => -7,
       :"Supports up to 1080p" => 0,
       :"4k support" => 5
     }
@@ -33,8 +33,8 @@ STATS = {
     section: :Technical,
     type: :select,
     ranks: {
-      :"Poor Optimization" => -2,
-      :"Passable Optimization" => -2,
+      :"Poor Optimization" => -6,
+      :"Passable Optimization" => -4,
       :"Good Optimization" => 0,
       :"Great Optimization" => 2,
       :"Glorious Optimization" => 4
@@ -46,8 +46,8 @@ STATS = {
     type: :select,
     ranks: {
       :"Constant game breaking bugs" => -10,
-      :"Excessively buggy, mostly playable" => -4,
-      :"Playable but often encounter bugs" => -2,
+      :"Excessively buggy, mostly playable" => -6,
+      :"Playable but often encounter bugs" => -4,
       :"A few bugs here and there, but rarely do they affect enjoyment" => 0,
       :"Rare bugs. Possible to go entire game without encountering" => 2
     }
@@ -68,8 +68,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Cosmetic mods supported" => 1,
-      :"Cosmetic mods not supported" => 0
+      :"Cosmetic mods supported" => 0,
+      :"Cosmetic mods not supported" => -4
     }
   },
   functionality_modding: {
@@ -77,8 +77,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Gameplay mods supported" => 1,
-      :"Gameplay mods not supported" => 0
+      :"Gameplay mods supported" => 0,
+      :"Gameplay mods not supported" => -4
     }
   },
   modding_tools: {
@@ -86,8 +86,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Modding tools available" => 1,
-      :"No modding tools provided" => 0
+      :"Modding tools available" => 0,
+      :"No modding tools provided" => -1
     }
   },
   level_editors: {
@@ -95,8 +95,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Level editor available" => 1,
-      :"No level editor" => 0
+      :"Level editor available" => 0,
+      :"No level editor" => -1
     }
   },
 
@@ -105,8 +105,8 @@ STATS = {
     section: :"DRM",
     type: :select,
     ranks: {
-      :"Multiple mandatory launchers" => -4,
-      :"Requires Steam" => -2,
+      :"Multiple mandatory launchers" => -6,
+      :"Requires Steam" => -4,
       :"No launchers required" => 0,
       :"Optional launchers for updating and downloads" => 2
     }
@@ -177,8 +177,8 @@ STATS = {
     section: :Multiplayer,
     type: :radio,
     ranks: {
-      :"No server software available" => 0,
-      :"Server software available" => 2
+      :"No server software available" => -2,
+      :"Server software available" => 0
     }
   },
   lan_support: {
@@ -196,9 +196,9 @@ STATS = {
     section: :"DLC",
     type: :radio,
     ranks: {
-      :"Day one DLC" => -2,
+      :"Day one DLC" => -4,
       :"No Day one DLC" => 0,
-      :"Day one DLC is free" => 2
+      :"Day one DLC is free" => 4
     }
   },
   dlc_quality: {
@@ -207,7 +207,7 @@ STATS = {
     type: :select,
     ranks: {
       :"Preorder exclusives" => -5,
-      :"Affects game balance" => -5,
+      :"Effects game balance" => -5,
       :"Cosmetic only" => -3,
       :"Small content packs" => -2,
       :"Old style expansions" => 0

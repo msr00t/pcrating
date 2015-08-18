@@ -7,6 +7,6 @@ class UpdateTables < ActiveRecord::Migration
     end
 
     User.find_each(&:convert_ratings_into_reviews)
-    Game.find_each(&:save)
+    Game.recalculate_scores
   end
 end

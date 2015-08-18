@@ -44,6 +44,11 @@ class Game < ActiveRecord::Base
   scope :latest, -> { order(release_date: :desc).with_release_date }
   scope :rated, -> { where('games.id IN (SELECT DISTINCT(game_id) FROM reviews)') }
 
+  # Class
+
+  def self.recalculate_scores
+    find_each(&:save)
+  end
 
   # Stats
 

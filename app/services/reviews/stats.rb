@@ -10,7 +10,6 @@ module Reviews
     end
 
     def self.enum(stat)
-      puts stat
       enum = {}
       ranks = STATS[stat][:ranks]
 
