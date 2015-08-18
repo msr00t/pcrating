@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
 
   RANSACKABLE_ATTRIBUTES = %w(title)
   RANSACKABLE_ASSOCIATIONS = %w(developers publishers genres platforms categories)
-  RANSORTABLE_ATTRIBUTES = %w(cached_score title release_date total_ratings)
+  RANSORTABLE_ATTRIBUTES = %w(cached_score title release_date cached_reviews_total)
 
   serialize :data
   serialize :dlc
