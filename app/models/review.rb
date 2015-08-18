@@ -6,6 +6,8 @@ class Review < ActiveRecord::Base
 
   after_save :update_game
 
+  default_scope { order(cached_votes_score: :desc) }
+
   STATS.each do |stat, values|
     enum stat => Reviews::Stats.enum(stat)
     #validates stat, presence: true
