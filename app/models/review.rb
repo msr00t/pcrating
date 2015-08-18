@@ -4,6 +4,8 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
+  has_many :reports, dependent: :destroy
+
   after_save :update_game
 
   default_scope { order(cached_votes_score: :desc) }
@@ -19,6 +21,10 @@ class Review < ActiveRecord::Base
     all.select do |review|
       !review.hidden?
     end
+  end
+
+  def report(user)
+    reports.create(user: user) unless user == self.user
   end
 
   def hidden?

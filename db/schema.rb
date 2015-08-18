@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818113529) do
+ActiveRecord::Schema.define(version: 20150818190955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,13 @@ ActiveRecord::Schema.define(version: 20150818113529) do
   add_index "ratings", ["cached_weighted_score"], name: "index_ratings_on_cached_weighted_score", using: :btree
   add_index "ratings", ["cached_weighted_total"], name: "index_ratings_on_cached_weighted_total", using: :btree
 
+  create_table "reports", force: :cascade do |t|
+    t.integer  "review_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "fps"
     t.integer  "resolution"
@@ -224,7 +231,7 @@ ActiveRecord::Schema.define(version: 20150818113529) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.boolean  "admin"
+    t.integer  "admin",                  default: 0
     t.string   "username"
     t.boolean  "banned",                 default: false
   end

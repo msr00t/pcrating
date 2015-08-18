@@ -46,6 +46,16 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def report
+    @review = Review.find_by(id: params[:id])
+
+    @review.report(current_user)
+
+    respond_to do |format|
+      format.js { true }
+    end
+  end
+
   def destroy
     @game = Game.find_by(slug: params[:game_id])
     @review = Review.find_by(id: params[:id])

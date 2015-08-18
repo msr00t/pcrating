@@ -3,8 +3,6 @@ class VotesController < ApplicationController
   before_action :user?, except: [:show]
   before_action :setup_review
 
-  layout false
-
   def upvote
     if current_user.voted_up_on? @review
       @review.unliked_by current_user

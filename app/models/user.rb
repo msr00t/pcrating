@@ -9,10 +9,17 @@ class User < ActiveRecord::Base
 
   has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :reports, dependent: :destroy
   has_many :games, through: :ratings
   has_many :added_games, class_name: 'Game'
 
   validates :username, presence: true, uniqueness: true
+
+  enum admin: {
+    user: 0,
+    mod: 1,
+    admin: 2
+  }
 
   def score
     ratings.sum(:cached_votes_score) - ratings.size
