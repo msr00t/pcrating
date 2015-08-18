@@ -207,7 +207,7 @@ STATS = {
     type: :select,
     ranks: {
       :"Preorder exclusives" => -5,
-      :"Effects game balance" => -5,
+      :"Affects game balance" => -5,
       :"Cosmetic only" => -3,
       :"Small content packs" => -2,
       :"Old style expansions" => 0

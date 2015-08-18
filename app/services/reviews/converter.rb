@@ -125,7 +125,7 @@ module Reviews
         case old_rating[:dlc]
         when 0
           new_review.day_1_dlc = 'Day one DLC'
-          new_review.dlc_quality = 'Effects game balance'
+          new_review.dlc_quality = 'Affects game balance'
         when 1
           new_review.day_1_dlc = 'Day one DLC'
           new_review.dlc_quality = 'Cosmetic only'
