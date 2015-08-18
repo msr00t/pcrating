@@ -68,8 +68,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Cosmetic mods supported" => 0,
-      :"Cosmetic mods not supported" => -4
+      :"Cosmetic mods supported" => 2,
+      :"Cosmetic mods not supported" => -2
     }
   },
   functionality_modding: {
@@ -77,8 +77,8 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Gameplay mods supported" => 0,
-      :"Gameplay mods not supported" => -4
+      :"Gameplay mods supported" => 2,
+      :"Gameplay mods not supported" => -2
     }
   },
   modding_tools: {
@@ -86,7 +86,7 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Modding tools available" => 0,
+      :"Modding tools available" => 1,
       :"No modding tools provided" => -1
     }
   },
@@ -95,7 +95,7 @@ STATS = {
     section: :Mods,
     type: :radio,
     ranks: {
-      :"Level editor available" => 0,
+      :"Level editor available" => 1,
       :"No level editor" => -1
     }
   },
