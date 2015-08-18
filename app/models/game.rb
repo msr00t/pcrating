@@ -38,6 +38,7 @@ class Game < ActiveRecord::Base
   after_create :copy_developers
   after_create :copy_platforms
 
+  default_scope { order(created_at: :desc) }
   scope :top, -> { order(cached_score: :desc) }
   scope :bottom, -> { rated.order(cached_score: :asc) }
   scope :with_release_date, -> { where.not(release_date: nil) }
