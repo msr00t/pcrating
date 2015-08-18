@@ -8,8 +8,8 @@
   function drawBasic() {
 
     var data = new google.visualization.DataTable();
-    data.addColumn('number', 'X');
-    data.addColumn('number', 'Dogs');
+    data.addColumn('number', 'Game Score');
+    data.addColumn('number', 'Total Games');
 
     data.addRows(<%= @game_scores.to_s %>);
 
@@ -20,6 +20,7 @@
       vAxis: {
         title: 'Total Games'
       },
+      curveType: 'function',
       height: 500
     };
 
