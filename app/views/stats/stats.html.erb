@@ -7,10 +7,10 @@
   google.setOnLoadCallback(function() {
     drawChart('Game Score', 'number',
               <%= @game_scores.to_s %>,
-              new google.visualization.LineChart(document.getElementById('score_div')))
+              new google.visualization.ColumnChart(document.getElementById('score_div')))
     drawChart('Game Ranking', 'string',
               <%= raw @game_ranks.to_json %>,
-              new google.visualization.LineChart(document.getElementById('rank_div')))
+              new google.visualization.ColumnChart(document.getElementById('rank_div')))
   } );
 
   function drawChart(statName, statType, stats, chartObject) {
