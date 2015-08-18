@@ -9,9 +9,9 @@ module Reviews
       return :unranked unless @score
 
       case @score
-      when 1..10
+      when 4..10
         :r
-      when -5..0
+      when -5..3
         :m
       when -15..-6
         :c
