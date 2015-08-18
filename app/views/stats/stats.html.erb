@@ -1,31 +1,37 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<div id="chart_div"></div>
+<div id="score_div"></div>
+<div id="rank_div"></div>
 
 <script>
   google.load('visualization', '1', {packages: ['corechart', 'line']});
-  google.setOnLoadCallback(drawBasic);
+  google.setOnLoadCallback(function() {
+    drawChart('Game Score', 'number',
+              <%= @game_scores.to_s %>,
+              new google.visualization.LineChart(document.getElementById('score_div')))
+    drawChart('Game Ranking', 'string',
+              <%= raw @game_ranks.to_json %>,
+              new google.visualization.LineChart(document.getElementById('rank_div')))
+  } );
 
-  function drawBasic() {
+  function drawChart(statName, statType, stats, chartObject) {
 
     var data = new google.visualization.DataTable();
-    data.addColumn('number', 'Game Score');
+    data.addColumn(statType, statName);
     data.addColumn('number', 'Total Games');
 
-    data.addRows(<%= @game_scores.to_s %>);
+    data.addRows(stats);
 
     var options = {
       hAxis: {
-        title: 'Game Score'
+        title: statName
       },
       vAxis: {
         title: 'Total Games'
       },
       curveType: 'function',
-      height: 500
+      height: 300
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-    chart.draw(data, options);
+    chartObject.draw(data, options);
   }
 </script>
