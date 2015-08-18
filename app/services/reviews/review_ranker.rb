@@ -26,7 +26,7 @@ module Reviews
       STATS.each do |key, values|
         next if values[:section] == :'Multiplayer' && !@game.has_category?('Multi-player')
         stat_rank = stat_rank(key)
-        stat_string = Reviews::Stats.stat_string(key, stat_rank)
+        stat_string = "#{Reviews::Stats.stat_string(key, stat_rank(key))}(#{Reviews::Stats.stat_score(key, stat_rank(key))})"
         next unless stat_string
         stats[key] = stat_string
       end
