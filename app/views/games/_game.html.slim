@@ -2,4 +2,4 @@ div class="col-xs-6 col-sm-3 game #{'even' if game_counter % 2 == 0 }"
   = render partial: 'games/game_image', object: game, as: :game
   .name
     = link_to game.title, game_path(id: game.slug)
-  .ratings #{game.ratings.visible.size} ratings
+  .ratings #{pluralize(game.reviews.visible.size, 'rating')}
