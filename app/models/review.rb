@@ -10,7 +10,9 @@ class Review < ActiveRecord::Base
 
   STATS.each do |stat, values|
     enum stat => Reviews::Stats.enum(stat)
-    #validates stat, presence: true
+    unless values[:section] == :'Multiplayer'
+      validates stat, presence: true
+    end
   end
 
   def self.visible
