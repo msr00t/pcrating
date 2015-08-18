@@ -8,10 +8,8 @@ ready = ->
 
     if $('.fill-in .tab.hiw').hasClass('active')
       $('.tab-content.hiw').show()
-    else if $('.fill-in .tab.rating').hasClass('active')
-      $('.tab-content.rating').show()
-    else if $('.fill-in .tab.pcmr').hasClass('active')
-      $('.tab-content.pcmr').show()
+    else if $('.fill-in .tab.graphs').hasClass('active')
+      $('.tab-content.graphs').show()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

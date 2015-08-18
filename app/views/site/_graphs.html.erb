@@ -1,6 +1,7 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<div id="score_div"></div>
-<div id="rank_div"></div>
+
+<div class='col-xs-6'><div id="score_div"></div></div>
+<div class='col-xs-6'><div id="rank_div"></div></div>
 
 <script>
   google.load('visualization', '1', {packages: ['corechart', 'line']});
@@ -17,19 +18,16 @@
 
     var data = new google.visualization.DataTable();
     data.addColumn(statType, statName);
-    data.addColumn('number', 'Total Games');
+    data.addColumn('number', '');
 
     data.addRows(stats);
 
     var options = {
-      hAxis: {
-        title: statName
-      },
-      vAxis: {
-        title: 'Total Games'
-      },
+      title: statName,
       curveType: 'function',
-      height: 300
+      height: 300,
+      legend: {position: 'none'},
+      backgroundColor: 'transparent'
     };
 
     chartObject.draw(data, options);
