@@ -24,11 +24,11 @@ module Reviews
     end
 
     def self.reviews
-      self.get_grouped_counts(Game)
+      self.get_grouped_counts(Review)
     end
 
     def self.games
-      self.get_grouped_counts(Review)
+      self.get_grouped_counts(Game)
     end
 
     private
