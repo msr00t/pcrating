@@ -12,7 +12,5 @@
                 = render partial: 'games/game_image', object: game, as: :game
             .game-title
               = game.title
-            .developer
-              = game.developers.first.name
             .link
               = link_to('View Reviews', game, class: 'btn btn-success')
