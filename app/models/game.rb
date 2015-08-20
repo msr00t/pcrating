@@ -68,7 +68,7 @@ class Game < ActiveRecord::Base
     ranker = Reviews::GameRanker.new(self)
     self.cached_score = ranker.score
     self.cached_rank = ranker.rank
-    self.cached_reviews_total = self.reviews.size
+    self.cached_reviews_total = self.reviews.visible.size
   end
 
   # Static Data
