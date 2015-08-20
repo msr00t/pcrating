@@ -33,6 +33,7 @@ gem "audited-activerecord", "~> 4.0"
 gem "paranoia", "~> 2.0"
 gem 'lograge'
 gem 'quiet_assets'
+gem 'rack-mini-profiler'
 
 group :development, :test do
   gem 'rubocop'

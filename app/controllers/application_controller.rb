@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :store_location
   before_filter :banned?
   before_filter :ransack_setup
+  before_action :authorize_profiler
 
   layout :layout
 
@@ -70,6 +71,12 @@ class ApplicationController < ActionController::Base
       %w(game show)
     ]
     application_layouts.include? [params[:controller], params[:action]]
+  end
+
+  def authorize_profiler
+    if current_user && current_user.admin?
+      Rack::MiniProfiler.authorize_request
+    end
   end
 
 end
