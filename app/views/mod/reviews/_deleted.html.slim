@@ -1,11 +1,11 @@
 .row.report
   .col-xs-2
     = link_to deleted.user.username,
-              user_path(deleted.user)
+              user_path(id: deleted.user.slug)
   .col-xs-2
     - if deleted.deleter
       = link_to deleted.deleter.username,
-                user_path(deleted.deleter)
+                user_path(id: deleted.deleter.slug)
   .col-xs-2
     = deleted.deleted_at.strftime('%B %m, %Y')
   .col-xs-2

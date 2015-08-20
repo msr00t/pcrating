@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+
   acts_as_voter
   audited only: [:banned, :admin]
 

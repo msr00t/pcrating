@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.friendly.find(params[:id])
 
     if @user
       @reviews = @user.reviews.paginate(page: params[:page])

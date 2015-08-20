@@ -1,11 +1,11 @@
 .row.report
   .col-xs-2
     = link_to banned.username,
-              user_path(banned.username)
+              user_path(id: banned.slug)
   .col-xs-2
     - if banned.banner
       = link_to banned.banner.username,
-                user_path(banned.banner.id)
+                user_path(id: banned.banner.slug)
   .col-xs-2
     - if current_user.admin?
       = link_to 'Unban',
