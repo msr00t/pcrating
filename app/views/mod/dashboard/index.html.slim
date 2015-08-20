@@ -2,9 +2,14 @@
 
 .container
   .row
-    .col-xs-12
-      h3 Total Users: #{User.all.size}
-      h3 Banned Users: #{User.where(banned: true).size}
-      h3 Total Reviews: #{Review.all.size}
-      h3 Total Games: #{Game.all.size}
-      h3 #{Reviews::Graphing.pretty_html_ranks}
+    .col-xs-3
+      h4 Total Users: #{User.all.size}
+      h4 Banned Users: #{User.where(banned: true).size}
+    .col-xs-3
+      h4 Total Reviews: #{Review.all.size}
+      h4 Total Games: #{Game.all.size}
+    .col-xs-6
+      h4 #{@rank_data}
+
+  .row
+    = render 'graphs'

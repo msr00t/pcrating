@@ -19,5 +19,26 @@ module Reviews
       self.ranks.inject("") { |string, array| string + "#{array[0].titlecase}: #{array[1]} " }.html_safe
     end
 
+    def self.users
+      self.get_grouped_counts(User)
+    end
+
+    def self.reviews
+      self.get_grouped_counts(Game)
+    end
+
+    def self.games
+      self.get_grouped_counts(Review)
+    end
+
+    private
+
+      def self.get_grouped_counts(model)
+        result = model.group_by_day(:created_at, format: "%B %m %Y").count.flatten
+        return [] unless result[0]
+        result = [result] unless result[0].class == Array
+        result.to_s
+      end
+
   end
 end
