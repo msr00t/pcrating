@@ -1,6 +1,7 @@
 class SiteController < ApplicationController
 
   before_action :game_slides
+  before_action :graphs
 
   def index
     flash[:alert] = ENV['LANDING_NOTICE'] unless flash[:alert]
@@ -27,11 +28,11 @@ class SiteController < ApplicationController
 
     def graphs
       @scores = Rails.cache.fetch("graphing scores", expires_in: 24.hours) do
-        raw Reviews::Graphing.scores.to_s
+        Reviews::Graphing.scores.to_s
       end
 
       @ranks =  Rails.cache.fetch("graphing ranks", expires_in: 24.hours) do
-        raw Reviews::Graphing.ranks.to_s
+        Reviews::Graphing.ranks.to_s
       end
     end
 

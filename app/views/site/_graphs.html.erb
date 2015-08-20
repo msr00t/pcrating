@@ -7,10 +7,10 @@
   google.load('visualization', '1', {packages: ['corechart', 'line']});
   google.setOnLoadCallback(function() {
     drawChart('Game Score', 'number',
-              <%= @scores %>,
+              <%= raw @scores %>,
               new google.visualization.LineChart(document.getElementById('score_div')))
     drawChart('Game Ranking', 'string',
-              <%= @ranks %>,
+              <%= raw @ranks %>,
               new google.visualization.ColumnChart(document.getElementById('rank_div')))
   } );
 
