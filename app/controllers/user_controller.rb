@@ -1,19 +1,22 @@
 class UserController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
-    @reviews = @user.reviews.paginate(page: params[:page])
+    @user = User.find_by(id: params[:id])
+
+    if @user
+      @reviews = @user.reviews.paginate(page: params[:page])
+    else
+      redirect_to root_path
+    end
   end
 
-  def ban
-    if current_user.admin?
-      @user = User.find(params[:user_id])
-      @user.banned = true
-      @user.reviews.delete_all
-      @user.save
-    end
+  def report
+    @user = User.find_by(id: params[:user_id])
+    @user.report!(current_user) if @user
 
-    redirect_to root_path
+    respond_to do |format|
+      format.js { true }
+    end
   end
 
 end

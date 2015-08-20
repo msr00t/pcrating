@@ -1,0 +1,38 @@
+nav.navbar.navbar-default.navbar-fixed-top
+  .container
+
+      .navbar-header
+        button.navbar-toggle.collapsed data={toggle:'collapse',target:'#navbar'} aria={expanded:false,controls:'navbar'}
+          span.sr-only Toggle Navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        = link_to "<span class='yellow'>PC</span>MRating".html_safe, root_path, class: "navbar-brand"
+
+      #navbar.navbar-collapse.collapse
+
+        ul.nav.navbar-nav.navbar-right
+          li
+            = link_to "Dashboard",
+                      mod_dashboard_index_path,
+                      class: header_link_class(mod_dashboard_index_path)
+          li
+            = link_to "Deleted Reviews",
+                      mod_deleted_reviews_path(page: 1),
+                      class: header_link_class(mod_deleted_reviews_path(page: 1))
+          li
+            = link_to "Banned Users",
+                      mod_banned_users_path(page: 1),
+                      class: header_link_class(mod_banned_users_path(page: 1))
+          li
+            = link_to "Reported Users",
+                      mod_user_reports_path(page: 1),
+                      class: header_link_class(mod_user_reports_path(page: 1))
+          li
+            = link_to "Reported Reviews",
+                      mod_review_reports_path(page: 1),
+                      class: header_link_class(mod_review_reports_path(page: 1))
+
+          - if current_user
+            li
+              = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'sign-in'

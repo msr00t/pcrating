@@ -1,0 +1,21 @@
+.row.report
+  .col-xs-2
+    = link_to deleted.user.username,
+              user_path(deleted.user)
+  .col-xs-2
+    - if deleted.deleter
+      = link_to deleted.deleter.username,
+                user_path(deleted.deleter)
+  .col-xs-2
+    = deleted.deleted_at.strftime('%B %m, %Y')
+  .col-xs-2
+    = deleted.game.title
+  .col-xs-2
+    - if current_user.admin?
+      = link_to 'Restore Review',
+                admin_restore_review_path(deleted.id),
+                method: :post,
+                class: 'btn btn-warning'
+.row
+  .col-xs-10
+    = deleted.review

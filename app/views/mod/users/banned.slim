@@ -1,0 +1,11 @@
+- provide(:title, "Banned Users")
+
+.container
+  .row
+    .col-xs-2
+      | Bannee
+    .col-xs-2
+      | Banner
+  = render partial: 'banned', collection: @users
+
+  = will_paginate @users

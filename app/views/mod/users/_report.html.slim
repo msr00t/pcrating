@@ -1,0 +1,19 @@
+.row.report
+  .col-xs-2
+    = link_to report.reportable.username,
+              user_path(report.reportable)
+  .col-xs-2
+    = link_to report.user.username,
+              user_path(report.user)
+  .col-xs-2
+    = report.created_at.strftime("%B %d, %Y")
+  .col-xs-2
+    = link_to 'Ban User',
+              mod_ban_user_path(report.reportable.id),
+              method: :post,
+              class: 'btn btn-warning'
+  .col-xs-2
+    = link_to 'Reject Report',
+              mod_reject_report_path(report.id),
+              method: :post,
+              class: 'btn btn-danger'

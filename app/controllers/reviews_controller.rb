@@ -16,6 +16,8 @@ class ReviewsController < ApplicationController
 
   def new
     @game = Game.find_by(slug: params[:game_id])
+    redirect_to game_path(id: @game.slug) if current_user.has_deleted_review?(@game)
+
     @review = @game.reviews.find_or_initialize_by(user_id: current_user.id)
 
     render 'edit' if @review.persisted?
@@ -47,9 +49,9 @@ class ReviewsController < ApplicationController
   end
 
   def report
-    @review = Review.find_by(id: params[:id])
+    @review = Review.find_by(id: params[:review_id])
 
-    @review.report(current_user)
+    @review.report!(current_user)
 
     respond_to do |format|
       format.js { true }
@@ -58,9 +60,13 @@ class ReviewsController < ApplicationController
 
   def destroy
     @game = Game.find_by(slug: params[:game_id])
-    @review = Review.find_by(id: params[:id])
+    @review = Review.find_by(id: params[:id], user: current_user)
 
-    @review.destroy if @review && (@review.user == current_user || current_user.admin?)
+    if @review
+      @review.without_auditing do
+        @review.really_destroy!
+      end
+    end
 
     redirect_to game_path(id: @game.slug)
   end

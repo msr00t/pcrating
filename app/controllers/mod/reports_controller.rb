@@ -1,15 +1,17 @@
-class ReportsController < ModController
+class Mod::ReportsController < Mod::ApplicationController
 
-  def index
-    @reports = Report.all.paginate(page: params[:page], per_page: 10)
+  def users
+    @reports = Report.unhandled.users.paginate(page: params[:page], per_page: 10)
   end
 
-  def destroy
+  def reviews
+    @reports = Report.unhandled.reviews.paginate(page: params[:page], per_page: 10)
+  end
+
+  def reject
     @report = Report.find_by(id: params[:id])
-
-    @report.destroy
-
-    redirect :back
+    @report.reject! if @report
+    redirect_to :back
   end
 
 end

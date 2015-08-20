@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    = metamagic site: "PCMRating", title: [:title, :site], separator: " — "
+    = stylesheet_link_tag 'application', media: 'all'
+    = favicon_link_tag 'favicon.ico'
+    = csrf_meta_tags
+    meta name="viewport" content="width=device-width, initial-scale=1"
+  body class="#{params[:action]}"
+
+    = render 'mod/common/header'
+
+    .content-container
+      .fill-page
+        = render 'common/top_bar'
+        = yield
+      = render 'common/footer'
+
+    = render 'layouts/javascript'

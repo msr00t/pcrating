@@ -14,5 +14,9 @@ module Reviews
       sorted_array
     end
 
+    def self.pretty_html_ranks
+      self.ranks.inject("") { |string, array| string + "#{array[0].titlecase}: #{array[1]} " }.html_safe
+    end
+
   end
 end

@@ -1,0 +1,13 @@
+- provide(:title, "Reported Users")
+
+.container
+  .row
+    .col-xs-2
+      | Reportee
+    .col-xs-2
+      | Reporter
+    .col-xs-2
+      | On
+  = render partial: 'mod/users/report', collection: @reports
+
+  = will_paginate @reports

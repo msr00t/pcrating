@@ -1,0 +1,14 @@
+.row.report
+  .col-xs-2
+    = link_to banned.username,
+              user_path(banned.username)
+  .col-xs-2
+    - if banned.banner
+      = link_to banned.banner.username,
+                user_path(banned.banner.id)
+  .col-xs-2
+    - if current_user.admin?
+      = link_to 'Unban',
+                admin_restore_user_path(banned.id),
+                method: :post,
+                class: 'btn btn-info'
