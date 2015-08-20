@@ -1,0 +1,8 @@
+.col-xs-12
+  .chart
+    h4 Score Distribution
+    = line_chart @scores, discrete: true
+.col-xs-12
+  .chart
+    h4 Rank Distribution
+    = column_chart @ranks
