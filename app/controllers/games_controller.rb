@@ -7,7 +7,7 @@ class GamesController < ApplicationController
   layout :layout
 
   def index
-    @games = @q.result.includes(:genres).paginate(page: params[:page], per_page: 20)
+    @games = @q.result.paginate(page: params[:page], per_page: 20)
   end
 
   def show
