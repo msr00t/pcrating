@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :filed_reports, class_name: 'Report', dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
-  has_many :games, through: :ratings
+  has_many :games, through: :reviews
   has_many :added_games, class_name: 'Game'
   has_many :bans, as: :banner, class_name: 'User'
   has_many :deleted_reviews, as: :deleter, class_name: 'Review'
@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   end
 
   def score
-    ratings.sum(:cached_votes_score) - ratings.size
+    reviews.sum(:cached_votes_score) - reviews.size
   end
 
   def convert_ratings_into_reviews
