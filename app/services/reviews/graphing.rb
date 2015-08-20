@@ -34,10 +34,7 @@ module Reviews
     private
 
       def self.get_grouped_counts(model)
-        result = model.group_by_day(:created_at, format: "%B %m %Y").count.flatten
-        return [] unless result[0]
-        result = [result] unless result[0].class == Array
-        result.to_s
+        result = model.group_by_day(:created_at, format: "%d %m %y").count.to_a.to_s
       end
 
   end
