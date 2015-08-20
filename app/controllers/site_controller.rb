@@ -25,4 +25,14 @@ class SiteController < ApplicationController
       ]
     end
 
+    def graphs
+      @scores = Rails.cache.fetch("graphing scores", expires_in: 24.hours) do
+        raw Reviews::Graphing.scores.to_s
+      end
+
+      @ranks =  Rails.cache.fetch("graphing ranks", expires_in: 24.hours) do
+        raw Reviews::Graphing.ranks.to_s
+      end
+    end
+
 end

@@ -1,18 +1,12 @@
 module Reviews
   class Graphing
 
-    CACHE_TIMEOUT = 24.hours
-
     def self.scores
-      Rails.cache.fetch("games", expires_in: CACHE_TIMEOUT) do
-        Game.all
-      end.map(&:cached_score).inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }.sort.to_h.to_a
+      Game.all.map(&:cached_score).inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }.sort.to_h.to_a
     end
 
     def self.ranks
-      ranks = Rails.cache.fetch("games", expires_in: CACHE_TIMEOUT) do
-        Game.all
-      end.map(&:cached_rank).inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }
+      ranks = Game.all.map(&:cached_rank).inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }
 
       sorted_array = []
       %w(unranked p c m r g).each do |rank|
