@@ -30,7 +30,6 @@ class ReviewsController < ApplicationController
     @review.game = @game
 
     if @review.save
-      @review.liked_by current_user
       redirect_to game_review_path(game_id: @review.game, id: @review.id)
     else
       render :new

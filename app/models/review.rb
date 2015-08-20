@@ -13,14 +13,15 @@ class Review < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => [:game_id]
 
   after_save :update_game
+  after_create :liked_by_user
 
   scope :by_score, -> { order(cached_votes_score: :desc) }
 
   STATS.each do |stat, values|
     enum stat => Reviews::Stats.enum(stat)
-    unless values[:section] == :'Multiplayer'
-      validates stat, presence: true
-    end
+    #unless values[:section] == :'Multiplayer'
+    #  validates stat, presence: true
+    #end
   end
 
   def self.visible
@@ -66,6 +67,10 @@ class Review < ActiveRecord::Base
   end
 
   private
+
+    def liked_by_user
+      liked_by(user)
+    end
 
     def update_game
       game.update_cached_data
