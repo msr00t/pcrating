@@ -10,20 +10,22 @@ class SiteController < ApplicationController
   private
 
     def game_slides
-      @game_slides = [
-        {
-          title: 'Latest Games',
-          games: Game.latest
-        },
-        {
-          title: 'Top Games',
-          games: Game.rated.top
-        },
-        {
-          title: 'Worst Games',
-          games: Game.rated.bottom
-        },
-      ]
+      @game_slides = Rails.cache.fetch("landing slides", expires_in: 2.hours) do
+        [
+          {
+            title: 'Latest Games',
+            games: Game.latest
+          },
+          {
+            title: 'Top Games',
+            games: Game.rated.top
+          },
+          {
+            title: 'Worst Games',
+            games: Game.rated.bottom
+          },
+        ]
+      end
     end
 
     def graphs
