@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
   def banned?
     return unless current_user && current_user.banned?
-    redirect_to 'https://www.google.co.uk/webhp#q=you%27vebeenbanned'
+    redirect_to root_path
   end
 
   def ransack_setup
