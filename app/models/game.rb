@@ -38,10 +38,10 @@ class Game < ActiveRecord::Base
   after_create :copy_developers
   after_create :copy_platforms
 
-  scope :top, -> { order(cached_score: :desc) }
-  scope :bottom, -> { rated.order(cached_score: :asc) }
+  scope :top, -> { rated.order(cached_score: :desc).limit(2) }
+  scope :bottom, -> { rated.order(cached_score: :asc).limit(2) }
   scope :with_release_date, -> { where.not(release_date: nil) }
-  scope :latest, -> { order(release_date: :desc).with_release_date }
+  scope :latest, -> { order(release_date: :desc).with_release_date.limit(2) }
   scope :rated, -> { where('games.id IN (SELECT DISTINCT(game_id) FROM reviews)') }
 
   # Class

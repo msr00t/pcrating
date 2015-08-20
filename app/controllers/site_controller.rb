@@ -12,15 +12,15 @@ class SiteController < ApplicationController
       @game_slides = [
         {
           title: 'Latest Games',
-          games: Game.latest[0..1]
+          games: Game.latest
         },
         {
           title: 'Top Games',
-          games: Game.rated.top[0..1]
+          games: Game.rated.top
         },
         {
           title: 'Worst Games',
-          games: Game.rated.bottom[0..1]
+          games: Game.rated.bottom
         },
       ]
     end
