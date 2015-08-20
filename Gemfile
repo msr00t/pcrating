@@ -29,6 +29,8 @@ gem 'redcarpet'
 gem 'rails-bootstrap-markdown'
 gem 'htmlentities'
 
+gem "audited-activerecord", "~> 4.0"
+gem "paranoia", "~> 2.0"
 gem 'lograge'
 gem 'quiet_assets'
 
