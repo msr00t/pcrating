@@ -84,8 +84,8 @@ Rails.application.configure do
     :port           => ENV['EMAIL_PORT'],
     :address        => ENV['EMAIL_DOMAIN'],
     :domain         => 'http://www.pcmrating.com/',
-    :user_name      => ENV['EMAIL_USERNAME']ENV['MANDRILL_USERNAME'],
-    :password       => ENV['EMAIL_PASSWORD']ENV['MANDRILL_API'],
+    :user_name      => ENV['EMAIL_USERNAME'],
+    :password       => ENV['EMAIL_PASSWORD'],
     :authentication => :plain,
   }
 end

@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
 
+  after_create :send_email_to_sendgrid
+  after_update :update_email_on_sendgrid
+  after_destroy :remove_email_from_sendgrid
+
   enum admin: {
     user: 0,
     mod: 1,
@@ -66,5 +70,29 @@ class User < ActiveRecord::Base
     converter = Reviews::Converter.new(self)
     converter.convert_ratings_into_reviews
   end
+
+
+  private
+
+    def send_email_to_sendgrid
+      Sendgrid::Emails.create(
+        'email' =>      self.email,
+        'name' =>       self.username
+      )
+    end
+
+    def update_email_on_sendgrid
+      if self.changes['email']
+        Sendgrid::Emails.update(
+          'old_email' =>  self.changes['email'][0],
+          'email' =>      self.changes['email'][1],
+          'name' =>       self.username
+        )
+      end
+    end
+
+    def remove_email_from_sendgrid
+      Sendgrid::Emails.destroy('email' => self.email)
+    end
 
 end

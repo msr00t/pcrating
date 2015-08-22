@@ -37,6 +37,7 @@ gem "chartkick"
 gem "highcharts-rails", "~> 3.0.0"
 gem "audited-activerecord", "~> 4.0"
 gem "paranoia", "~> 2.0"
+gem 'sendgrid_toolkit', '>= 1.1.1'
 
 # Profiling
 gem 'rack-mini-profiler'
