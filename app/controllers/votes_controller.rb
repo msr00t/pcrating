@@ -1,18 +1,30 @@
 class VotesController < ApplicationController
 
   before_action :user?, except: [:show]
-  before_action :setup_rating
+  before_action :setup_review
 
   def upvote
-    @rating.liked_by current_user
+    if current_user.voted_up_on? @review
+      @review.unliked_by current_user
+    else
+      @review.liked_by current_user
+    end
 
-    redirect_to show_game_path(steam_appid: @rating.game.steam_appid)
+    respond_to do |format|
+      format.js { true }
+    end
   end
 
   def downvote
-    @rating.downvote_from current_user
+    if current_user.voted_down_on? @review
+      @review.undisliked_by current_user
+    else
+      @review.disliked_by current_user
+    end
 
-    redirect_to show_game_path(steam_appid: @rating.game.steam_appid)
+    respond_to do |format|
+      format.js { true }
+    end
   end
 
   private
@@ -22,9 +34,9 @@ class VotesController < ApplicationController
     redirect_to new_user_session_path unless current_user
   end
 
-  def setup_rating
-    @rating = Rating.find_by(id: params[:id])
-    redirect_to root_path unless @rating
+  def setup_review
+    @review = Review.find_by(id: params[:id])
+    redirect_to root_path unless @review
   end
 
 end

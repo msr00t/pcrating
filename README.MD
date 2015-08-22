@@ -1,10 +1,10 @@
-# PCMRatings
+# PCMRating
 
 Proper PC game reviews.
 
 ## Getting Started
 
-PCMRatings is built using Ruby, Ruby on Rails and PostgreSQL.
+PCMRating is built using Ruby, Ruby on Rails and PostgreSQL.
 
 It is hosted on Heroku.
 

@@ -1,0 +1,14 @@
+- provide(:title, "Deleted Reviews")
+
+.container
+  .row
+    .col-xs-2
+      | Writer
+    .col-xs-2
+      | Deleter
+    .col-xs-2
+      | On
+
+  = render partial: 'deleted', collection: @reviews
+
+  = will_paginate @reviews

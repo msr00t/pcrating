@@ -1,0 +1,105 @@
+.top-bar.search-bar
+  .container
+    .row
+      .col-xs-12.col-md-6.col-md-offset-3.search
+        = search_form_for @q, url: path do |f|
+          .row
+            .col-xs-8.col-sm-9
+              = f.text_field :"title_or_developers_name_or_publishers_name_cont",
+                              placeholder: 'Search Title/Developer/Publisher',
+                              class: 'form-control search',
+                              maxLength: 50
+              = f.text_field :genres_name_cont, placeholder: 'Genre', class: 'form-control search genre hidden'
+              = f.text_field :platforms_name_cont, placeholder: 'Platform', class: 'form-control search platform hidden'
+              = f.text_field :categories_name_cont, placeholder: 'Category', class: 'form-control search category hidden'
+              = f.text_field  :s,
+                              placeholder: 'Sort',
+                              value: sort_field_string,
+                              class: 'form-control search sort hidden'
+              = f.text_field  :ranked_only,
+                              placeholder: 'Ranked Only',
+                              value: ranked_button,
+                              class: 'form-control search ranked_only hidden'
+            .col-xs-3
+              = f.button 'Search', class: 'btn btn-warning', id: 'search-button'
+
+      .col-md-3.hidden-xs.advanced-button
+        = advanced_button_string
+
+    div class="row button-row first #{'advanced-shown' if show_advanced?}"
+      .col-xs-12.buttons
+
+        div class="search-bar-button ranked #{'yellow' if ranked_button}"
+          .text Reviewed Only
+
+        div class="search-bar-button genres #{'yellow' if selected_genre}"
+          .text
+            = genre_button_string
+          .dropdown
+            - if selected_genre
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Genre.all.each do |genre|
+              = link_to genre.name,
+                        '#',
+                      class: "dropdown-item #{'yellow' if genre.name == selected_genre}"
+
+        div class="search-bar-button platforms #{'yellow' if selected_platform}"
+          .text
+            = platform_button_string
+          .dropdown
+            - if selected_platform
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Platform.all.each do |platform|
+              = link_to platform.name.titlecase,
+                        '#',
+                        class: "dropdown-item #{'yellow' if platform.name.titlecase == selected_platform}"
+
+        div class="search-bar-button categories hidden-xs #{'yellow' if selected_category}"
+          .text
+            = category_button_string
+          .dropdown
+            - if selected_category
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Category.all.each do |category|
+              = link_to category.name,
+                        '#',
+                        class: "dropdown-item #{'yellow' if category.name.titlecase == selected_category}"
+
+        div class="search-bar-button sort hidden-xs #{'yellow' if selected_sort}"
+          .text
+            = sort_button_string
+          .dropdown
+            = sort_link(@q, :cached_score, 'Rank')
+            = sort_link(@q, :title, 'Name')
+            = sort_link(@q, :release_date, 'Release Date')
+            = sort_link(@q, :cached_reviews_total, 'Total Reviews')
+
+    .row.button-row.visible-xs
+      .col-xs-12.buttons
+        div class="search-bar-button categories #{'yellow' if selected_category}"
+          .text
+            = category_button_string
+          .dropdown
+            - if selected_category
+              = link_to 'Remove Filter',
+                        '#',
+                        class: 'dropdown-item cancel'
+            - Category.all.each do |category|
+              = link_to category.name,
+                        '#',
+                        class: "dropdown-item #{'yellow' if category.name.titlecase == selected_category}"
+
+        div class="search-bar-button sort #{'yellow' if selected_sort}"
+          .text
+            = sort_button_string
+          .dropdown
+            = sort_link(@q, :cached_score, 'Rank')
+            = sort_link(@q, :title, 'Name')
+            = sort_link(@q, :release_date, 'Release Date')
+            = sort_link(@q, :cached_reviews_total, 'Total Reviews')

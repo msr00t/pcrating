@@ -81,11 +81,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # SMTP settings for mandrill
   ActionMailer::Base.smtp_settings = {
-    :port           => 587,
-    :address        => 'smtp.mandrillapp.com',
+    :port           => ENV['EMAIL_PORT'],
+    :address        => ENV['EMAIL_DOMAIN'],
     :domain         => 'http://www.pcmrating.com/',
-    :user_name      => ENV['MANDRILL_USERNAME'],
-    :password       => ENV['MANDRILL_API'],
+    :user_name      => ENV['EMAIL_USERNAME'],
+    :password       => ENV['EMAIL_PASSWORD'],
     :authentication => :plain,
   }
 end

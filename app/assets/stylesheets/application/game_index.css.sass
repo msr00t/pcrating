@@ -1,29 +1,135 @@
 @import "common/mixins"
 
 .game-index
-  margin-top: 50px
-  .game
-    margin-top: 10px
-    padding-top: 10px
-    padding-bottom: 10px
-    @include flexbox-centered-children
+  .games
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    -webkit-flex-wrap: wrap
+    -ms-flex-wrap: wrap
+    flex-wrap: wrap
+    .game
+      display: -webkit-flex
+      display: -ms-flexbox
+      display: flex
+      flex-direction: column
+      &.col-xs-6
+        width: 49.8%
 
-    &.even
-      background: #f5f5f5
+@media (min-width: 768px)
+  .game-index
+    .games
+      .game.col-sm-3
+        width: 24.87%
 
-    .stat
-      text-align: center
-      &.ranking
-        img
-          width: 50px
+.game
+  padding-top: 10px
+  padding-bottom: 10px
+  .name
+    margin-top: 5px
+    a
+      color: $primary-grey
+      font-weight: 500
+  .ratings
+    color: $primary-grey
+  .image
+    position: relative
+    .rating
+      position: absolute
+      width: 20%
+      left: 0px
+      bottom: -1px
 
-    .game-name
-      text-align: center
-      a
-        margin-top: 5px
-      .game-image
-        width: 100%
+.add-game-message
+  margin-top: 20px
+  text-align: center
+  a
+    margin-left: 5px
 
 .search-form
   margin-top: 20px
   font-size: 10px
+
+.advanced-button
+  cursor: pointer
+
+.fill-page .search-bar .container
+  .buttons
+    flex-direction: row
+    display: flex
+    .search-bar-button
+      flex: 1
+      justify-content: center
+      align-items: center
+      display: flex
+  .button-row
+    &.first
+      margin-top: 10px
+      display: none
+    &.advanced-shown
+      display: block
+
+@media (max-width: 840px)
+  .container
+    & > .row
+      flex-direction: column
+
+@media (min-width: 840px)
+
+.fill-page
+  .top-bar
+    position: relative
+    top: -40px
+    background-color: $secondary-grey
+    padding-top: 10px
+    padding-bottom: 10px
+    color: $font-grey
+    h3
+      margin: 0px
+    .search-bar-button
+      text-align: center
+      cursor: pointer
+      position: relative
+      padding: 0px
+      .text
+        padding-top: 10px
+        padding-bottom: 10px
+      &.yellow
+        color: $primary-yellow
+      &:hover, &:active, &:focus, &.active
+        background-color: $tertiary-grey
+        .dropdown
+          display: block
+      .dropdown
+        position: absolute
+        max-height: 325px
+        overflow: scroll
+        top: 100%
+        z-index: 99
+        width: 100%
+        left: 0px
+        display: none
+        color: white
+        border: 1px solid $tertiary-grey
+        .sort_link.desc, .sort_link.asc
+          display: none
+        *
+          width: 100%
+          padding-top: 10px
+          padding-bottom: 10px
+          display: inline-block
+          background-color: $secondary-grey
+          color: white
+          &.yellow
+            color: $primary-yellow
+          &:hover, &:active, &:focus, &.active
+            background-color: $tertiary-grey
+            text-decoration: none
+
+    .game_search
+      .row
+        @include flexbox-centered-children
+
+
+    .container > .row
+      @include flexbox-centered-children

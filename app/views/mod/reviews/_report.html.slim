@@ -1,0 +1,28 @@
+.row.report
+  .col-xs-2
+    = link_to report.reportable.user.username,
+              user_path(id: report.reportable.user.slug)
+  .col-xs-2
+    = link_to report.user.username,
+              user_path(id: report.user.slug)
+  .col-xs-2
+    = report.created_at.strftime("%B %d, %Y")
+  .col-xs-2
+    = report.reportable.game.title
+  .col-xs-2
+    = link_to 'Delete Review',
+              mod_destroy_review_path(report.reportable.id),
+              method: :delete,
+              class: 'btn btn-warning'
+  .col-xs-2
+    = link_to 'Reject Report',
+              mod_reject_report_path(report.id),
+              method: :post,
+              class: 'btn btn-danger'
+.row
+  .col-xs-10
+    = report.reportable.review
+  .col-xs-2
+    = link_to 'See Full Review',
+              game_review_path(id: report.reportable.id, game_id: report.reportable.game.slug),
+              class: 'btn btn-info'

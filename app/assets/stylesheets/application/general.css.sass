@@ -1,4 +1,9 @@
 @import "common/variables"
+@import "common/mixins"
+
+body
+  font-family: 'Montserrat', sans-serif
+  font-size: 13px
 
 .title
   text-align: center
@@ -24,3 +29,67 @@ body > .container
   padding: 15px
   font-size: 10px
   margin-left: 100px !important
+
+html,
+body
+  height: 100%
+  margin: 0
+
+.content-container
+  display: flex
+  flex-flow: column
+  height: 100%
+
+button, .btn
+  outline: none !important
+  &:focus
+    outline: none
+
+.fill-page
+  background: $light-background-grey
+  flex: 1 0 auto
+  margin-top: 70px
+  padding-top: 40px
+  padding-bottom: 40px
+
+.form-control.search
+  height: 27px
+  border-radius: 45px
+
+a, .navbar-default .navbar-nav > li > a
+  color: white
+  &:hover, &:active, &:focus
+    text-decoration: none
+    color: white
+  &:hover, &:active
+    color: $primary-yellow
+
+  &.grey
+    color: $primary-grey
+    &:hover, &:active
+      color: $primary-yellow
+
+  &.yellow, .yellow
+    color: $primary-yellow
+    &:hover, &:active, &:focus
+      text-decoration: none
+      color: $primary-yellow
+    &:hover, &:active
+      color: white
+    &.hover-grey
+      &:hover, &:active, &:focus
+        text-decoration: none
+        color: $primary-yellow
+      &:hover, &:active
+        color: $primary-grey
+
+.navbar-default .navbar-brand
+  color: white
+  .yellow
+    color: $primary-yellow
+    &:hover, &:active, &:focus
+      text-decoration: none
+      color: $primary-yellow
+  &:hover, &:active, &:focus
+    text-decoration: none
+    color: white

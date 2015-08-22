@@ -22,5 +22,17 @@ module Pcmrating
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.autoload_paths += Dir[Rails.root.join('app', 'services', '{**/}')]
+
+    config.lograge.enabled = true
+    config.lograge.custom_options = lambda do |event|
+      params = event.payload[:params].reject do |k|
+        ['controller', 'action'].include? k
+      end
+
+      return { time: event.time, "\nparams" => params.to_s + "\n" } unless params.empty?
+      { time: event.time.to_s + "\n" }
+    end
   end
 end

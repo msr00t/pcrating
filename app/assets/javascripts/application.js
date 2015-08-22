@@ -16,3 +16,6 @@
 //= require_tree ./application/
 //= require_tree ./common/
 //= require bootstrap-markdown-bundle
+//= require highcharts
+//= require highcharts/highcharts-more
+//= require chartkick

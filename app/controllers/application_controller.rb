@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :store_location
   before_filter :banned?
+  before_filter :ransack_setup
+  before_action :authorize_profiler
+
+  layout :layout
 
   def store_location
     return unless request.get?
@@ -27,14 +31,52 @@ class ApplicationController < ActionController::Base
 
   def banned?
     return unless current_user && current_user.banned?
-    redirect_to 'https://www.google.co.uk/webhp#q=you%27vebeenbanned'
+    redirect_to root_path
   end
 
-  protected
+  def ransack_setup
+    params[:q][:genres_name_cont] = HTMLEntities.new.decode params[:q][:genres_name_cont] if params[:q]
+
+    if params[:q] && params[:q][:ranked_only] && params[:q][:ranked_only] == 'true'
+      games = Game.rated
+    else
+      games = Game.all
+    end
+
+    # If we're sorting by release date then hide all games without a release date.
+    # It's not great, but otherwise they cluster at the start of the list as if they're
+    # the latest released games.
+    if params[:q] && params[:q][:s] && params[:q][:s].include?('release_date')
+      games = games.with_release_date
+    end
+
+    @q = games.search(params[:q])
+  end
+
+  private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) << :username
     devise_parameter_sanitizer.for(:sign_up) << :username
+  end
+
+  def layout
+    return 'fill_page' unless application_layout?
+    'application'
+  end
+
+  def application_layout?
+    application_layouts = [
+      %w(site index),
+      %w(game show)
+    ]
+    application_layouts.include? [params[:controller], params[:action]]
+  end
+
+  def authorize_profiler
+    if current_user && current_user.admin?
+      Rack::MiniProfiler.authorize_request
+    end
   end
 
 end

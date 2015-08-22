@@ -4,14 +4,16 @@ class GamesController < ApplicationController
   before_action :admin?, only: [:destroy]
   before_action :setup_game, except: [:index, :new, :create]
 
+  layout :layout
+
   def index
-    @q = Game.ransack(params[:q])
-    @games = @q.result.paginate(page: params[:page], per_page: 6)
+    @games = @q.result.paginate(page: params[:page], per_page: 20)
   end
 
   def show
     if @game
-      @reviews = @game.ratings.paginate(page: params[:page], per_page: 6)
+      @reviews = @game.reviews.by_score.paginate(page: params[:page], per_page: 6)
+      @stat_hash = Reviews::GameRanker.new(@game).stat_hash
     else
       @game = Game.new(steam_appid: params[:steam_appid])
       render :new
@@ -43,6 +45,11 @@ class GamesController < ApplicationController
   end
 
   private
+
+  def layout
+    return 'fill_page' unless params[:action] == 'show'
+    'application'
+  end
 
   def user?
     flash[:success] = 'Login or signup to continue'

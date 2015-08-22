@@ -6,6 +6,10 @@ gem 'rails', '4.2.2'
 gem 'pg'
 gem 'pry-rails'
 
+# Logging
+gem 'lograge'
+gem 'quiet_assets'
+
 # CSS
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
@@ -19,6 +23,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Functionality
 gem 'devise'
+gem 'slim-rails'
 gem 'will_paginate'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'ransack'
@@ -26,10 +31,16 @@ gem 'metamagic'
 gem 'friendly_id', '~> 5.1.0'
 gem 'redcarpet'
 gem 'rails-bootstrap-markdown'
+gem 'htmlentities'
+gem 'groupdate'
+gem "chartkick"
+gem "highcharts-rails", "~> 3.0.0"
+gem "audited-activerecord", "~> 4.0"
+gem "paranoia", "~> 2.0"
+gem 'sendgrid_toolkit', '>= 1.1.1'
 
-group :development do
-  gem 'quiet_assets'
-end
+# Profiling
+gem 'rack-mini-profiler'
 
 group :development, :test do
   gem 'rubocop'

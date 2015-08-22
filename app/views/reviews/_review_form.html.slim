@@ -1,0 +1,51 @@
+.container
+  .review-form.box
+    .row
+      .col-xs-12
+        .row.header
+          .col-xs-6.col-sm-10
+            h3
+              - if editing
+                = game.title
+              - else
+                = game.title
+
+          .col-xs-6.col-sm-2
+            = image_tag(game.header_image)
+
+        - path = game_review_path(id: review.id) if editing
+        - path = game_reviews_path unless editing
+
+        = form_for review, url: path do |f|
+          - Reviews::Stats.by_group.each do |name, questions|
+            - next if name == :'Multiplayer' && !game.has_category?('Multi-player')
+
+            div class="row section #{name}"
+              .col-xs-12.name
+                = name
+                .toggle-button Hide
+              .col-xs-12
+                .questions
+                  = render  partial: 'question',
+                            collection: questions,
+                            locals: { f: f, review: review }
+            hr
+
+          .row.section
+            .col-xs-12.name
+              = f.label       "Review"
+            .col-xs-12
+              = f.text_area   :review,
+                              placeholder: :Review,
+                              value: @review.review,
+                              class: "form-control",
+                              data: { provide: "markdown",
+                                "hidden-buttons": ['cmdUrl', 'cmdImage'] }
+
+          .row
+            .col-xs-12
+              = link_to('You can use markdown. Click here for instructions.', '#')
+
+          .row.submit-button
+            .col-xs-6.col-xs-offset-3
+              = f.button "Save", class: "btn btn-success full-width"

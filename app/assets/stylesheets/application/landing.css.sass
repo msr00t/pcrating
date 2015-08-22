@@ -1,4 +1,125 @@
+@import "common/mixins"
+@import "common/variables"
+
 .landing
+  &.top-content
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
+    & > .container > .row
+      @include flexbox-centered-children
+    .right
+      text-align: center
+      width: 50%
+    .game-box-holder
+      border-top-right-radius: 60px 200px
+      border-bottom-right-radius: 60px 200px
+      border-top-left-radius: 0px
+      border-bottom-left-radius: 0px
+  .chart
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+.top-content
+  hr
+    margin-bottom: 0px
+
+@media (max-width: 768px)
+  .top-content
+    .container
+      .row
+        flex-wrap: wrap
+  .landing
+    &.top-content
+      padding: 0px
+      flex-direction: column
+      .right
+        margin-top: 25px
+        margin-bottom: 25px
+      .game-box-holder
+        border-radius: 0px
+    &.fill-in
+      padding-top: 0px
+      padding-bottom: 0px
+      background: $secondary-grey
+
+.top-content
+  background: $secondary-grey
+  margin-top: 70px
+  flex: 0 0 auto
+  padding-bottom: 40px
+  padding-top: 40px
   .exposition
     > div
       margin-top: 20px
+  .game-box-holder
+    background: $primary-grey
+    padding: 20px
+    color: white
+    border-radius: 20px
+    .title
+      font-size: 20px
+      margin-bottom: 40px
+      text-transform: uppercase
+    .game-box
+      display: none
+      &:first-child
+        display: block
+      &.latest-games
+        display: block
+
+.fill-in
+  background: $light-background-grey
+  flex: 1 0 auto
+  padding-top: 20px
+  padding-bottom: 20px
+  .centered-message
+    text-align: center
+    font-size: 30px
+  .tabs
+    border: 1px solid $secondary-blue
+    margin-top: 30px
+    margin-bottom: 30px
+    border-radius: 2px
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    -webkit-flex-wrap: wrap
+    -ms-flex-wrap: wrap
+    flex-wrap: wrap
+    .tab
+      display: -webkit-flex
+      display: -ms-flexbox
+      display: flex
+      flex: 1
+      background: transparent
+      color: $secondary-blue
+      padding: 10px 30px
+      justify-content: center
+      &.active
+        background: white
+        color: $primary-blue
+        font-weight: bold
+  .tab-content
+    display: none
+    color: $primary-blue
+    &.hiw
+      display: block
+    .header
+      font-weight: bold
+      margin-bottom: 10px
+
+@media only screen and (max-width : 480px)
+  .fill-in
+    .tabs
+      .tab
+        padding: 10px
+
+@media only screen and (max-width : 768px)
+
+@media only screen and (max-width : 992px)
+
+@media only screen and (max-width : 1200px)

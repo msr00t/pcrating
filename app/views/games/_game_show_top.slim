@@ -1,0 +1,75 @@
+.top-content style=("background-image: url(#{@game.background_image})" if @game.background_image)
+  .container
+    .row
+      .col-xs-10.col-xs-offset-1.col-sm-12.col-sm-offset-0.game-box-holder
+        .row
+          .col-xs-12.col-sm-8.main-game-info
+            .row
+              .col-xs-12.col-md-8
+                .title
+                  = @game.title
+                .review-count
+                  Total Reviews:
+                  = " #{@game.cached_reviews_total}"
+                .row
+                  .col-xs-12
+                    .image
+                      = image_tag(@game.header_image, class: 'game-image')
+                      = image_tag(@game.rank.to_s + '.jpg', class: 'rating')
+
+              .col-xs-12.col-md-4.game-info
+                .title Game Info
+                - if @game.dlc
+                  .dlc
+                    span.name DLC:
+                    = " #{@game.dlc.size}"
+                .developers
+                  .name Developers:
+                  - @game.developers.each do |developer|
+                    .developer
+                      = link_to developer.name, developer_path(id: developer.slug)
+                .publishers
+                  .name Publishers:
+                  - @game.publishers.each do |publisher|
+                    .publisher
+                      = link_to publisher.name, publisher_path(id: publisher.slug)
+                - if @game.release_date
+                  .release-date
+                    .name Release Date (on steam):
+                    .release-date
+                      = @game.release_date.to_formatted_s(:long)
+
+            .row
+              .col-xs-12.links
+                = link_to review_text, new_game_review_path(game_id: @game.slug), class: 'btn btn-success'
+                = link_to 'View on Steam', @game.store_link, class: 'btn btn-info'
+                = link_to 'Game Website', @game.website, class: 'btn btn-primary'
+                = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-warning hidden-xs'
+
+          .col-xs-12.col-sm-4.requirements
+            .buttons
+              .platform-buttons
+                - @game.platforms.each_with_index do |platform, index|
+                  = link_to '', '#', class: "platform-link #{platform.name} #{'active' if index == 0}", data: { platform: platform.name }
+                = link_to 'Hide', '#', class: 'hide-requirements'
+              .level-buttons
+                = link_to 'Minimum', '#', data: { level: 'min' }, class: 'level-link minimum active'
+                - if @game.requirements('pc', 'recommended')
+                  = link_to('Maximum', '#', data: { level: 'rec' }, class: 'level-link maximum')
+            .windows.platform
+              .min
+                = @game.requirements('pc', 'minimum')
+              .rec
+                = @game.requirements('pc', 'recommended')
+            .mac.platform
+              .min
+                = @game.requirements('mac', 'minimum')
+              .rec
+                = @game.requirements('mac', 'recommended')
+            .linux.platform
+              .min
+                = @game.requirements('linux', 'minimum')
+              .rec
+                = @game.requirements('linux', 'recommended')
+
+          = render partial: 'games/stats'

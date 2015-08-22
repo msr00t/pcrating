@@ -1,0 +1,11 @@
+.container
+  .game-index
+    .row.games
+      = render partial: 'games/game', collection: @games, as: :game
+
+    = will_paginate @games, :previous_label => '<', :next_label => '>'
+
+    .row
+      .col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-4.add-game-message
+        | Don't see the game you're looking for?
+        = link_to 'Add it now', new_game_path, class: 'btn btn-warning'
