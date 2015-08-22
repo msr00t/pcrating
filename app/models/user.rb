@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
   }
 
   def ban!(banner)
+    return unless banner.admin > self.admin
+    self.admin = 0
     self.banned = true
     self.banner = banner
 

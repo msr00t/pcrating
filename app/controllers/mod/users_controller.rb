@@ -5,7 +5,7 @@ class Mod::UsersController < Mod::ApplicationController
   end
 
   def ban
-    User.find(params[:id]).ban!(current_user)
+    User.friendly.find(params[:id]).ban!(current_user)
 
     redirect_to :back
   end
