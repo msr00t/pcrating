@@ -1,18 +1,16 @@
-module Mod
-  # Mod Application Controller
-  # Superclass for all the Mod level actions. Prevents anyone with an admin
-  # level below 1 from calling these actions.
-  class ApplicationController < ApplicationController
+# Mod Application Controller
+# Superclass for all the Mod level actions. Prevents anyone with an admin
+# level below 1 from calling these actions.
+class Mod::ApplicationController < ApplicationController
 
-    before_action :mod?
+  before_action :mod?
 
-    layout 'mod'
+  layout 'mod'
 
-    private
+  private
 
-    def mod?
-      redirect_to root_path unless current_user && current_user.moderator?
-    end
-
+  def mod?
+    redirect_to root_path unless current_user && current_user.moderator?
   end
+
 end
