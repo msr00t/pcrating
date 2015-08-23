@@ -5,10 +5,10 @@ module Mod
   class DashboardController < Mod::ApplicationController
 
     def index
-      @users   = Graphing::Stats.users
-      @reviews = Graphing::Stats.reviews
-      @games   = Graphing::Stats.games
-      @ranks   = Graphing::Stats.ranks
+      @users   = Graphing::Data.users
+      @reviews = Graphing::Data.reviews
+      @games   = Graphing::Data.games
+      @ranks   = Graphing::Data.ranks
     end
 
   end

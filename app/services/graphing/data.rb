@@ -5,14 +5,14 @@ module Graphing
 
     def self.scores
       game_scores = Game.all.map(&:cached_score)
-      game_scores.each_with_index(Hash.new(0)) do |score, hash|
+      game_scores.each_with_object(Hash.new(0)) do |score, hash|
         hash[score] += 1
       end.sort
     end
 
     def self.ranks
       ranks = Game.all.map(&:cached_rank)
-      counted_ranks = ranks.each_with_index(Hash.new(0)) do |rank, hash|
+      counted_ranks = ranks.each_with_object(Hash.new(0)) do |rank, hash|
         hash[rank] += 1
       end
 
