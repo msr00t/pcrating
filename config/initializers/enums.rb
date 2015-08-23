@@ -63,40 +63,26 @@ STATS = {
     }
   },
 
-  cosmetic_modding: {
-    display_name: :"Cosmetic Modding",
-    section: :Mods,
+  day_1_dlc: {
+    display_name: :"Day 1 DLC",
+    section: :"DLC",
     type: :radio,
     ranks: {
-      :"Cosmetic mods supported" => 2,
-      :"Cosmetic mods not supported" => -2
+      :"Day one DLC" => -4,
+      :"No Day one DLC" => 0,
+      :"Day one DLC is free" => 4
     }
   },
-  functionality_modding: {
-    display_name: :"Gameplay Mods",
-    section: :Mods,
-    type: :radio,
+  dlc_quality: {
+    display_name: :"DLC Quality",
+    section: :"DLC",
+    type: :select,
     ranks: {
-      :"Gameplay mods supported" => 2,
-      :"Gameplay mods not supported" => -2
-    }
-  },
-  modding_tools: {
-    display_name: :"Modding Tools",
-    section: :Mods,
-    type: :radio,
-    ranks: {
-      :"Modding tools available" => 1,
-      :"No modding tools provided" => -1
-    }
-  },
-  level_editors: {
-    display_name: :"Level editor",
-    section: :Mods,
-    type: :radio,
-    ranks: {
-      :"Level editor available" => 1,
-      :"No level editor" => -1
+      :"Preorder exclusives" => -5,
+      :"Affects game balance" => -5,
+      :"Cosmetic only" => -3,
+      :"Small content packs" => -2,
+      :"Old style expansions" => 0
     }
   },
 
@@ -191,26 +177,40 @@ STATS = {
     }
   },
 
-  day_1_dlc: {
-    display_name: :"Day 1 DLC",
-    section: :"DLC",
+  cosmetic_modding: {
+    display_name: :"Cosmetic Modding",
+    section: :Mods,
     type: :radio,
     ranks: {
-      :"Day one DLC" => -4,
-      :"No Day one DLC" => 0,
-      :"Day one DLC is free" => 4
+      :"Cosmetic mods supported" => 2,
+      :"Cosmetic mods not supported" => -2
     }
   },
-  dlc_quality: {
-    display_name: :"DLC Quality",
-    section: :"DLC",
-    type: :select,
+  functionality_modding: {
+    display_name: :"Gameplay Mods",
+    section: :Mods,
+    type: :radio,
     ranks: {
-      :"Preorder exclusives" => -5,
-      :"Affects game balance" => -5,
-      :"Cosmetic only" => -3,
-      :"Small content packs" => -2,
-      :"Old style expansions" => 0
+      :"Gameplay mods supported" => 2,
+      :"Gameplay mods not supported" => -2
+    }
+  },
+  modding_tools: {
+    display_name: :"Modding Tools",
+    section: :Mods,
+    type: :radio,
+    ranks: {
+      :"Modding tools available" => 1,
+      :"No modding tools provided" => -1
+    }
+  },
+  level_editors: {
+    display_name: :"Level editor",
+    section: :Mods,
+    type: :radio,
+    ranks: {
+      :"Level editor available" => 1,
+      :"No level editor" => -1
     }
   },
 
