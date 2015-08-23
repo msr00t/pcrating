@@ -2,13 +2,15 @@
   .col-xs-12.stat-holder
     hr
 
-    span.score
-      | Community Opinion Score:
-      = " #{sprintf('%.1f', @game.cached_opinion_score)}"
+    - if @game.cached_opinion_score
+      span.score
+        | Community Opinion Score:
+        = " #{sprintf('%.1f', @game.cached_opinion_score)}"
 
-    span.score
-      | Technical Score:
-      = " #{@game.score}"
+    - if @game.score
+      span.score
+        | Technical Score:
+        = " #{@game.score}"
 
     hr
 
