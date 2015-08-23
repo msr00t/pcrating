@@ -5,7 +5,7 @@ class GamesController < ApplicationController
 
   before_action :user?, except: [:index, :show]
   before_action :admin?, only: [:destroy]
-  before_action :setup_game, except: [:index, :new, :create]
+  before_action :setup_game, except: [:index, :new, :create, :old_path]
 
   layout :layout
 
@@ -41,6 +41,16 @@ class GamesController < ApplicationController
 
   def destroy
     @game.destroy
+  end
+
+  def old_path
+    @game = Game.find_by(steam_appid: params[:id])
+
+    if @game
+      redirect_to game_path(id: @game.slug)
+    else
+      redirect_to root_path
+    end
   end
 
   private
