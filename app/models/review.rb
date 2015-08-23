@@ -15,6 +15,7 @@ class Review < ActiveRecord::Base
   validates_uniqueness_of :user_id, scope: [:game_id]
 
   after_save :update_game
+  after_destroy :update_game
   after_create :liked_by_user
 
   scope :by_score, -> { order(cached_votes_score: :desc) }
