@@ -22,11 +22,11 @@ class SiteController < ApplicationController
 
   def graphs
     @scores = Rails.cache.fetch('graphing scores', expires_in: 24.hours) do
-      Graphing::Stats.scores
+      Graphing::Data.scores
     end
 
     @ranks = Rails.cache.fetch('graphing ranks', expires_in: 24.hours) do
-      Graphing::Stats.ranks
+      Graphing::Data.ranks
     end
   end
 
