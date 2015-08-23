@@ -11,7 +11,7 @@ class Game < ActiveRecord::Base
   RANSACKABLE_ASSOCIATIONS = %w(developers publishers
                                 genres platforms categories)
   RANSORTABLE_ATTRIBUTES = %w(cached_score title release_date
-                              cached_reviews_total)
+                              cached_reviews_total cached_opinion_score)
 
   serialize :data
   serialize :dlc
@@ -88,6 +88,7 @@ class Game < ActiveRecord::Base
     ranker = Reviews::GameRanker.new(self)
     self.cached_score = ranker.score
     self.cached_rank = ranker.rank
+    self.cached_opinion_score = ranker.opinion_score
     self.cached_reviews_total = reviews.visible.size
   end
 

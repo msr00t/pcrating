@@ -254,13 +254,24 @@ STATS = {
   },
 
   opinion: {
-    display_name: :"Would you recommend this?",
+    display_name: :'Gameplay Score:',
+    description: "<span>0: Would not recommend to anyone</span>
+                  <span>5: Would recommend to fans</span>
+                  <span>10: Would recommend to everyone</span>",
     section: :Opinion,
     type: :radio,
     ranks: {
-      :"Would not recommend to anyone" => -3,
-      :"Would recommend to fans of the genre" => 0,
-      :"Would recommend to everyone" => 3
+      :'0' => -2,
+      :'1' => -2,
+      :'2' => -1,
+      :'3' => -1,
+      :'4' => 0,
+      :'5' => 0,
+      :'6' => 1,
+      :'7' => 1,
+      :'8' => 2,
+      :'9' => 2,
+      :'10' => 3
     }
   }
 }

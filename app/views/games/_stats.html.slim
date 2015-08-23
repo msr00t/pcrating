@@ -1,10 +1,16 @@
 - if @game.reviews.size > 0
-  .col-xs-12
+  .col-xs-12.stat-holder
     hr
 
-    .score
-      Total Score:
+    span.score
+      | Community Opinion Score:
+      = " #{sprintf('%.1f', @game.cached_opinion_score)}"
+
+    span.score
+      | Technical Score:
       = " #{@game.score}"
+
+    hr
 
     .row
       .col-xs-12
@@ -22,7 +28,7 @@
                     = stat_hash[question[0]]
           .col-xs-6
             - Hash[Reviews::Stats.by_group.to_a[half..stat_groups.length]].each do |name, questions|
-              - next if name == :'Multiplayer' && !@game.in_category?('Multi-player')
+              - next if name == :'Multiplayer' && !@game.in_category?('Multi-player') || name == :Opinion
               .stat-section
                 .name
                   = name

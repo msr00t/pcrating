@@ -4,6 +4,7 @@ module Reviews
   class GameRanker
 
     attr_reader :score
+    attr_reader :opinion_score
 
     def initialize(game)
       @game = game
@@ -40,13 +41,16 @@ module Reviews
 
     def calculate_score
       total = 0
+      total_opinion = 0
       return false unless @reviews.size > 0
 
       @reviews.each do |review|
         total += Reviews::ReviewRanker.new(review).score
+        total_opinion += review.opinion.to_i
       end
 
-      total / @reviews.size
+      @score = total / @reviews.size
+      @opinion_score = total_opinion / @reviews.size
     end
 
     def average_stat_array(array)

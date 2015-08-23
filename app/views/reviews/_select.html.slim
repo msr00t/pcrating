@@ -1,8 +1,15 @@
-.stat.row
-  .col-xs-3.header
-    = f.label   question[1][:display_name]
-  .col-xs-9.options
-    = f.select  question[0],
-                select_options(review, question[0]),
-                { include_blank: '- Please Select -' },
-                class: 'form-control'
+.question
+  .stat.row
+    .col-xs-3.header
+      = f.label   question[1][:display_name]
+    .col-xs-9.options
+      = f.select  question[0],
+                  select_options(review, question[0]),
+                  { include_blank: '- Please Select -' },
+                  class: 'form-control'
+
+  - if question[1][:description]
+    .row
+      .col-xs-12
+        .description
+          = question[1][:description].html_safe
