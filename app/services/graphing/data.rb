@@ -18,7 +18,7 @@ module Graphing
 
       sorted_array = []
       %w(unranked p c m r g).each do |rank|
-        sorted_array.append [counted_ranks, counted_ranks[rank]]
+        sorted_array.append [rank, counted_ranks[rank] || 0]
       end
       sorted_array
     end
