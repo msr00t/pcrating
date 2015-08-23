@@ -46,7 +46,7 @@ class Game < ActiveRecord::Base
   scope :latest,
         -> { order(release_date: :desc).with_release_date.limit(2) }
   scope :rated,
-        -> { where('games.id IN (SELECT DISTINCT(game_id) FROM reviews)') }
+        -> { where.not(cached_score: nil) }
 
   # Class
 
