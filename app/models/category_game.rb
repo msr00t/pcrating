@@ -1,3 +1,4 @@
+# Many-to-Many table between categories and games.
 class CategoryGame < ActiveRecord::Base
 
   belongs_to :game

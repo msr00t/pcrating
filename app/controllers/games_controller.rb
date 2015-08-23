@@ -1,3 +1,6 @@
+# Games Controller
+# Actions for interacting with the various games on the site
+# Actions: Index, Show, Edit, New, Create, Destroy
 class GamesController < ApplicationController
 
   before_action :user?, except: [:index, :show]
@@ -12,7 +15,8 @@ class GamesController < ApplicationController
 
   def show
     if @game
-      @reviews = @game.reviews.by_score.paginate(page: params[:page], per_page: 6)
+      sorted_reviews = @game.reviews.by_score
+      @reviews = sorted_reviews.paginate(page: params[:page], per_page: 6)
       @stat_hash = Reviews::GameRanker.new(@game).stat_hash
     else
       @game = Game.new(steam_appid: params[:steam_appid])
@@ -28,15 +32,10 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.find_by(steam_appid: params[:game][:steam_appid])
-
-    unless @game
-      @game = Game.new(permitted_params.merge(user: current_user))
-      @game.save
-      @game.save
+    unless Game.find_by(steam_appid: params[:game][:steam_appid])
+      @game = Game.create(merged_permitted_params)
       flash[:error] = @game.errors.full_messages[0]
     end
-
     redirect_to game_path(id: @game.slug)
   end
 
@@ -66,6 +65,10 @@ class GamesController < ApplicationController
 
   def permitted_params
     params.require(:game).permit(:steam_appid)
+  end
+
+  def merged_permitted_params
+    permitted_params.merge(user: current_user)
   end
 
 end

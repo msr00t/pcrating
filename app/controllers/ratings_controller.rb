@@ -1,3 +1,7 @@
+# Ratings Controller
+# Actions for interacting with the various ratings on the site
+# Actions: Show, Edit, New, Create, Update, Destroy
+# Soon to be removed.
 class RatingsController < ApplicationController
 
   before_action :user?, except: [:show]

@@ -1,3 +1,6 @@
+# Publishers Controller
+# Actions for interacting with the various publishers on the site
+# Actions: Show
 class PublishersController < ApplicationController
 
   def show

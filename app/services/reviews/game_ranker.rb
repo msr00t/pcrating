@@ -1,5 +1,9 @@
 module Reviews
+  # Takes in a game and produces its rank, stat strings, and
+  # a hash of all its stats.
   class GameRanker
+
+    attr_reader :score
 
     def initialize(game)
       @game = game
@@ -8,21 +12,19 @@ module Reviews
     end
 
     def rank
-      Reviews::Ranker.new(@score).rank
+      Reviews::Ranker.rank(@score)
     end
 
     def stat_string(stat)
       Reviews::Stats.stat_string(stat, stat_rank(stat))
     end
 
-    def score
-      @score
-    end
-
     def stat_hash
       stats = {}
       STATS.each do |key, values|
-        next if values[:section] == :'Multiplayer' && !@game.has_category?('Multi-player')
+        next if values[:section] == :Multiplayer &&
+                !@game.in_category?('Multi-player')
+
         stat_string = Reviews::Stats.stat_string(key, stat_rank(key))
         next unless stat_string
         stats[key] = stat_string
@@ -47,9 +49,8 @@ module Reviews
       total / @reviews.size
     end
 
-
     def average_stat_array(array)
-      array = array - [nil]
+      array -= [nil]
       array.inject { |a, e| a + e }.to_f / array.size
     end
 

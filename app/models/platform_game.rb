@@ -1,3 +1,4 @@
+# Many-to-Many table between platforms and games.
 class PlatformGame < ActiveRecord::Base
 
   belongs_to :game

@@ -1,5 +1,6 @@
+# Helper functions for the game index search bar.
+# TODO: Pull this stuff out into a service object, there's a lot going on here.
 module GameHelper
-
   def genre_button_string
     selected_genre || 'Genres'
   end
@@ -22,7 +23,9 @@ module GameHelper
   end
 
   def show_advanced?
-    selected_category || selected_sort || selected_genre || selected_platform || ranked_button
+    selected_category || selected_sort ||
+      selected_genre || selected_platform ||
+      ranked_button
   end
 
   def sort_field_string
@@ -66,12 +69,11 @@ module GameHelper
   def get_sort_path(sort)
     if params[:q]
       return games_path(sort_by: sort,
-                        "q[title_cont]" => params[:q][:title_cont],
-                        "q[genres_name_cont]" => params[:q][:genres_name_cont])
+                        'q[title_cont]' => params[:q][:title_cont],
+                        'q[genres_name_cont]' => params[:q][:genres_name_cont])
     end
 
     games_path(genre: params[:genre],
                sort_by: sort)
   end
-
 end

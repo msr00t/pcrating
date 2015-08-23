@@ -1,3 +1,4 @@
+# Many-to-Many table between publishers and games.
 class PublisherGame < ActiveRecord::Base
 
   belongs_to :game

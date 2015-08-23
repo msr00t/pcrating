@@ -22,7 +22,7 @@
                     = stat_hash[question[0]]
           .col-xs-6
             - Hash[Reviews::Stats.by_group.to_a[half..stat_groups.length]].each do |name, questions|
-              - next if name == :'Multiplayer' && !@game.has_category?('Multi-player')
+              - next if name == :'Multiplayer' && !@game.in_category?('Multi-player')
               .stat-section
                 .name
                   = name

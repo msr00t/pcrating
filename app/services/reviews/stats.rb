@@ -1,4 +1,7 @@
 module Reviews
+  # Used for requesting various pieces of data
+  # related to stats, including scores and strings.
+  # Also produces the enums used in the User model.
   class Stats
 
     def self.stat_names
@@ -6,7 +9,7 @@ module Reviews
     end
 
     def self.by_group
-      STATS.group_by { |key, value| value[:section] }
+      STATS.group_by { |_key, value| value[:section] }
     end
 
     def self.enum(stat)
@@ -17,7 +20,7 @@ module Reviews
         enum[key[0]] = index
       end
 
-      return enum
+      enum
     end
 
     def self.display_name(stat)
@@ -32,12 +35,10 @@ module Reviews
       stat_info(stat, 0, rank)
     end
 
-    private
-
-      def self.stat_info(stat, id, rank)
-        return false if rank.class == Float && rank.nan? || rank.nil?
-        STATS[stat][:ranks].to_a[rank][id]
-      end
+    def self.stat_info(stat, id, rank)
+      return false if rank.class == Float && rank.nan? || rank.nil?
+      STATS[stat][:ranks].to_a[rank][id]
+    end
 
   end
 end

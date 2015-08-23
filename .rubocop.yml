@@ -3,6 +3,9 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/*'
+    - 'app/services/reviews/converter.rb'
+    - 'app/models/rating.rb'
+    - 'app/controllers/ratings_controller.rb'
 
 Style/EmptyLinesAroundClassBody:
   Enabled: false

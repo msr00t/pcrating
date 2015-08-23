@@ -1,3 +1,6 @@
+# Users Controller
+# Actions for interacting with the various users on the site
+# Actions: Show, Report
 class UserController < ApplicationController
 
   def show

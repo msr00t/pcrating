@@ -1,3 +1,4 @@
+# A report from a user on another user or another user's review
 class Report < ActiveRecord::Base
   audited on: [:destroy, :update]
 
@@ -7,7 +8,8 @@ class Report < ActiveRecord::Base
   scope :users, -> { where reportable_type: 'User' }
   scope :reviews, -> { where reportable_type: 'Review' }
 
-  validates_uniqueness_of :user_id, :scope => [:reportable_id, :reportable_type, :status]
+  validates_uniqueness_of :user_id,
+                          scope: [:reportable_id, :reportable_type, :status]
 
   enum status: {
     unhandled: 0,
