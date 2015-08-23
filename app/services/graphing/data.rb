@@ -4,7 +4,7 @@ module Graphing
   class Data
 
     def self.scores
-      game_scores = Game.all.map(&:cached_score)
+      game_scores = Game.all.map(&:cached_score) - [nil]
       game_scores.each_with_object(Hash.new(0)) do |score, hash|
         hash[score] += 1
       end.sort
