@@ -41,16 +41,20 @@ module Reviews
 
     def calculate_score
       total = 0
+      total_with_opinions = 0
       total_opinion = 0
       return false unless @reviews.size > 0
 
       @reviews.each do |review|
         total += Reviews::ReviewRanker.new(review).score
-        total_opinion += review.opinion.to_i
+        if review.opinion
+          total_with_opinions += 1
+          total_opinion += review.opinion.to_i
+        end
       end
 
       @score = total / @reviews.size
-      @opinion_score = total_opinion / @reviews.size
+      @opinion_score = total_opinion / total_with_opinions if total_with_opinions > 0
     end
 
     def average_stat_array(array)
