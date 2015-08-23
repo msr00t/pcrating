@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823113910) do
+ActiveRecord::Schema.define(version: 20150823140414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,38 +146,6 @@ ActiveRecord::Schema.define(version: 20150823113910) do
   end
 
   add_index "publishers", ["slug"], name: "index_publishers_on_slug", unique: true, using: :btree
-
-  create_table "ratings", force: :cascade do |t|
-    t.integer  "framerate"
-    t.integer  "resolution"
-    t.integer  "optimization"
-    t.integer  "mods"
-    t.integer  "servers"
-    t.integer  "dlc"
-    t.integer  "bugs"
-    t.integer  "settings"
-    t.integer  "controls"
-    t.integer  "game_id"
-    t.integer  "user_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.string   "review"
-    t.integer  "cached_votes_total",      default: 0
-    t.integer  "cached_votes_score",      default: 0
-    t.integer  "cached_votes_up",         default: 0
-    t.integer  "cached_votes_down",       default: 0
-    t.integer  "cached_weighted_score",   default: 0
-    t.integer  "cached_weighted_total",   default: 0
-    t.float    "cached_weighted_average", default: 0.0
-  end
-
-  add_index "ratings", ["cached_votes_down"], name: "index_ratings_on_cached_votes_down", using: :btree
-  add_index "ratings", ["cached_votes_score"], name: "index_ratings_on_cached_votes_score", using: :btree
-  add_index "ratings", ["cached_votes_total"], name: "index_ratings_on_cached_votes_total", using: :btree
-  add_index "ratings", ["cached_votes_up"], name: "index_ratings_on_cached_votes_up", using: :btree
-  add_index "ratings", ["cached_weighted_average"], name: "index_ratings_on_cached_weighted_average", using: :btree
-  add_index "ratings", ["cached_weighted_score"], name: "index_ratings_on_cached_weighted_score", using: :btree
-  add_index "ratings", ["cached_weighted_total"], name: "index_ratings_on_cached_weighted_total", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.integer  "reportable_id"
