@@ -1,27 +1,15 @@
 module Reviews
+  # Produces a Rank from a given score
   class Ranker
 
-    def initialize(score)
-      @score = score
-    end
+    def self.rank(score)
+      return :unranked unless score
+      return :g if score >= 11
 
-    def rank
-      return :unranked unless @score
-
-      case @score
-      when 4..10
-        :r
-      when -5..3
-        :m
-      when -15..-6
-        :c
-      else
-        if @score >= 11
-          :g
-        else
-          :p
-        end
-      end
+      { r: 4..10,
+        m: -5..3,
+        c: -15..-6 }.each { |k, v| return k if v.to_a.include? score }
+      :p
     end
 
   end

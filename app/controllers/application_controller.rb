@@ -1,3 +1,6 @@
+# Application Controller
+# Holds all of the various global pre-action functions
+# TODO: Clean this up
 class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
@@ -12,6 +15,12 @@ class ApplicationController < ActionController::Base
 
   layout :layout
 
+  def after_sign_in_path_for(_resource)
+    session[:previous_url] || root_path
+  end
+
+  private
+
   def store_location
     return unless request.get?
 
@@ -25,35 +34,35 @@ class ApplicationController < ActionController::Base
     session[:previous_url] = request.fullpath
   end
 
-  def after_sign_in_path_for(_resource)
-    session[:previous_url] || root_path
-  end
-
   def banned?
     return unless current_user && current_user.banned?
     redirect_to root_path
   end
 
+  # TODO: Clean this up. Move it into a service.
   def ransack_setup
-    params[:q][:genres_name_cont] = HTMLEntities.new.decode params[:q][:genres_name_cont] if params[:q]
+    if params[:q]
+      genre_name = params[:q][:genres_name_cont]
+      decoded_genre_name = HTMLEntities.new.decode(genre_name)
+      params[:q][:genres_name_cont] = decoded_genre_name
 
-    if params[:q] && params[:q][:ranked_only] && params[:q][:ranked_only] == 'true'
-      games = Game.rated
-    else
-      games = Game.all
+      if params[:q][:ranked_only] && params[:q][:ranked_only] == 'true'
+        games = Game.rated
+      else
+        games = Game.all
+      end
+
+      # If we're sorting by release date then hide all games without
+      # a release date. It's not great, but otherwise they cluster at the
+      # start of the list as if they're the latest released games.
+      if params[:q][:s] && params[:q][:s].include?('release_date')
+        games = games.with_release_date
+      end
     end
 
-    # If we're sorting by release date then hide all games without a release date.
-    # It's not great, but otherwise they cluster at the start of the list as if they're
-    # the latest released games.
-    if params[:q] && params[:q][:s] && params[:q][:s].include?('release_date')
-      games = games.with_release_date
-    end
 
     @q = games.search(params[:q])
   end
-
-  private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) << :username
@@ -74,9 +83,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_profiler
-    if current_user && current_user.admin?
-      Rack::MiniProfiler.authorize_request
-    end
+    Rack::MiniProfiler.authorize_request if current_user && current_user.admin?
   end
 
 end

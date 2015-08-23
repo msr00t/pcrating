@@ -1,5 +1,9 @@
 module Reviews
+  # Takes in a review and can produce its score, rank
+  # and a hash of it's stats
   class ReviewRanker
+
+    attr_reader :score
 
     def initialize(review)
       @review = review
@@ -13,19 +17,16 @@ module Reviews
       @review.save
     end
 
-    def score
-      @score
-    end
-
     def rank
-      Reviews::Ranker.new(@score).rank
+      Reviews::Ranker.rank(@score)
     end
 
     def stat_hash
       stats = {}
       STATS.each do |key, values|
-        next if values[:section] == :'Multiplayer' && !@game.has_category?('Multi-player')
-        stat_rank = stat_rank(key)
+        next if values[:section] == :Multiplayer &&
+                !@game.in_category?('Multi-player')
+
         stat_string = Reviews::Stats.stat_string(key, stat_rank(key))
         next unless stat_string
         stats[key] = stat_string
@@ -35,21 +36,23 @@ module Reviews
 
     private
 
-      def stat_rank(stat)
-        @review[stat]
+    def stat_rank(stat)
+      @review[stat]
+    end
+
+    def numerical_score
+      total = 0
+
+      STATS.each do |key, values|
+        next if values[:section] == :Multiplayer &&
+                !@game.in_category?('Multi-player')
+
+        score_key = @review.send(key)
+        total += STATS[key][:ranks][score_key.to_sym] if score_key
       end
 
-      def numerical_score
-        total = 0
-
-        STATS.each do |key, values|
-          next if values[:section] == :'Multiplayer' && !@game.has_category?('Multi-player')
-          score_key = @review.send(key)
-          total += STATS[key][:ranks][score_key.to_sym] if score_key
-        end
-
-        return total
-      end
+      total
+    end
 
   end
 end

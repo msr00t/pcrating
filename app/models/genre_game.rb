@@ -1,3 +1,4 @@
+# Many-to-Many table between genres and games.
 class GenreGame < ActiveRecord::Base
 
   belongs_to :game

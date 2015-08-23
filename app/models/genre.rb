@@ -1,3 +1,4 @@
+# Game Genres.
 class Genre < ActiveRecord::Base
 
   RANSACKABLE_ATTRIBUTES = %w(name)
@@ -5,11 +6,9 @@ class Genre < ActiveRecord::Base
   has_many :genre_games, dependent: :destroy
   has_many :games, through: :genre_games
 
-  private
-
-    def self.ransackable_attributes(auth_object = nil)
-      return super if auth_object == :admin
-      super & RANSACKABLE_ATTRIBUTES
-    end
+  def self.ransackable_attributes(auth_object = nil)
+    return super if auth_object == :admin
+    super & RANSACKABLE_ATTRIBUTES
+  end
 
 end

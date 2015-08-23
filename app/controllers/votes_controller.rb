@@ -1,3 +1,7 @@
+# Votes Controller
+# Actions for interacting with the various votes on the site.
+# All actions are used remotely.
+# Actions: Upvote, Downvote
 class VotesController < ApplicationController
 
   before_action :user?, except: [:show]

@@ -1,3 +1,6 @@
+# Games Controller
+# Actions for interacting with the various games on the site
+# Actions: Index, Show, Edit, New, Create, Destroy
 class GamesController < ApplicationController
 
   before_action :user?, except: [:index, :show]
@@ -12,7 +15,8 @@ class GamesController < ApplicationController
 
   def show
     if @game
-      @reviews = @game.reviews.by_score.paginate(page: params[:page], per_page: 6)
+      sorted_reviews = @game.reviews.by_score
+      @reviews = sorted_reviews.paginate(page: params[:page], per_page: 6)
       @stat_hash = Reviews::GameRanker.new(@game).stat_hash
     else
       @game = Game.new(steam_appid: params[:steam_appid])
@@ -36,7 +40,6 @@ class GamesController < ApplicationController
       @game.save
       flash[:error] = @game.errors.full_messages[0]
     end
-
     redirect_to game_path(id: @game.slug)
   end
 

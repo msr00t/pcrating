@@ -1,3 +1,4 @@
+# Many-to-Many table between developers and games.
 class DeveloperGame < ActiveRecord::Base
 
   belongs_to :game

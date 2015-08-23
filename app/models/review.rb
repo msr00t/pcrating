@@ -1,3 +1,5 @@
+# A review for a game. Is owned by a user and a game and can be reported
+# by other users. On save it will update its game's cached data.
 class Review < ActiveRecord::Base
   acts_as_votable
   acts_as_paranoid
@@ -10,7 +12,7 @@ class Review < ActiveRecord::Base
 
   has_many :reports, as: :reportable, dependent: :destroy
 
-  validates_uniqueness_of :user_id, :scope => [:game_id]
+  validates_uniqueness_of :user_id, scope: [:game_id]
 
   after_save :update_game
   after_create :liked_by_user
@@ -19,9 +21,9 @@ class Review < ActiveRecord::Base
 
   STATS.each do |stat, values|
     enum stat => Reviews::Stats.enum(stat)
-    #unless values[:section] == :'Multiplayer'
-    #  validates stat, presence: true
-    #end
+    # unless values[:section] == :'Multiplayer'
+    #   validates stat, presence: true
+    # end
   end
 
   def self.visible
@@ -41,13 +43,13 @@ class Review < ActiveRecord::Base
   def restore!
     self.deleter = nil
     self.deleted_at = nil
-    self.save
+    save
   end
 
   def delete!(user)
     self.deleter = user
-    self.save
-    self.destroy
+    save
+    destroy
   end
 
   def hidden?
@@ -68,13 +70,12 @@ class Review < ActiveRecord::Base
 
   private
 
-    def liked_by_user
-      liked_by(user)
-    end
+  def liked_by_user
+    liked_by(user)
+  end
 
-    def update_game
-      game.update_cached_data
-      game.save
-    end
+  def update_game
+    game.save
+  end
 
 end

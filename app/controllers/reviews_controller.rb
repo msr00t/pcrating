@@ -1,3 +1,6 @@
+# Review Controller
+# Actions for interacting with the various reviews on the site
+# Actions: Show, Edit, New, Create, Update, Report, Destroy
 class ReviewsController < ApplicationController
 
   before_action :user?, except: [:show]
@@ -16,7 +19,7 @@ class ReviewsController < ApplicationController
 
   def new
     @game = Game.find_by(slug: params[:game_id])
-    redirect_to game_path(id: @game.slug) if current_user.has_deleted_review?(@game)
+    redirect_to game_path(id: @game.slug) if current_user.deleted_review?(@game)
 
     @review = @game.reviews.find_or_initialize_by(user_id: current_user.id)
 

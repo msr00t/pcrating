@@ -1,3 +1,4 @@
+# The user class, represents a person using the site
 class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username, use: :slugged
@@ -35,15 +36,15 @@ class User < ActiveRecord::Base
   }
 
   def ban!(banner)
-    return unless banner.admin > self.admin
+    return unless banner.admin > admin
     self.admin = 0
     self.banned = true
     self.banner = banner
 
-    if save
-      reviews.destroy_all
-      reports.accept!
-    end
+    return unless save
+
+    reviews.destroy_all
+    reports.accept!
   end
 
   def moderator?
@@ -58,7 +59,7 @@ class User < ActiveRecord::Base
     reports.create(user: user) unless user == self
   end
 
-  def has_deleted_review?(game)
+  def deleted_review?(game)
     Review.only_deleted.find_by(user: self, game: game) != nil
   end
 
@@ -71,28 +72,24 @@ class User < ActiveRecord::Base
     converter.convert_ratings_into_reviews
   end
 
-
   private
 
-    def send_email_to_sendgrid
-      Sendgrid::Emails.create(
-        'email' =>      self.email,
-        'name' =>       self.username
-      )
-    end
+  def send_email_to_sendgrid
+    Sendgrid::Emails.create(
+      'email' => email,
+      'name' =>  username)
+  end
 
-    def update_email_on_sendgrid
-      if self.changes['email']
-        Sendgrid::Emails.update(
-          'old_email' =>  self.changes['email'][0],
-          'email' =>      self.changes['email'][1],
-          'name' =>       self.username
-        )
-      end
-    end
+  def update_email_on_sendgrid
+    return unless changes['email']
+    Sendgrid::Emails.update(
+      'old_email' => changes['email'][0],
+      'email' =>     changes['email'][1],
+      'name' =>      username)
+  end
 
-    def remove_email_from_sendgrid
-      Sendgrid::Emails.destroy('email' => self.email)
-    end
+  def remove_email_from_sendgrid
+    Sendgrid::Emails.destroy('email' => email)
+  end
 
 end
