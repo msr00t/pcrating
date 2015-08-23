@@ -16,7 +16,6 @@ class Game < ActiveRecord::Base
   serialize :data
   serialize :dlc
 
-  has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :users, through: :reviews
 
@@ -118,9 +117,9 @@ class Game < ActiveRecord::Base
   def rated_by_user?(user)
     return false unless user
 
-    rating = Review.find_by(user_id: user.id, game_id: id)
+    review = Review.find_by(user_id: user.id, game_id: id)
 
-    return true if rating
+    return true if review
   end
 
   def force_update!(opts = {})

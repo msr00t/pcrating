@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
-  has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :filed_reports, class_name: 'Report', dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
@@ -65,11 +64,6 @@ class User < ActiveRecord::Base
 
   def score
     reviews.sum(:cached_votes_score) - reviews.size
-  end
-
-  def convert_ratings_into_reviews
-    converter = Reviews::Converter.new(self)
-    converter.convert_ratings_into_reviews
   end
 
   private
