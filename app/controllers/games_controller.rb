@@ -32,12 +32,8 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.find_by(steam_appid: params[:game][:steam_appid])
-
-    unless @game
-      @game = Game.new(permitted_params.merge(user: current_user))
-      @game.save
-      @game.save
+    unless Game.find_by(steam_appid: params[:game][:steam_appid])
+      @game = Game.create(merged_permitted_params)
       flash[:error] = @game.errors.full_messages[0]
     end
     redirect_to game_path(id: @game.slug)
@@ -69,6 +65,10 @@ class GamesController < ApplicationController
 
   def permitted_params
     params.require(:game).permit(:steam_appid)
+  end
+
+  def merged_permitted_params
+    permitted_params.merge(user: current_user)
   end
 
 end

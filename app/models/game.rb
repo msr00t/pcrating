@@ -36,6 +36,7 @@ class Game < ActiveRecord::Base
   before_save :update_cached_data
   before_create :update_game_data
   after_create :create_relations
+  after_save :create_slug
 
   scope :top,
         -> { rated.order(cached_score: :desc).limit(2) }
@@ -267,6 +268,11 @@ class Game < ActiveRecord::Base
       platform_model = Platform.find_or_create_by(name: platform)
       PlatformGame.find_or_create_by(game: self, platform: platform_model)
     end
+  end
+
+  def create_slug
+    return if slug
+    save
   end
 
 end
