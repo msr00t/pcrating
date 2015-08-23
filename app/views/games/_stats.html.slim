@@ -7,10 +7,9 @@
         | Community Opinion Score:
         = " #{sprintf('%.1f', @game.cached_opinion_score)}"
 
-    - if @game.score
-      span.score
-        | Technical Score:
-        = " #{@game.score}"
+    span.score
+      | Technical Score:
+      = " #{@game.score}"
 
     hr
 
