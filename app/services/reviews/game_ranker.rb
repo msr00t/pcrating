@@ -9,7 +9,7 @@ module Reviews
     def initialize(game)
       @game = game
       @reviews = @game.reviews.visible
-      @score = calculate_score
+      calculate_score
     end
 
     def rank
