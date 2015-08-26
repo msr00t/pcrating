@@ -56,7 +56,7 @@
               .level-buttons
                 = link_to 'Minimum', '#', data: { level: 'min' }, class: 'level-link minimum active'
                 - if @game.requirements('pc', 'recommended')
-                  = link_to('Maximum', '#', data: { level: 'rec' }, class: 'level-link maximum')
+                  = link_to('Recommended', '#', data: { level: 'rec' }, class: 'level-link recommended')
             .windows.platform
               .min
                 = @game.requirements('pc', 'minimum')
