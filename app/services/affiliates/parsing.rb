@@ -3,8 +3,8 @@ module Affiliates
   class Parsing
 
     def self.get_url_for_game(game)
-      gmg_game = GMG_DATA.select { |gmg_game| gmg_game[:name] == game.title }[0]
-      return self.create_url(gmg_game[:url])
+      gmg_game = GMG_DATA.select { |gmg_game| gmg_game[:name] == game.title }
+      return self.create_url(gmg_game[0][:url]) if gmg_game[0]
     end
 
     def self.create_url(url)
