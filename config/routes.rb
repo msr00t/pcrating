@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   get 'reviews/:id/upvote', to: 'votes#upvote', as: :upvote_review
   get 'reviews/:id/downvote', to: 'votes#downvote', as: :downvote_review
 
-  get 'gmg/:id', to: 'games#gmg', as: :gmg_redirect
+  get 'gmg', to: 'games#gmg', as: :gmg_redirect
 
   # Old Routes
 

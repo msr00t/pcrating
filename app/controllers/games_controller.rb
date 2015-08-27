@@ -78,7 +78,7 @@ class GamesController < ApplicationController
   end
 
   def setup_game
-    @game = Game.friendly.find(params[:id])
+    @game = Game.friendly.find(params[:id]) if params[:id]
   end
 
   def permitted_params
