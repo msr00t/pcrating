@@ -2,6 +2,6 @@ class AddGmgUrlToGames < ActiveRecord::Migration
   def change
     add_column :games, :gmg_url, :string
 
-    Affiliates::Parsing.parse_all()
+    Game.find_each(&:save)
   end
 end
