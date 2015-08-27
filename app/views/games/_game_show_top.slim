@@ -43,7 +43,7 @@
             .row
               .col-xs-12.gmg-link
                 = link_to('Get this game on Green Man Gaming and save!',
-                          gmg_redirect_path(id: @game.slug),
+                          gmg_route,
                           class: 'btn btn-danger') if @game.gmg_url
               .col-xs-12.links
                 = link_to review_text, new_game_review_path(game_id: @game.slug), class: 'btn btn-success'

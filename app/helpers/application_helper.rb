@@ -18,4 +18,12 @@ module ApplicationHelper
     return 'yellow' if current_page?(link)
     ''
   end
+
+  def gmg_route
+    if @game && @game.gmg_url
+      gmg_redirect_path(id: @game.slug)
+    else
+      gmg_redirect_path
+    end
+  end
 end
