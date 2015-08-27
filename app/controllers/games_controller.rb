@@ -43,6 +43,10 @@ class GamesController < ApplicationController
     @game.destroy
   end
 
+  def gmg
+    redirect_to @game.gmg_url
+  end
+
   def old_path
     @game = Game.find_by(steam_appid: params[:id])
 
