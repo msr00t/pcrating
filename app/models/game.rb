@@ -85,7 +85,7 @@ class Game < ActiveRecord::Base
 
   def update_cached_data
     ranker = Reviews::GameRanker.new(self)
-    self.gmg_url = Affiliate::Parsing.get_url_for_game(self)
+    self.gmg_url = Affiliates::Parsing.get_url_for_game(self)
     self.cached_score = ranker.score
     self.cached_rank = ranker.rank
     self.cached_opinion_score = ranker.opinion_score

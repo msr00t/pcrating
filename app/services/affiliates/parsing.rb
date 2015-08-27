@@ -16,7 +16,8 @@ module Affiliates
     end
 
     def self.get_url_for_game(game)
-      gmg_game = GMG_DATA.select { |gmg_game| gmg_game[:name] == game.title }
+      game = Game.first
+      gmg_game = GMG_DATA.select { |gmg_game| gmg_game[:name] == game.title }[0]
       return self.create_url(gmg_game[:url])
     end
 
