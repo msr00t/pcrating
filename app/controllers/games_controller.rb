@@ -3,7 +3,7 @@
 # Actions: Index, Show, Edit, New, Create, Destroy
 class GamesController < ApplicationController
 
-  before_action :user?, except: [:index, :show]
+  before_action :user?, except: [:index, :show, :old_path, :gmg]
   before_action :admin?, only: [:destroy]
   before_action :setup_game, except: [:index, :new, :create, :old_path]
 
