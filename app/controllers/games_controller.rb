@@ -44,7 +44,11 @@ class GamesController < ApplicationController
   end
 
   def gmg
-    redirect_to @game.gmg_url
+    if @game && @game.gmg_url
+      redirect_to @game.gmg_url if @game.gmg_url
+    else
+      redirect_to ENV['GMG_AFFILIATE_LINK']
+    end
   end
 
   def old_path
