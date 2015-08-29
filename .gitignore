@@ -17,3 +17,7 @@
 /tmp
 
 scratch_pad.txt
+
+config/deploy.rb
+config/unicorn.rb
+.env

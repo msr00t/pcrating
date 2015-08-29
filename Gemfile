@@ -5,6 +5,7 @@ ruby '2.2.2'
 gem 'rails', '4.2.2'
 gem 'pg'
 gem 'pry-rails'
+gem 'dotenv-rails'
 
 # Logging
 gem 'lograge'
@@ -50,8 +51,10 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'
+  gem 'mina', require: false
+  gem 'mina-nginx', require: false
 end
 
 group :production do
-  gem 'rails_12factor'
+  gem 'unicorn'
 end
