@@ -8,9 +8,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    post 'users/:id/restore',   to: 'users#restore', as: :restore_user
+    post 'users/:id/restore',   to: 'users#restore',   as: :restore_user
     post 'reviews/:id/restore', to: 'reviews#restore', as: :restore_review
     post 'reviews/:id/destroy', to: 'reviews#destroy', as: :destroy_review
+
+    get    'settings', to: 'settings#edit', as: :settings
+    patch  'settings', to: 'settings#update', as: :settings_update
   end
 
   namespace :mod do

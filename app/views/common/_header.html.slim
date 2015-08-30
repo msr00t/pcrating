@@ -37,7 +37,8 @@ nav.navbar.navbar-default.navbar-fixed-top
 
           - if ENV['REDDIT_LINK']
             li
-              = link_to '/r/pcmasterrace', ENV['REDDIT_LINK']
+              = link_to '/r/pcmasterrace',
+                        SiteSettings::Manager.get(:reddit_link)
 
           - if current_user
             li
@@ -45,7 +46,10 @@ nav.navbar.navbar-default.navbar-fixed-top
                         current_user,
                         class: header_link_class(current_user)
             li
-              = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'sign-in'
+              = link_to 'Logout',
+                        destroy_user_session_path,
+                        method: :delete,
+                        class: 'sign-in'
 
           - else
             li

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827194608) do
+ActiveRecord::Schema.define(version: 20150830152053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,17 @@ ActiveRecord::Schema.define(version: 20150827194608) do
   add_index "reviews", ["cached_weighted_average"], name: "index_reviews_on_cached_weighted_average", using: :btree
   add_index "reviews", ["cached_weighted_score"], name: "index_reviews_on_cached_weighted_score", using: :btree
   add_index "reviews", ["cached_weighted_total"], name: "index_reviews_on_cached_weighted_total", using: :btree
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

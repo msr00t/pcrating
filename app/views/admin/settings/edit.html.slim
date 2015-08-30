@@ -1,0 +1,30 @@
+- provide(:title, "Settings")
+
+.container
+  .row
+    .col-xs-6.col-xs-offset-3.settings
+      = form_tag admin_settings_update_path, method: :patch do
+
+        .setting
+          .setting-title
+            = label_tag :gmg_affiliate_link
+          .input
+            = text_field_tag  :gmg_affiliate_link,
+                              SiteSettings::Manager.get(:gmg_affiliate_link)
+        .setting
+          .setting-title
+            = label_tag :reddit_link
+          .input
+            = text_field_tag  :reddit_link,
+                              SiteSettings::Manager.get(:reddit_link)
+        .setting
+          .setting-title
+            = label_tag :landing_notice
+          .input
+            = text_field_tag  :landing_notice,
+                              SiteSettings::Manager.get(:landing_notice)
+
+        .button
+          = button_tag :save, class: 'btn btn-success'
+
+

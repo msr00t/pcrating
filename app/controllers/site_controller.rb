@@ -7,7 +7,13 @@ class SiteController < ApplicationController
   before_action :graphs
 
   def index
-    flash[:alert] = ENV['LANDING_NOTICE'] unless flash[:alert]
+    current_landing_notice = SiteSettings::Manager.get(:landing_notice)
+
+    unless  session[:users_last_landing_notice] == current_landing_notice ||
+            flash[:alert]
+      flash[:alert] = current_landing_notice
+      session[:users_last_landing_notice] = current_landing_notice
+    end
   end
 
   private

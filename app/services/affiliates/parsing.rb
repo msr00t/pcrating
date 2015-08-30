@@ -8,7 +8,9 @@ module Affiliates
     end
 
     def self.create_url(url)
-      URI.escape("#{ENV['GMG_AFFILIATE_LINK']}?url=#{url}")
+      affiliate_link = SiteSettings::Manager.get(:gmg_affiliate_link)
+
+      URI.escape("#{affiliate_link}?url=#{url}")
     end
 
   end

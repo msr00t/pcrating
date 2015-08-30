@@ -17,9 +17,9 @@ nav.navbar.navbar-default.navbar-fixed-top
                       mod_dashboard_index_path,
                       class: header_link_class(mod_dashboard_index_path)
           li
-            = link_to "Deleted Reviews",
-                      mod_deleted_reviews_path(page: 1),
-                      class: header_link_class(mod_deleted_reviews_path(page: 1))
+            = link_to("Settings",
+                      admin_settings_path,
+                      class: header_link_class(admin_settings_path)) if current_user.admin?
           li
             = link_to "Banned Users",
                       mod_banned_users_path(page: 1),
@@ -28,6 +28,10 @@ nav.navbar.navbar-default.navbar-fixed-top
             = link_to "Reported Users",
                       mod_user_reports_path(page: 1),
                       class: header_link_class(mod_user_reports_path(page: 1))
+          li
+            = link_to "Deleted Reviews",
+                      mod_deleted_reviews_path(page: 1),
+                      class: header_link_class(mod_deleted_reviews_path(page: 1))
           li
             = link_to "Reported Reviews",
                       mod_review_reports_path(page: 1),

@@ -6,6 +6,7 @@ gem 'rails', '4.2.2'
 gem 'pg'
 gem 'pry-rails'
 gem 'dotenv-rails'
+gem "rails-settings-cached", "0.4.1"
 
 # Logging
 gem 'lograge'

@@ -179,6 +179,8 @@ GEM
       loofah (~> 2.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
+    rails-settings-cached (0.4.1)
+      rails (>= 4.0.0)
     railties (4.2.2)
       actionpack (= 4.2.2)
       activesupport (= 4.2.2)
@@ -287,6 +289,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (= 4.2.2)
   rails-bootstrap-markdown
+  rails-settings-cached (= 0.4.1)
   ransack
   redcarpet
   rubocop

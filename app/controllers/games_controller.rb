@@ -47,7 +47,7 @@ class GamesController < ApplicationController
     if @game && @game.gmg_url
       redirect_to @game.gmg_url if @game.gmg_url
     else
-      redirect_to ENV['GMG_AFFILIATE_LINK']
+      redirect_to SiteSettings::Manager.get(:gmg_affiliate_link)
     end
   end
 
