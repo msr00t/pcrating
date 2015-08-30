@@ -46,7 +46,9 @@ class ApplicationController < ActionController::Base
       params[:q][:genres_name_cont] = decoded_params
     end
 
-    if params[:q] && params[:q][:ranked_only] && params[:q][:ranked_only] == 'true'
+    if params[:q] &&
+        ((params[:q][:ranked_only] && params[:q][:ranked_only] == 'true') ||
+          params[:q][:s] && params[:q][:s].include?('cached_score'))
       games = Game.rated
     else
       games = Game.all
