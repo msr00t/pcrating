@@ -13,4 +13,4 @@
             .game-title
               = game.title
             .link
-              = link_to('See Reviews', game, class: 'btn btn-success')
+              = link_to((game_slide[:button] || 'See Reviews'), game, class: 'btn btn-success')
