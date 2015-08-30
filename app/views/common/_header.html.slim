@@ -35,7 +35,7 @@ nav.navbar.navbar-default.navbar-fixed-top
                         mod_dashboard_index_path,
                         class: header_link_class(mod_dashboard_index_path)
 
-          - if ENV['REDDIT_LINK']
+          - if SiteSettings::Manager.get(:reddit_link)
             li
               = link_to '/r/pcmasterrace',
                         SiteSettings::Manager.get(:reddit_link)
