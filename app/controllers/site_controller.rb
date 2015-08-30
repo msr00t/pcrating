@@ -21,8 +21,9 @@ class SiteController < ApplicationController
   def game_slides
     @game_slides = [
       { title: 'Top Games',       games: Game.top    },
-      { title: 'Latest Releases', games: Game.latest_releases },
       { title: 'Latest Added',    games: Game.latest_added },
+      { title: 'Need Reviewing',  games: Game.need_reviews },
+      { title: 'Latest Releases', games: Game.latest_releases },
       { title: 'Worst Games',     games: Game.bottom }
     ]
   end

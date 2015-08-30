@@ -47,6 +47,8 @@ class Game < ActiveRecord::Base
         -> { order(release_date: :desc).with_release_date.limit(2) }
   scope :latest_added,
         -> { order(created_at: :desc).limit(2) }
+  scope :need_reviews,
+        -> { where(cached_reviews_total: 0).sample(2) }
   scope :rated,
         -> { where.not(cached_score: nil) }
 
