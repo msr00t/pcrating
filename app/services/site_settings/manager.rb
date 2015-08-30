@@ -9,7 +9,9 @@ module SiteSettings
     end
 
     def self.get(setting_name)
-      Settings.send(setting_name)
+      setting = Settings.send(setting_name)
+      return nil if setting.blank?
+      setting
     end
 
     def self.get_all
