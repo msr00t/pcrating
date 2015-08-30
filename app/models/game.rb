@@ -43,8 +43,10 @@ class Game < ActiveRecord::Base
         -> { rated.order(cached_score: :asc).limit(2) }
   scope :with_release_date,
         -> { where.not(release_date: nil) }
-  scope :latest,
+  scope :latest_releases,
         -> { order(release_date: :desc).with_release_date.limit(2) }
+  scope :latest_added,
+        -> { order(created_at: :desc).limit(2) }
   scope :rated,
         -> { where.not(cached_score: nil) }
 
