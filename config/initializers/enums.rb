@@ -133,7 +133,8 @@ STATS = {
     ranks: {
       :"Internet connection required at all times" => -10,
       :"Internet connection required on startup" => -9,
-      :"Can play offline" => 0
+      :"Can play offline" => 0,
+      :"Multiplayer only, requires internet connection" => 0
     }
   },
   drm_servers_off: {
