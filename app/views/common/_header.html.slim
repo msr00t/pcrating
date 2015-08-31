@@ -37,7 +37,7 @@ nav.navbar.navbar-default.navbar-fixed-top
 
           - if SiteSettings::Manager.get(:reddit_link)
             li
-              = link_to '/r/pcmasterrace',
+              = link_to 'Feedback',
                         SiteSettings::Manager.get(:reddit_link)
 
           - if current_user
