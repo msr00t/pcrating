@@ -1,10 +1,10 @@
-# PCMRating
+# PCRating
 
 Proper PC game reviews.
 
 ## Getting Started
 
-PCMRating is built using Ruby, Ruby on Rails and PostgreSQL.
+PCRating is built using Ruby, Ruby on Rails and PostgreSQL.
 
 It is hosted on Heroku.
 
@@ -17,13 +17,13 @@ how you can easily clone the project, install dependencies and run the project.
 
   ```
   $ cd Your-Development-Folder
-  $ git clone git@github.com:PCMRating/pcmrating.git
+  $ git clone git@github.com:PCRating/pcrating.git
   ```
 
 2. Install dependencies.
 
   ```
-  $ cd pcmrating/
+  $ cd pcrating/
   $ bundle install
   ```
 

@@ -1,11 +1,10 @@
 - meta  title: "#{@developer.name}'s Games",
         description: "List of #{@developer.name}'s Games",
-        keywords: %w(game list pcmr pcmasterrace pcrating pcglorious #{@developer.name}),
+        keywords: %w(game list pcrating pcglorious #{@developer.name}),
         og: { title: "#{@developer.name}'s Games",
           description: "List of #{@developer.name}'s Games",
-          site_name: "PCMRating",
-          url: developer_url(id: @developer.slug),
-          image: "http://b.thumbs.redditmedia.com/WrXiojYMaBSCa2sTyJyZclFvQMo5ry9f6qOfrKo-2gc.png" }
+          site_name: "PCRating",
+          url: developer_url(id: @developer.slug) }
 
 = render partial: 'games/search_bar', locals: { path: developer_path(id: @developer.slug) }
 

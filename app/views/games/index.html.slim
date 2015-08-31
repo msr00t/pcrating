@@ -1,11 +1,10 @@
 - meta  title: "Games List",
-        description: "List of game reviews in PCMRating.",
-        keywords: %w(game list pcmr pcmasterrace pcrating pcglorious),
+        description: "List of game reviews in PCRating.",
+        keywords: %w(game list pcrating pcglorious),
         og: { title: "Games List",
-          description: "List of game reviews in PCMRating.",
-          site_name: "PCMRating",
-          url: "http://pcmrating.com/games",
-          image: "http://b.thumbs.redditmedia.com/WrXiojYMaBSCa2sTyJyZclFvQMo5ry9f6qOfrKo-2gc.png" }
+          description: "List of game reviews in PCRating.",
+          site_name: "PCRating",
+          url: "http://pcmrating.com/games" }
 
 = render partial: 'games/search_bar', locals: { path: games_path(sort_by: params[:sort_by]) }
 
