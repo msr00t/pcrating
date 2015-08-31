@@ -1,5 +1,8 @@
 footer.footer
   .container
     .row
-      .col-xs-12
+      .col-xs-6
         = link_to 'Help improve the site on Github', 'https://github.com/PCMRating/pcmrating', target: '_blank'
+      - if SiteSettings::Manager.get(:twitter)
+        .col-xs-6.right
+          = link_to 'Share on Twitter', SiteSettings::Manager.get(:twitter), target: '_blank'

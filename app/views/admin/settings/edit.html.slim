@@ -13,6 +13,12 @@
                               SiteSettings::Manager.get(:gmg_affiliate_link)
         .setting
           .setting-title
+            = label_tag :twitter
+          .input
+            = text_field_tag  :twitter,
+                              SiteSettings::Manager.get(:twitter)
+        .setting
+          .setting-title
             = label_tag :reddit_link
           .input
             = text_field_tag  :reddit_link,

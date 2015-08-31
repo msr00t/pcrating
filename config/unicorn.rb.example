@@ -7,8 +7,8 @@ user               USER, USER
 working_directory  app_path
 listen             "#{app_path}/tmp/sockets/unicorn.sock"
 pid                "#{app_path}/tmp/pids/unicorn.pid"
-stderr_path        "log/unicorn_err.log"
-stdout_path        "log/unicorn_out.log"
+stderr_path        "#{app_path}/log/unicorn_err.log"
+stdout_path        "#{app_path}/log/unicorn_out.log"
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect!
