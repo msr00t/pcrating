@@ -111,6 +111,11 @@ class Game < ActiveRecord::Base
     categories.map(&:name).include?(category)
   end
 
+  def released?
+    return release_date <= Time.now if release_date
+    return true
+  end
+
   def launch_game_link
     "steam://run/#{steam_appid}"
   end

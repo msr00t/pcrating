@@ -11,10 +11,14 @@
               truncate_review: true }
 
         = will_paginate @reviews, :previous_label => '<', :next_label => '>'
-    - else
+    - elsif @game.released?
       .row
         .col-xs-10.col-xs-offset-1.col-sm-6.col-sm-offset-3
           .centered-message No Reviews Yet
           = link_to 'Write One', new_game_review_path(game_id: @game.slug), class: 'btn btn-success'
+    - else
+      .row
+        .col-xs-10.col-xs-offset-1.col-sm-6.col-sm-offset-3
+          .centered-message You can review this game as soon as it's been released
 
   = render 'common/gmg_banner'

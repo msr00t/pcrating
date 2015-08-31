@@ -19,7 +19,10 @@ class ReviewsController < ApplicationController
 
   def new
     @game = Game.find_by(slug: params[:game_id])
-    redirect_to game_path(id: @game.slug) if current_user.deleted_review?(@game)
+
+    if current_user.deleted_review?(@game) || !@game.released?
+      redirect_to game_path(id: @game.slug)
+    end
 
     @review = @game.reviews.find_or_initialize_by(user_id: current_user.id)
 
@@ -28,6 +31,8 @@ class ReviewsController < ApplicationController
 
   def create
     @game = Game.find_by(slug: params[:game_id])
+    redirect_to game_path(id: @game.slug) unless @game.released?
+
     @review = Review.new(permitted_params)
     @review.user = current_user
     @review.game = @game
@@ -41,6 +46,8 @@ class ReviewsController < ApplicationController
 
   def update
     @game = Game.find_by(slug: params[:game_id])
+    redirect_to game_path(id: @game.slug) unless @game.released?
+
     @review = Review.find_by(user: current_user, game: @game)
 
     if @review.update_attributes(permitted_params)

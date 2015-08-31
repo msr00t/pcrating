@@ -23,7 +23,7 @@ class SiteController < ApplicationController
       { title: 'Top Games',       games: Game.top    },
       { title: 'Latest Added',    games: Game.latest_added },
       { title: 'Need Reviewing',  games: Game.need_reviews, button: 'Add Review' },
-      { title: 'Latest Releases', games: Game.latest_releases },
+      { title: 'Latest Releases', games: Game.latest_releases, button: 'View Game' },
       { title: 'Worst Games',     games: Game.bottom }
     ]
   end

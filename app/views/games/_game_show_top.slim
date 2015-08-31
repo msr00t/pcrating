@@ -46,7 +46,8 @@
                           gmg_route,
                           class: 'btn btn-danger') if @game.gmg_url
               .col-xs-12.links
-                = link_to review_text, new_game_review_path(game_id: @game.slug), class: 'btn btn-success'
+                - if @game.released?
+                  = link_to review_text, new_game_review_path(game_id: @game.slug), class: 'btn btn-success'
                 = link_to 'View on Steam', @game.store_link, class: 'btn btn-info'
                 = link_to 'Game Website', @game.website, class: 'btn btn-primary'
                 = link_to 'Launch via steam', @game.launch_game_link, class: 'btn btn-warning hidden-xs'
