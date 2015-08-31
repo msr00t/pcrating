@@ -11,7 +11,7 @@
                 = game.title
 
           .col-xs-6.col-sm-2
-            = proxy_image_tag(game.header_image)
+            = image_tag(game.header_image)
 
         - path = game_review_path(id: review.id) if editing
         - path = game_reviews_path unless editing
