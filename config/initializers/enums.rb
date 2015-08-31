@@ -16,7 +16,8 @@ STATS = {
     ranks: {
       :"Does not support 1080p" => -7,
       :"Supports up to 1080p" => 0,
-      :"4k support" => 5
+      :"4k support" => 5,
+      :"Supports up to 1440p" => 2
     }
   },
   multi_monitor: {
@@ -82,7 +83,8 @@ STATS = {
       :"Affects game balance" => -5,
       :"Cosmetic only" => -3,
       :"Small content packs" => -2,
-      :"Old style expansions" => 0
+      :"Old style expansions" => 0,
+      :"N/A" => 0
     }
   },
 
