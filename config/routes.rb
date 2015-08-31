@@ -44,6 +44,8 @@ Rails.application.routes.draw do
 
   get 'gmg', to: 'games#gmg', as: :gmg_redirect
 
+  get 'image_proxy/:url', to: 'image_proxy#get', as: :image_proxy
+
   # Old Routes
 
   get 'games/show/:id', to: 'games#old_path', as: :old_game_path

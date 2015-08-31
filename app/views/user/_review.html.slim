@@ -1,6 +1,6 @@
 div class="col-xs-3 game"
   .image
-    = link_to image_tag(review.game.header_image, class: 'game-image'), game_path(id: review.game.slug)
+    = link_to proxy_image_tag(review.game.header_image, class: 'game-image'), game_path(id: review.game.slug)
     = image_tag(review.rank.to_s + '.png', class: 'rating')
   .name
     = link_to review.game.title, game_path(id: review.game.slug), class: 'grey'

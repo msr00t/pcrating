@@ -4,6 +4,7 @@
 module ApplicationHelper
   include GameHelper
   include ReviewHelper
+  include ImageProxyHelper
 
   def markdown(text)
     renderer_options = { filter_html: true, no_links: true, no_images: true }

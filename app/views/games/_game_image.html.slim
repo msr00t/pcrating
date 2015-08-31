@@ -1,3 +1,3 @@
 .image
-  = link_to image_tag(game.header_image, class: 'game-image'), game_path(id: game.slug)
+  = link_to proxy_image_tag(game.header_image, class: 'game-image'), game_path(id: game.slug)
   = link_to(image_tag(game.rank.to_s + '.png', class: 'rating'), game_path(id: game.slug))
